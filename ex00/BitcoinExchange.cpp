@@ -6,10 +6,11 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/12 18:19:47 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/12 18:55:49 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fstream>
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange()
@@ -26,6 +27,11 @@ void	BitcoinExchange::setRate(std::string const &filename)
 		std::cerr << "Error: file not open." << std::endl;
 		return ;
 	}
+
+	std::string	line;
+	std::getline(ifs, line);
+
+	std::cout << line << std::endl;
 
 
 }

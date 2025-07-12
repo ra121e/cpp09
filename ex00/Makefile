@@ -6,13 +6,14 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:27:00 by athonda           #+#    #+#              #
-#    Updated: 2025/06/29 15:38:17 by athonda          ###   ########.fr        #
+#    Updated: 2025/07/12 18:50:37 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	btc
 
-SRC_F	=	main.cpp
+SRC_F	=	main.cpp \
+			BitcoinExchange.cpp
 
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)

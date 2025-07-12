@@ -6,12 +6,13 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/06/29 15:44:28 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/12 18:49:07 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string>
 #include <iostream>
+#include "BitcoinExchange.hpp"
 
 int	main(int ac, char **av)
 {
@@ -20,5 +21,8 @@ int	main(int ac, char **av)
 	{
 		std::cout << "Usage: ./btc filename.csv" << std::endl;
 	}
+	BitcoinExchange	a;
+	a.setRate("data.csv");
+
 	return (0);
 }

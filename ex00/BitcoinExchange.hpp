@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/12 18:51:09 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/16 10:14:52 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class BitcoinExchange
 		void	setRate(std::string const &filename);
 		double	getRate(std::string const &date);
 
-
+		void	getterTest(void);
 	private:
 		std::map<std::string, double>	_ratemap;
 

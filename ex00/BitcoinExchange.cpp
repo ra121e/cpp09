@@ -6,10 +6,12 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/16 10:20:22 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/16 17:22:50 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <algorithm>
+#include <exception>
 #include <fstream>
 #include <sstream>
 #include "BitcoinExchange.hpp"
@@ -56,19 +58,20 @@ void	BitcoinExchange::setRate(std::string const &filename)
 		std::string	rate_str;
 		double		rate_double;
 
-		if (!std::getline(ss, date_str, ','))
+		if (!std::getline(ss, date_str, ',') || date_str.empty() || ss.eof())
 		{
-			std::cerr << "error: cannot read line(date)." << std::endl;
+			std::cerr << "error: cannot read date correctly." << std::endl;
 			continue ;
 		}
-		if (!std::getline(ss, rate_str))
+		if (!std::getline(ss, rate_str) || rate_str.empty() || !ss.eof())
 		{
-			std::cerr << "error: cannot read line(rate)." << std::endl;
+			std::cerr << "error: cannot read rate correctly." << std::endl;
 			continue ;
 		}
 
 		std::stringstream ss_rate(rate_str);
-		if (!(ss_rate >> rate_double))
+		ss_rate >> rate_double;
+		if (ss_rate.fail() || !ss_rate.eof())
 		{
 			std::cerr << "error: cannot convert rate to double." << std::endl;
 			continue ;
@@ -76,6 +79,22 @@ void	BitcoinExchange::setRate(std::string const &filename)
 		_ratemap[date_str] = rate_double;
 	}
 	ifs.close();
+}
+
+void	BitcoinExchange::inputFile(std::string const &filename)
+{
+	std::ifstream	ifs(filename.c_str());
+	std::string		line;
+
+	if (!ifs.is_open())
+	{
+		std::cerr << "error: file not open.";
+	}
+	std::getline(ifs, line);
+	while (getline(ifs, line))
+	{
+
+	}
 }
 
 void	BitcoinExchange::getterTest(void)

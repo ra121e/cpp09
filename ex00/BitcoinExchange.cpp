@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/16 17:22:50 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/17 15:17:14 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ void	BitcoinExchange::setRate(std::string const &filename)
 		std::string	rate_str;
 		double		rate_double;
 
-		if (!std::getline(ss, date_str, ',') || date_str.empty() || ss.eof())
+		std::getline(ss, date_str, ',');
+		if (date_str.empty() || ss.fail() || ss.eof())
 		{
 			std::cerr << "error: cannot read date correctly." << std::endl;
 			continue ;
 		}
-		if (!std::getline(ss, rate_str) || rate_str.empty() || !ss.eof())
+		std::getline(ss, rate_str);
+		if (rate_str.empty() || ss.fail() || !ss.eof())
 		{
 			std::cerr << "error: cannot read rate correctly." << std::endl;
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/16 10:20:37 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/19 12:02:05 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	main(int ac, char **av)
 	BitcoinExchange	a;
 	a.getterTest();
 //	a.setRate("data.csv");
-
+	a.inputFile("input.txt");
 	return (0);
 }

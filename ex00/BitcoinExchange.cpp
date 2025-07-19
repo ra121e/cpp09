@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/19 12:16:17 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/19 13:21:44 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,15 @@ void	BitcoinExchange::setRate(std::string const &filename)
 	ifs.close();
 }
 
-bool	BitcoinExchange::IsNotSpace::operator()(char c) const
+//bool	BitcoinExchange::IsNotSpace::operator()(char c) const
+//{
+//	unsigned char	safe = static_cast<unsigned char>(c);
+//	if (std::isspace(safe))
+//		return (false);
+//	return (true);
+//}
+
+bool	BitcoinExchange::IsNotSpace(char const &c)
 {
 	unsigned char	safe = static_cast<unsigned char>(c);
 	if (std::isspace(safe))
@@ -93,10 +101,10 @@ bool	BitcoinExchange::IsNotSpace::operator()(char c) const
 
 std::string	BitcoinExchange::trim(std::string const &s)
 {
-	std::string::const_iterator first = std::find_if(s.begin(), s.end(), IsNotSpace());
+	std::string::const_iterator first = std::find_if(s.begin(), s.end(), &IsNotSpace);
 	if (first == s.end())
 		return ("");
-	std::string::const_reverse_iterator last_reverse = std::find_if(s.rbegin(), s.rend(), IsNotSpace());
+	std::string::const_reverse_iterator last_reverse = std::find_if(s.rbegin(), s.rend(), &IsNotSpace);
 	std::string::const_iterator last = last_reverse.base();
 	std::string	str(first, last);
 	return (str);

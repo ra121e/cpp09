@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/19 12:16:14 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/19 13:21:31 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ class BitcoinExchange
 		std::map<std::string, double>	_ratemap;
 		double	getRate(std::string const &date);
 		std::string	trim(std::string const &s);
-		struct	IsNotSpace
-		{
-			bool	operator()(char c) const;
-		};
+//		struct	IsNotSpace
+//		{
+//			bool	operator()(char c) const;
+//		};
+		static bool	IsNotSpace(char const &c);
 
 };
 

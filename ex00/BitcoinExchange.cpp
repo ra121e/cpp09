@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/19 13:21:44 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/21 05:26:48 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ bool	BitcoinExchange::IsNotSpace(char const &c)
 	return (true);
 }
 
-std::string	BitcoinExchange::trim(std::string const &s)
+std::string	BitcoinExchange::trim(std::string const &s) const
 {
 	std::string::const_iterator first = std::find_if(s.begin(), s.end(), &IsNotSpace);
 	if (first == s.end())
@@ -110,7 +110,46 @@ std::string	BitcoinExchange::trim(std::string const &s)
 	return (str);
 }
 
-void	BitcoinExchange::inputFile(std::string const &filename)
+bool	BitcoinExchange::validate_date(std::string const &s) const
+{
+	std::string format = "yyyy-mm-dd";
+	if (s.size() != format.size())
+		return (false);
+	if (s[4] != '-' || s[7] != '-')
+		return (false);
+
+	std::stringstream ss(s);
+	std::string year_str;
+	std::string mon_str;
+	std::string day_str;
+	unsigned int	year_i;
+	unsigned int	mon_i;
+	unsigned int	day_i;
+
+	getline(ss, year_str, '-');
+	std::stringstream	year(year_str);
+	getline(ss, mon_str, '-');
+	std::stringstream	mon(mon_str);
+
+	year >> year_i;
+	mon	>> mon_i;
+	ss >> day_i;
+	if (year_i < 2009 )
+		return (false);
+	if (year_i == 2009 && mon_i <= 1 && day_i < 3)
+		return (false);
+	if (mon_i < 1 || mon_i > 12)
+		return (false);
+	if (mon_i == 2 && day_i > 27)
+		return (false);
+	if ((mon_i == 1 || mon_i == 3 || mon_i == 5 || mon_i == 7 || mon_i == 8 || mon_i == 10 || mon_i == 12) && day_i > 31)
+		return (false);
+	if ((mon_i == 4 || mon_i == 6 || mon_i == 9 || mon_i == 11) && day_i > 30)
+		return (false);
+	return (true);
+}
+
+void	BitcoinExchange::inputFile(std::string const &filename) const
 {
 	std::ifstream	ifs(filename.c_str());
 	std::string		line;
@@ -128,13 +167,31 @@ void	BitcoinExchange::inputFile(std::string const &filename)
 			continue ;
 
 		std::stringstream	ss(line);
-		std::string	s;
-		std::getline(ss, s, '|');
-		if (ss.fail() || ss.eof() || s.empty())
+		std::string	date;
+		std::getline(ss, date, '|');
+		if (ss.fail() || ss.eof() || date.empty())
 			continue ;
 
-		s = trim(s);
-		std::cout << s << std::endl;
+		date = trim(date);
+		if (date.empty())
+			continue ;
+
+		if (!validate_date(date))
+		{
+			std::cout << "Error: bad input => " << date << std::endl;
+			continue ;
+		}
+
+		std::string	num;
+		std::getline(ss, num);
+		if (ss.fail() || !ss.eof() || num.empty())
+			continue ;
+		num = trim(num);
+		if (num.empty())
+			continue ;
+
+		std::cout << date << " ";
+		std::cout << num << std::endl;
 	}
 }
 

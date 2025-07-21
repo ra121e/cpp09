@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/21 13:24:15 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/21 15:43:10 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,21 +209,22 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 			continue ;
 		}
 
-		std::cout << date << " ";
-		std::cout << num << std::endl;
+		double rate;
+		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
+		if (it->first == date)
+		{
+			rate = it->second;
+		}
+		else if (it->first != date && it == _ratemap.begin())
+		{
+			std::cerr << "Error: too large a number." << std::endl;
+			continue ;
+		}
+		else
+		{
+			rate = (--it)->second;
+		}
+		double	total = value * rate;
+		std::cout << date << " => " << num << " = " << total << std::endl;
 	}
 }
-
-void	BitcoinExchange::getterTest(void)
-{
-	for (std::map<std::string, double>::const_iterator it = this->_ratemap.begin(); it != _ratemap.end(); ++it)
-	{
-		std::cout << it->first << " " << it->second << std::endl;
-	}
-}
-
-//double	BitcoinExchange::getRate(std::string const &date)
-//{
-//	for
-//	return ()
-//}

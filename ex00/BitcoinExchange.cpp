@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/21 05:26:48 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/21 11:49:09 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,29 +122,29 @@ bool	BitcoinExchange::validate_date(std::string const &s) const
 	std::string year_str;
 	std::string mon_str;
 	std::string day_str;
-	unsigned int	year_i;
-	unsigned int	mon_i;
-	unsigned int	day_i;
+	unsigned int	year;
+	unsigned int	mon;
+	unsigned int	day;
 
 	getline(ss, year_str, '-');
-	std::stringstream	year(year_str);
+	std::stringstream	year_ss(year_str);
 	getline(ss, mon_str, '-');
-	std::stringstream	mon(mon_str);
+	std::stringstream	mon_ss(mon_str);
 
-	year >> year_i;
-	mon	>> mon_i;
-	ss >> day_i;
-	if (year_i < 2009 )
+	year_ss >> year;
+	mon_ss	>> mon;
+	ss >> day;
+
+	if (year < 2009 )
 		return (false);
-	if (year_i == 2009 && mon_i <= 1 && day_i < 3)
+	if (year == 2009 && mon <= 1 && day < 3)
 		return (false);
-	if (mon_i < 1 || mon_i > 12)
+	if (mon < 1 || mon > 12)
 		return (false);
-	if (mon_i == 2 && day_i > 27)
-		return (false);
-	if ((mon_i == 1 || mon_i == 3 || mon_i == 5 || mon_i == 7 || mon_i == 8 || mon_i == 10 || mon_i == 12) && day_i > 31)
-		return (false);
-	if ((mon_i == 4 || mon_i == 6 || mon_i == 9 || mon_i == 11) && day_i > 30)
+	unsigned int	days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+	if (mon == 2 && (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0))
+		days[2] = 29;
+	if (day <= 0 || day > days[mon])
 		return (false);
 	return (true);
 }

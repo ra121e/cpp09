@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/21 11:49:09 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:24:15 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 
 		if (!validate_date(date))
 		{
-			std::cout << "Error: bad input => " << date << std::endl;
+			std::cerr << "Error: bad input => " << date << std::endl;
 			continue ;
 		}
 
@@ -189,6 +189,25 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 		num = trim(num);
 		if (num.empty())
 			continue ;
+
+		std::stringstream	sss(num);
+		double				value;
+		sss >> value;
+		if (sss.fail() || !sss.eof())
+		{
+			std::cerr << "Error: bad input => " << num << std::endl;
+			continue ;
+		}
+		if (value < 0)
+		{
+			std::cerr << "Error: not a positive number." << std::endl;
+			continue ;
+		}
+		else if (value > 1000)
+		{
+			std::cerr << "Error: too large a number." << std::endl;
+			continue ;
+		}
 
 		std::cout << date << " ";
 		std::cout << num << std::endl;

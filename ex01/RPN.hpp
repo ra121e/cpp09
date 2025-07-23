@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 21:14:05 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/23 08:52:47 by athonda          ###   ########.fr       */
+/*   Created: 2025/07/22 20:45:18 by athonda           #+#    #+#             */
+/*   Updated: 2025/07/22 23:14:55 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
-#include <iostream>
+#ifndef RPN_HPP
+# define RPN_HPP
 
-int	main(int ac, char **av)
+# include <string>
+# include <iostream>
+# include <stack>
+
+class	Rpn
 {
-	if (ac != 2)
-	{
-		std::cerr << "Usage: ./RPN \"1 2 + 3 * 5 / 3 - \"" << std::endl;
-		return (1);
-	}
-	Rpn	a;
-	a.calc(av[1]);
-	return (0);
-}
+	public:
+		Rpn();
+		Rpn(Rpn const &other);
+		Rpn	&operator=(Rpn const &other);
+		~Rpn();
+
+		void	calc(char *str);
+	private:
+		std::stack<unsigned int>	_stack;
+};
+
+
+#endif

@@ -6,13 +6,14 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 17:48:04 by athonda           #+#    #+#              #
-#    Updated: 2025/07/21 21:17:49 by athonda          ###   ########.fr        #
+#    Updated: 2025/07/23 08:33:44 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	RPN
 
-SRC_F	=	main.cpp
+SRC_F	=	main.cpp \
+			RPN.cpp
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)
 

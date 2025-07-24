@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 20:45:18 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/22 23:14:55 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/24 16:16:13 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class	Rpn
 
 		void	calc(char *str);
 	private:
-		std::stack<unsigned int>	_stack;
+		std::stack<int>	_stack;
 };
 
 

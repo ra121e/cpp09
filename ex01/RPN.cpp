@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 22:49:07 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/23 09:04:47 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:11:50 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,29 @@ void	Rpn::calc(char *str)
 				return ;
 			}
 			_stack.push(num);
-			std::cout << _stack.top() << " ";
+//			std::cout << _stack.top() << " ";
 		}
-//		else if(ch == "+" || ch == "*" || ch == "-" || ch == "/")
-//		else
-//		{
-//			std::cerr << "error: wrong character." << std::endl;
-//			return ;
-//		}
+		else if(ch == '+' || ch == '*' || ch == '-' || ch == '/')
+		{
+			int	next = _stack.top();
+			_stack.pop();
+			int	first = _stack.top();
+			_stack.pop();
+			if (ch == '+')
+				_stack.push(first + next);
+			else if (ch == '-')
+				_stack.push(first - next);
+			else if (ch == '*')
+				_stack.push(first * next);
+			else if (ch == '/')
+				_stack.push(first / next);
+			std::cout << _stack.top() << std::endl;
+		}
+		else
+		{
+			std::cerr << "error: wrong character." << std::endl;
+			return ;
+		}
 	}
 
 }

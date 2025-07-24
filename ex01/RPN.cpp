@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 22:49:07 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/24 16:43:58 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/24 16:50:08 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	Rpn::calc(char *str)
 		if (std::isdigit(ch))
 		{
 			std::stringstream	ss_c(character);
-			unsigned int		num;
+			int		num;
 			ss_c >> num;
 			if (ss_c.fail() || !ss_c.eof())
 			{
@@ -76,7 +76,14 @@ void	Rpn::calc(char *str)
 			else if (ch == '*')
 				_stack.push(first * next);
 			else if (ch == '/')
+			{
+				if (next == 0)
+				{
+					std::cerr << "error: cannot divided by 0." << std::endl;
+					return ;
+				}
 				_stack.push(first / next);
+			}
 //			std::cout << _stack.top() << std::endl;
 		}
 		else

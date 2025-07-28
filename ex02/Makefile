@@ -6,13 +6,14 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/27 17:10:29 by athonda           #+#    #+#              #
-#    Updated: 2025/07/27 18:01:43 by athonda          ###   ########.fr        #
+#    Updated: 2025/07/28 16:40:24 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	PmergeMe
 
-SRC_F	=	main.cpp
+SRC_F	=	main.cpp \
+			Pmergeme.cpp
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)
 

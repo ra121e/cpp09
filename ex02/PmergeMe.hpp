@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/28 16:47:54 by athonda          ###   ########.fr       */
+/*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
+/*   Updated: 2025/07/28 16:34:14 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PmergeMe.hpp"
-#include <iostream>
+#ifndef PMERGEME_HPP
+# define PMERGEME_HPP
 
-int	main(int ac, char **av)
+# include <vector>
+# include <deque>
+
+class Pmergeme
 {
-	if (ac < 2)
-	{
-		std::cerr << "Usage: ./PmergeMe num num num ...." << std::endl;
-		return (1);
-	}
-	Pmergeme	a;
-	a.setInput(av);
-	std::cout << "Before: ";
-	a.print();
-	return (0);
-}
+	public:
+		Pmergeme();
+		Pmergeme(Pmergeme const &other);
+		Pmergeme	&operator=(Pmergeme const &other);
+		~Pmergeme();
+
+		void	setInput(char **av);
+//		void	sort();
+		void	print(void) const;
+
+	private:
+		std::vector<unsigned int>	_value;
+		std::deque<unsigned int>	_deque;
+
+};
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/28 16:47:54 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/28 20:18:04 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	Pmergeme	a;
-	a.setInput(av);
+	a.setInput(ac, av);
 	std::cout << "Before: ";
 	a.print();
 	return (0);

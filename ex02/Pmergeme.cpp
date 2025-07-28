@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/28 16:46:45 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/28 20:28:17 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ Pmergeme	&Pmergeme::operator=(Pmergeme const &other)
 Pmergeme::~Pmergeme()
 {}
 
-void	Pmergeme::setInput(char **av)
+void	Pmergeme::setInput(int ac, char **av)
 {
-
-	std::stringstream	ss(av[1]);
+	std::stringstream	ss;
+	for (int i = 1; i < ac; ++i)
+	{
+		ss << av[i] << " ";
+	}
 	std::string			line;
 
 	std::getline(ss, line);

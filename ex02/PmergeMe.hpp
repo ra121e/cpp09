@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/28 16:34:14 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/28 20:17:44 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class Pmergeme
 		Pmergeme	&operator=(Pmergeme const &other);
 		~Pmergeme();
 
-		void	setInput(char **av);
+		void	setInput(int ac, char **av);
 //		void	sort();
 		void	print(void) const;
 

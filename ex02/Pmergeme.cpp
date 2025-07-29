@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/29 18:45:22 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/29 18:59:03 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 Pmergeme::Pmergeme()
 {}
@@ -98,6 +99,10 @@ void	Pmergeme::sort()
 	}
 	print_a();
 	print_b();
+
+	std::sort(_a.begin(), _a.end());
+	print_a();
+
 }
 
 void	Pmergeme::print(std::vector<unsigned int> v) const

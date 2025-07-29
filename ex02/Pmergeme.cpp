@@ -6,13 +6,14 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/29 18:59:03 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/29 20:54:15 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <iostream>
 #include <sstream>
+#include <utility>
 #include <vector>
 #include <algorithm>
 
@@ -81,31 +82,47 @@ void	Pmergeme::sort()
 	size_t i = 0;
 	for (; (2 * i + 1) < this->_value.size(); ++i)
 	{
+		std::pair<unsigned int, unsigned int>	p;
 		if (_value[2 * i] < _value[2 * i + 1])
 		{
-			_a.push_back(_value[2 * i + 1]);
-			_b.push_back(_value[2 * i]);
+			p = std::make_pair(_value[2 * i + 1], _value[2 * i]);
+			_pair.push_back(p);
+//			_a.push_back(_value[2 * i + 1]);
+//			_b.push_back(_value[2 * i]);
 		}
 		else
 		{
-			_a.push_back(_value[2 * i]);
-			_b.push_back(_value[2 * i + 1]);
+			p = std::make_pair(_value[2 * i], _value[2 * i + 1]);
+			_pair.push_back(p);
+//			_a.push_back(_value[2 * i]);
+//			_b.push_back(_value[2 * i + 1]);
 		}
 
 	}
 	if ((2 * i + 1) == this->_value.size())
 	{
-		_b.push_back(_value[2 * i]);
+		_odd.push_back(_value[2 * i]);
 	}
-	print_a();
-	print_b();
+	print_pair(_pair);
+	std::cout << "after print pair" << std::endl;
+//	print_a();
+//	print_b();
 
-	std::sort(_a.begin(), _a.end());
-	print_a();
-
+//	std::sort(_a.begin(), _a.end());
+//	_a.insert(_a.begin(), *_b.begin());
+//	print_a();
 }
 
-void	Pmergeme::print(std::vector<unsigned int> v) const
+void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const
+{
+	for (std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it = v.begin(); it != v.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+void	Pmergeme::print(std::vector<unsigned int> const &v) const
 {
 	for (std::vector<unsigned int>::const_iterator it = v.begin(); it != v.end(); ++it)
 	{
@@ -127,4 +144,10 @@ void	Pmergeme::print_a() const
 void	Pmergeme::print_b() const
 {
 	print(_b);
+}
+
+std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p)
+{
+	os << "[" << p.first << ", " << p.second << "]";
+	return (os);
 }

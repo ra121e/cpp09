@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/29 20:54:15 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/29 21:18:19 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,33 @@ void	Pmergeme::sort()
 		{
 			p = std::make_pair(_value[2 * i + 1], _value[2 * i]);
 			_pair.push_back(p);
-//			_a.push_back(_value[2 * i + 1]);
-//			_b.push_back(_value[2 * i]);
 		}
 		else
 		{
 			p = std::make_pair(_value[2 * i], _value[2 * i + 1]);
 			_pair.push_back(p);
-//			_a.push_back(_value[2 * i]);
-//			_b.push_back(_value[2 * i + 1]);
 		}
 
 	}
-	if ((2 * i + 1) == this->_value.size())
-	{
-		_odd.push_back(_value[2 * i]);
-	}
+//	if ((2 * i + 1) == this->_value.size())
+//	{
+//		_odd.push_back(_value[2 * i]);
+//	}
 	print_pair(_pair);
-	std::cout << "after print pair" << std::endl;
-//	print_a();
-//	print_b();
 
-//	std::sort(_a.begin(), _a.end());
+	std::sort(_pair.begin(), _pair.end());
+	print_pair(_pair);
+
+	std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it;
+	for (it = _pair.begin(); it != _pair.end(); ++it)
+	{
+		_a.push_back(it->first);
+		_b.push_back(it->second);
+	}
+	if ((2 * i + 1) == this->_value.size())
+		_b.push_back(_value[2 * i]);
+	print_a();
+	print_b();
 //	_a.insert(_a.begin(), *_b.begin());
 //	print_a();
 }

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/28 20:28:17 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/29 18:45:22 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	Pmergeme::setInput(int ac, char **av)
 	{
 		ss << av[i] << " ";
 	}
-	std::string			line;
 
+	std::string			line;
 	std::getline(ss, line);
 	if (line.empty() || ss.fail() || !ss.eof())
 	{
@@ -75,11 +75,51 @@ void	Pmergeme::setInput(int ac, char **av)
 	}
 }
 
-void	Pmergeme::print(void) const
+void	Pmergeme::sort()
 {
-	for (std::vector<unsigned int>::const_iterator it = _value.begin(); it != _value.end(); ++it)
+	size_t i = 0;
+	for (; (2 * i + 1) < this->_value.size(); ++i)
+	{
+		if (_value[2 * i] < _value[2 * i + 1])
+		{
+			_a.push_back(_value[2 * i + 1]);
+			_b.push_back(_value[2 * i]);
+		}
+		else
+		{
+			_a.push_back(_value[2 * i]);
+			_b.push_back(_value[2 * i + 1]);
+		}
+
+	}
+	if ((2 * i + 1) == this->_value.size())
+	{
+		_b.push_back(_value[2 * i]);
+	}
+	print_a();
+	print_b();
+}
+
+void	Pmergeme::print(std::vector<unsigned int> v) const
+{
+	for (std::vector<unsigned int>::const_iterator it = v.begin(); it != v.end(); ++it)
 	{
 		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
+}
+
+void	Pmergeme::print_before() const
+{
+	print(_value);
+}
+
+void	Pmergeme::print_a() const
+{
+	print(_a);
+}
+
+void	Pmergeme::print_b() const
+{
+	print(_b);
 }

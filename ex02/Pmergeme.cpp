@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/29 21:18:19 by athonda          ###   ########.fr       */
+/*   Updated: 2025/07/30 17:50:48 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ void	Pmergeme::sort()
 	print_b();
 //	_a.insert(_a.begin(), *_b.begin());
 //	print_a();
+	_a.insert(_a.begin(), *_b.begin());
+	print_a();
+	print_b();
 }
 
 void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const

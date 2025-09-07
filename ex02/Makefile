@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/27 17:10:29 by athonda           #+#    #+#              #
-#    Updated: 2025/07/28 16:40:24 by athonda          ###   ########.fr        #
+#    Updated: 2025/09/07 17:07:59 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ CFLAGS	=	-g -Wall -Wextra -Werror -std=c++98
 CC		=	c++
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAG) $(OBJ) -o $@
+	$(CC) $(CFLAGS) $(OBJ) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(DEP)
 	@mkdir -p $(OBJ_DIR)

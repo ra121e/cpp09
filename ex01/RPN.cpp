@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 22:49:07 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/24 16:50:08 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/22 19:45:03 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	Rpn::calc(char *str)
 			std::cerr << "error: wrong character." << std::endl;
 			return ;
 		}
+	}
+	if (_stack.empty())
+	{
+		std::cerr << "error: wrong syntax, input is empty." << std::endl;
+		return ;
 	}
 	int	result = _stack.top();
 	_stack.pop();

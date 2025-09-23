@@ -211,6 +211,11 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 
 		double rate;
 		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
+		if (it == _ratemap.end())
+		{
+			std::cout << "date is beyond the last date in the database, or database is empty." << std::endl;
+			continue ;
+		}
 		if (it->first == date)
 		{
 			rate = it->second;

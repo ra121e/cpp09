@@ -116,19 +116,17 @@ void	Pmergeme::sort()
 	print_b();
 //	_a.insert(_a.begin(), *_b.begin());
 //	print_a();
-	_a.insert(_a.begin(), *_b.begin());
-	print_a();
-	print_b();
+//	_a.insert(_a.begin(), *_b.begin());
+//	print_a();
+//	print_b();
 
 	unsigned n = _pair.size();
-	std::cout << "n = " << n << std::endl;
+	std::cout << "pair size n = " << n << std::endl;
 	_jacobsthal.push_back(1);
-	std::cout << "Jacobsthal: ";
-	print(_jacobsthal);
-	std::cout << std::endl;
+
 	unsigned j_prev = 1;
 	unsigned j_curr = 3;
-	std::cout << "j_prev = " << j_prev << ", j_curr = " << j_curr << std::endl;
+
 	unsigned t = 2;
 	while (n > j_curr)
 	{
@@ -136,25 +134,33 @@ void	Pmergeme::sort()
 		while (pos > j_prev)
 		{
 			_jacobsthal.push_back(pos);
-			std::cout << "Jacobsthal: ";
-			print(_jacobsthal);
-			std::cout << std::endl;
+//			std::cout << "Jacobsthal: ";
+//			print(_jacobsthal);
+//			std::cout << std::endl;
 			--pos;
 		}
 		++t;
 		j_prev = j_curr;
 		j_curr = Jacobsthal(t);
-		std::cout << "j_prev = " << j_prev << ", j_curr = " << j_curr << std::endl;
+//		std::cout << "j_prev = " << j_prev << ", j_curr = " << j_curr << std::endl;
 	}
 	while (n > j_prev)
 	{
 		_jacobsthal.push_back(n);
-		std::cout << "Jacobsthal: ";
-		print(_jacobsthal);
-		std::cout << std::endl;
 		--n;
 	}
+	std::cout << "Jacobsthal: ";
 	print(_jacobsthal);
+	std::cout << std::endl;
+
+	for (std::vector<unsigned int>::const_iterator it = _jacobsthal.begin(); it != _jacobsthal.end(); ++it)
+	{
+		std::cout << "Inserting index " << *it << ": ";
+		std::cout << "Inserting " << _b[*it - 1] << std::endl;
+		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), _a.end(), _b[*it - 1]);
+		_a.insert(insert_pos, _b[*it - 1]);
+		print_a();
+	}
 }
 
 unsigned int Pmergeme::Jacobsthal(unsigned int n)

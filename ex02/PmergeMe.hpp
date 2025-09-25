@@ -36,12 +36,14 @@ class Pmergeme
 		std::vector<std::pair<unsigned int, unsigned int> >	_pair;
 		std::vector<unsigned int>	_odd;
 		bool						is_odd;
+		unsigned int				counter;
 		std::vector<unsigned int>	_a;
 		std::vector<unsigned int>	_b;
 		std::vector<unsigned int>	_jacobsthal;
 		std::deque<unsigned int>	_deque;
 
 		unsigned int Jacobsthal(unsigned int n);
+		unsigned int	binary_search(std::vector<unsigned int> const &v, unsigned int value);
 		void	print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const;
 		void	print(std::vector<unsigned int> const &v) const;
 		void	print_a() const;

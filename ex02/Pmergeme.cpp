@@ -17,12 +17,13 @@
 #include <vector>
 #include <algorithm>
 
-Pmergeme::Pmergeme(): is_odd(false)
+Pmergeme::Pmergeme(): is_odd(false), counter(0)
 {}
 
 Pmergeme::Pmergeme(Pmergeme const &other):
 	_value(other._value),
 	is_odd(other.is_odd),
+	counter(other.counter),
 	_deque(other._deque)
 {
 
@@ -94,7 +95,7 @@ void	Pmergeme::sort()
 			p = std::make_pair(_value[2 * i], _value[2 * i + 1]);
 			_pair.push_back(p);
 		}
-
+		counter++;
 	}
 //	if ((2 * i + 1) == this->_value.size())
 //	{
@@ -168,6 +169,21 @@ void	Pmergeme::sort()
 		_a.insert(insert_pos, _b[*it - 1]);
 		print_a();
 	}
+}
+
+unsigned int Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)
+{
+	size_t lo = 0;
+	size_t hi = v.size();
+	while (lo < hi)
+	{
+		size_t mid = lo + (hi - lo) / 2;
+		if (v[mid] < value)
+			lo = mid + 1;
+		else
+			hi = mid;
+	}
+	return lo;
 }
 
 unsigned int Pmergeme::Jacobsthal(unsigned int n)

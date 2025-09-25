@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/30 17:50:48 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/25 14:18:22 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,51 @@ void	Pmergeme::sort()
 	_a.insert(_a.begin(), *_b.begin());
 	print_a();
 	print_b();
+
+	unsigned n = _pair.size();
+	std::cout << "n = " << n << std::endl;
+	_jacobsthal.push_back(1);
+	std::cout << "Jacobsthal: ";
+	print(_jacobsthal);
+	std::cout << std::endl;
+	unsigned j_prev = 1;
+	unsigned j_curr = 3;
+	std::cout << "j_prev = " << j_prev << ", j_curr = " << j_curr << std::endl;
+	unsigned t = 2;
+	while (n > j_curr)
+	{
+		unsigned int pos = j_curr;
+		while (pos > j_prev)
+		{
+			_jacobsthal.push_back(pos);
+			std::cout << "Jacobsthal: ";
+			print(_jacobsthal);
+			std::cout << std::endl;
+			--pos;
+		}
+		++t;
+		j_prev = j_curr;
+		j_curr = Jacobsthal(t);
+		std::cout << "j_prev = " << j_prev << ", j_curr = " << j_curr << std::endl;
+	}
+	while (n > j_prev)
+	{
+		_jacobsthal.push_back(n);
+		std::cout << "Jacobsthal: ";
+		print(_jacobsthal);
+		std::cout << std::endl;
+		--n;
+	}
+	print(_jacobsthal);
+}
+
+unsigned int Pmergeme::Jacobsthal(unsigned int n)
+{
+	if (n == 0)
+		return (1);
+	if (n == 1)
+		return (1);
+	return (Jacobsthal(n - 1) + 2 * Jacobsthal(n - 2));
 }
 
 void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const

@@ -17,11 +17,12 @@
 #include <vector>
 #include <algorithm>
 
-Pmergeme::Pmergeme()
+Pmergeme::Pmergeme(): is_odd(false)
 {}
 
 Pmergeme::Pmergeme(Pmergeme const &other):
 	_value(other._value),
+	is_odd(other.is_odd),
 	_deque(other._deque)
 {
 
@@ -111,7 +112,11 @@ void	Pmergeme::sort()
 		_b.push_back(it->second);
 	}
 	if ((2 * i + 1) == this->_value.size())
+	{
+		is_odd = true;
 		_b.push_back(_value[2 * i]);
+	}
+
 	print_a();
 	print_b();
 //	_a.insert(_a.begin(), *_b.begin());
@@ -121,6 +126,8 @@ void	Pmergeme::sort()
 //	print_b();
 
 	unsigned n = _pair.size();
+	if (is_odd)
+		n++;
 	std::cout << "pair size n = " << n << std::endl;
 	_jacobsthal.push_back(1);
 

@@ -35,6 +35,7 @@ class Pmergeme
 		std::vector<unsigned int>	_value;
 		std::vector<std::pair<unsigned int, unsigned int> >	_pair;
 		std::vector<unsigned int>	_odd;
+		bool						is_odd;
 		std::vector<unsigned int>	_a;
 		std::vector<unsigned int>	_b;
 		std::vector<unsigned int>	_jacobsthal;

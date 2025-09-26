@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
+#    By: athonda <athonda@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/27 17:10:29 by athonda           #+#    #+#              #
-#    Updated: 2025/09/07 17:07:59 by athonda          ###   ########.fr        #
+#    Updated: 2025/09/26 21:43:03 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	PmergeMe
 
 SRC_F	=	main.cpp \
-			Pmergeme.cpp
+			Pmergeme.cpp \
+			BinarySearchCounter.cpp
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)
 

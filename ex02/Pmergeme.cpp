@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pmergeme.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
+/*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/25 14:18:22 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/26 21:41:48 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include "BinarySearchCounter.hpp"
 
 Pmergeme::Pmergeme(): is_odd(false), counter(0)
 {}
@@ -165,11 +166,14 @@ void	Pmergeme::sort()
 	{
 		std::cout << "Inserting index " << *it << ": ";
 		std::cout << "Inserting " << _b[*it - 1] << std::endl;
-		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), _a.end(), _b[*it - 1]);
+		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), _a.end(), _b[*it - 1], BinarySearchCounter(counter));
 		_a.insert(insert_pos, _b[*it - 1]);
 		print_a();
+		std::cout << "Counter: " << counter << std::endl;
 	}
 }
+
+
 
 std::vector<unsigned int>::size_type Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)
 {

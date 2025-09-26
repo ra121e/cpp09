@@ -171,13 +171,13 @@ void	Pmergeme::sort()
 	}
 }
 
-unsigned int Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)
+std::vector<unsigned int>::size_type Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)
 {
-	size_t lo = 0;
-	size_t hi = v.size();
+	std::vector<unsigned int>::size_type lo = 0;
+	std::vector<unsigned int>::size_type hi = v.size();
 	while (lo < hi)
 	{
-		size_t mid = lo + (hi - lo) / 2;
+		std::vector<unsigned int>::size_type mid = lo + (hi - lo) / 2;
 		if (v[mid] < value)
 			lo = mid + 1;
 		else

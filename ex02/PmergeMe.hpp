@@ -43,7 +43,7 @@ class Pmergeme
 		std::deque<unsigned int>	_deque;
 
 		unsigned int Jacobsthal(unsigned int n);
-		unsigned int	binary_search(std::vector<unsigned int> const &v, unsigned int value);
+		std::vector<unsigned int>::size_type binary_search(std::vector<unsigned int> const &v, unsigned int value);
 		void	print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const;
 		void	print(std::vector<unsigned int> const &v) const;
 		void	print_a() const;

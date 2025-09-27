@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/27 12:04:59 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/27 19:36:23 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,31 @@ void	Pmergeme::sort()
 
 	for (std::vector<unsigned int>::const_iterator it = _jacobsthal.begin(); it != _jacobsthal.end(); ++it)
 	{
+		const unsigned int index_b = *it - 1; // index into _b (0-based)
+		const unsigned int insert_b = _b[index_b];
+
 		std::cout << "Inserting index " << *it << ": ";
-		std::cout << "Inserting " << _b[*it - 1] << std::endl;
-		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), _a.end(), _b[*it - 1], BinarySearchCounter(counter));
-		_a.insert(insert_pos, _b[*it - 1]);
+		std::cout << "Inserting " << insert_b << std::endl;
+		if (index_b < _pair.size())
+			std::cout << "pair of the index: " << _pair[index_b] << std::endl;
+		else
+			std::cout << "pair of the index: [odd element]" << std::endl;
+		// Determine the end of the search range in A
+		std::vector<unsigned int>::iterator range_end;
+		if (index_b < _pair.size())
+		{
+			const unsigned int target_a = _pair[index_b].first;
+			range_end = std::find(_a.begin(), _a.end(), target_a);
+			if (range_end == _a.end())
+				range_end = _a.end();
+		}
+		else
+		{
+			// odd element has no paired 'first' in _pair; search entire A
+			range_end = _a.end();
+		}
+		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), range_end, insert_b, BinarySearchCounter(counter));
+		_a.insert(insert_pos, insert_b);
 		print_a();
 		std::cout << "Counter: " << counter << std::endl;
 	}

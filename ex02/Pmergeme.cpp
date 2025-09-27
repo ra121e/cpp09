@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pmergeme.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/26 21:41:48 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/27 12:04:59 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	Pmergeme::sort()
 		}
 		counter++;
 	}
+	std::cout << "Initial counter: " << counter << std::endl;
 //	if ((2 * i + 1) == this->_value.size())
 //	{
 //		_odd.push_back(_value[2 * i]);

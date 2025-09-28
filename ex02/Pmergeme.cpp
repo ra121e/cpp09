@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/27 19:36:23 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/28 21:31:37 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ Pmergeme	&Pmergeme::operator=(Pmergeme const &other)
 Pmergeme::~Pmergeme()
 {}
 
+const std::vector<unsigned int>	&Pmergeme::getValue() const
+{
+	return (_value);
+}
+
 void	Pmergeme::setInput(int ac, char **av)
 {
 	std::stringstream	ss;
@@ -77,24 +82,27 @@ void	Pmergeme::setInput(int ac, char **av)
 			return ;
 		}
 		_value.push_back(num);
+		_pair.push_back(std::make_pair(num, 0));
 	}
 }
 
-void	Pmergeme::sort()
+void	Pmergeme::sort(std::vector<unsigned int> value)
 {
+	std::vector<std::pair<unsigned int, unsigned int> >	pair;
+
 	size_t i = 0;
-	for (; (2 * i + 1) < this->_value.size(); ++i)
+	for (; (2 * i + 1) < value.size(); ++i)
 	{
 		std::pair<unsigned int, unsigned int>	p;
-		if (_value[2 * i] < _value[2 * i + 1])
+		if (value[2 * i] < value[2 * i + 1])
 		{
-			p = std::make_pair(_value[2 * i + 1], _value[2 * i]);
-			_pair.push_back(p);
+			p = std::make_pair(value[2 * i + 1], value[2 * i]);
+			pair.push_back(p);
 		}
 		else
 		{
-			p = std::make_pair(_value[2 * i], _value[2 * i + 1]);
-			_pair.push_back(p);
+			p = std::make_pair(value[2 * i], value[2 * i + 1]);
+			pair.push_back(p);
 		}
 		counter++;
 	}
@@ -103,21 +111,21 @@ void	Pmergeme::sort()
 //	{
 //		_odd.push_back(_value[2 * i]);
 //	}
-	print_pair(_pair);
+	print_pair(pair);
 
-	std::sort(_pair.begin(), _pair.end());
-	print_pair(_pair);
+	std::sort(pair.begin(), pair.end());
+	print_pair(pair);
 
 	std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it;
-	for (it = _pair.begin(); it != _pair.end(); ++it)
+	for (it = pair.begin(); it != pair.end(); ++it)
 	{
 		_a.push_back(it->first);
 		_b.push_back(it->second);
 	}
-	if ((2 * i + 1) == this->_value.size())
+	if ((2 * i + 1) == value.size())
 	{
 		is_odd = true;
-		_b.push_back(_value[2 * i]);
+		_b.push_back(value[2 * i]);
 	}
 
 	print_a();
@@ -128,7 +136,7 @@ void	Pmergeme::sort()
 //	print_a();
 //	print_b();
 
-	unsigned n = _pair.size();
+	unsigned n = pair.size();
 	if (is_odd)
 		n++;
 	std::cout << "pair size n = " << n << std::endl;
@@ -170,22 +178,22 @@ void	Pmergeme::sort()
 
 		std::cout << "Inserting index " << *it << ": ";
 		std::cout << "Inserting " << insert_b << std::endl;
-		if (index_b < _pair.size())
-			std::cout << "pair of the index: " << _pair[index_b] << std::endl;
+		if (index_b < pair.size())
+			std::cout << "pair of the index: " << pair[index_b] << std::endl;
 		else
 			std::cout << "pair of the index: [odd element]" << std::endl;
 		// Determine the end of the search range in A
 		std::vector<unsigned int>::iterator range_end;
-		if (index_b < _pair.size())
+		if (index_b < pair.size())
 		{
-			const unsigned int target_a = _pair[index_b].first;
+			const unsigned int target_a = pair[index_b].first;
 			range_end = std::find(_a.begin(), _a.end(), target_a);
 			if (range_end == _a.end())
 				range_end = _a.end();
 		}
 		else
 		{
-			// odd element has no paired 'first' in _pair; search entire A
+			// odd element has no paired 'first' in pair; search entire A
 			range_end = _a.end();
 		}
 		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), range_end, insert_b, BinarySearchCounter(counter));

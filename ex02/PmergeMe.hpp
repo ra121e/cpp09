@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/25 13:14:53 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/28 21:20:04 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ class Pmergeme
 		~Pmergeme();
 
 		void	setInput(int ac, char **av);
-		void	sort();
+		void	sort(std::vector<unsigned int> value);
 		void	print_before() const;
+		const std::vector<unsigned int>	&getValue() const;
 
 
 	private:

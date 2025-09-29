@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/28 21:31:37 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/29 08:01:27 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ const std::vector<unsigned int>	&Pmergeme::getValue() const
 	return (_value);
 }
 
+const std::vector<size_t>	&Pmergeme::getIndex() const
+{
+	return (_index);
+}
+
 void	Pmergeme::setInput(int ac, char **av)
 {
 	std::stringstream	ss;
@@ -66,6 +71,7 @@ void	Pmergeme::setInput(int ac, char **av)
 
 	std::stringstream	ss_input(line);
 	std::string			token;
+	size_t				index = 0;
 	while (ss_input >> token)
 	{
 		if (token.empty() || ss_input.fail())
@@ -83,6 +89,8 @@ void	Pmergeme::setInput(int ac, char **av)
 		}
 		_value.push_back(num);
 		_pair.push_back(std::make_pair(num, 0));
+		_index.push_back(index);
+		index++;
 	}
 }
 
@@ -247,6 +255,14 @@ void	Pmergeme::print(std::vector<unsigned int> const &v) const
 	std::cout << std::endl;
 }
 
+void	Pmergeme::print(std::vector<size_t> const &v) const
+{
+	for (std::vector<size_t>::const_iterator it = v.begin(); it != v.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
 void	Pmergeme::print_before() const
 {
 	print(_value);

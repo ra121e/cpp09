@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FindSecondByFirst.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/30 22:07:03 by athonda          ###   ########.fr       */
+/*   Created: 2025/09/29 22:39:33 by athonda           #+#    #+#             */
+/*   Updated: 2025/09/29 22:53:38 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PmergeMe.hpp"
-#include <iostream>
+#include "FindSecondByFirst.hpp"
 
-int	main(int ac, char **av)
+FindSecondByFirst::FindSecondByFirst(unsigned int value)
 {
-	if (ac < 2)
-	{
-		std::cerr << "Usage: ./PmergeMe num num num ...." << std::endl;
-		return (1);
-	}
-	Pmergeme	a;
-	a.setInput(ac, av);
-	std::cout << "Before: ";
-	a.print_before();
-//	a.print(a.getIndex());
+	_first = value;
+}
 
-	a.sort(a.getValue());
-	return (0);
+FindSecondByFirst::~FindSecondByFirst()
+{}
+
+bool	FindSecondByFirst::operator()(std::pair<unsigned int, unsigned int> const &p) const
+{
+	return (p.first == _first);
 }

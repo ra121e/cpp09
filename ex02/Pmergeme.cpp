@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/29 08:01:27 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/30 22:05:59 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <vector>
 #include <algorithm>
 #include "BinarySearchCounter.hpp"
+#include "FindSecondByFirst.hpp"
 
 Pmergeme::Pmergeme(): is_odd(false), counter(0)
 {}
@@ -42,6 +43,7 @@ Pmergeme	&Pmergeme::operator=(Pmergeme const &other)
 
 Pmergeme::~Pmergeme()
 {}
+
 
 const std::vector<unsigned int>	&Pmergeme::getValue() const
 {
@@ -71,7 +73,6 @@ void	Pmergeme::setInput(int ac, char **av)
 
 	std::stringstream	ss_input(line);
 	std::string			token;
-	size_t				index = 0;
 	while (ss_input >> token)
 	{
 		if (token.empty() || ss_input.fail())
@@ -87,17 +88,29 @@ void	Pmergeme::setInput(int ac, char **av)
 			std::cerr << "error: Wrong input of numbers." << std::endl;
 			return ;
 		}
+//		if (num < 0)
+//		{
+//			std::cerr << "error: Negative number is not allowed." << std::endl;
+//			_value.clear();
+//			_pair.clear();
+//			return ;
+//		}
 		_value.push_back(num);
 		_pair.push_back(std::make_pair(num, 0));
-		_index.push_back(index);
-		index++;
 	}
 }
 
-void	Pmergeme::sort(std::vector<unsigned int> value)
+std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 {
 	std::vector<std::pair<unsigned int, unsigned int> >	pair;
 
+	// stop condition
+	if (value.size() <= 1)
+		return (value);
+
+	// forming pairs and sorting each pair
+	std::vector<unsigned int> firsts;
+	std::vector<unsigned int> seconds;
 	size_t i = 0;
 	for (; (2 * i + 1) < value.size(); ++i)
 	{
@@ -106,11 +119,13 @@ void	Pmergeme::sort(std::vector<unsigned int> value)
 		{
 			p = std::make_pair(value[2 * i + 1], value[2 * i]);
 			pair.push_back(p);
+			firsts.push_back(p.first);
 		}
 		else
 		{
 			p = std::make_pair(value[2 * i], value[2 * i + 1]);
 			pair.push_back(p);
+			firsts.push_back(p.first);
 		}
 		counter++;
 	}
@@ -121,19 +136,23 @@ void	Pmergeme::sort(std::vector<unsigned int> value)
 //	}
 	print_pair(pair);
 
-	std::sort(pair.begin(), pair.end());
+	// recursively sort the firsts
+	std::vector<unsigned int>	a;
+	a = sort(firsts);
 	print_pair(pair);
 
-	std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it;
-	for (it = pair.begin(); it != pair.end(); ++it)
+	// extract the seconds according to the order of firsts
+	std::vector<unsigned int>	b;
+	for (std::vector<unsigned int>::iterator it = a.begin(); it != a.end(); ++it)
 	{
-		_a.push_back(it->first);
-		_b.push_back(it->second);
+		std::vector<std::pair<unsigned int, unsigned int> >::iterator found = std::find_if(pair.begin(), pair.end(), FindSecondByFirst(*it));
+		b.push_back(found->second);
+		pair.erase(found);
 	}
 	if ((2 * i + 1) == value.size())
 	{
 		is_odd = true;
-		_b.push_back(value[2 * i]);
+		b.push_back(value[2 * i]);
 	}
 
 	print_a();
@@ -144,7 +163,16 @@ void	Pmergeme::sort(std::vector<unsigned int> value)
 //	print_a();
 //	print_b();
 
-	unsigned n = pair.size();
+	pair.clear();
+	std::vector<std::pair<unsigned int, unsigned int> > a_with_index;
+	for (size_t j = 0; j < a.size(); ++j)
+	{
+		a_with_index.push_back(std::make_pair(a[j], j));
+	}
+	print_pair(a_with_index);
+	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
+	_jacobsthal.clear();
+	unsigned n = a_with_index.size();
 	if (is_odd)
 		n++;
 	std::cout << "pair size n = " << n << std::endl;
@@ -182,33 +210,42 @@ void	Pmergeme::sort(std::vector<unsigned int> value)
 	for (std::vector<unsigned int>::const_iterator it = _jacobsthal.begin(); it != _jacobsthal.end(); ++it)
 	{
 		const unsigned int index_b = *it - 1; // index into _b (0-based)
-		const unsigned int insert_b = _b[index_b];
+		const unsigned int insert_b = b[index_b];
+		std::pair<unsigned int, unsigned int>	b_with_index = std::make_pair(insert_b, index_b);
 
 		std::cout << "Inserting index " << *it << ": ";
 		std::cout << "Inserting " << insert_b << std::endl;
-		if (index_b < pair.size())
-			std::cout << "pair of the index: " << pair[index_b] << std::endl;
+		if (index_b < b.size())
+			std::cout << "number of the index: " << b[index_b] << std::endl;
 		else
 			std::cout << "pair of the index: [odd element]" << std::endl;
 		// Determine the end of the search range in A
-		std::vector<unsigned int>::iterator range_end;
-		if (index_b < pair.size())
+		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
+		if (index_b < a_with_index.size())
 		{
-			const unsigned int target_a = pair[index_b].first;
-			range_end = std::find(_a.begin(), _a.end(), target_a);
-			if (range_end == _a.end())
-				range_end = _a.end();
+			const std::pair<unsigned int, unsigned int> target_a = a_with_index[index_b];
+			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
+			if (range_end == a_with_index.end())
+				range_end = a_with_index.end();
 		}
 		else
 		{
-			// odd element has no paired 'first' in pair; search entire A
-			range_end = _a.end();
+			// odd element has no paired 'first' in _pair; search entire A
+			range_end = a_with_index.end();
 		}
-		std::vector<unsigned int>::iterator insert_pos = std::lower_bound(_a.begin(), range_end, insert_b, BinarySearchCounter(counter));
-		_a.insert(insert_pos, insert_b);
-		print_a();
-		std::cout << "Counter: " << counter << std::endl;
+		std::vector<std::pair<unsigned int, unsigned int> >::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
+		a_with_index.insert(insert_pos, b_with_index);
+		print_pair(a_with_index);
+
 	}
+	std::vector<unsigned int> a_temp;
+	for (size_t k = 0; k < a_with_index.size(); ++k)
+	{
+		a_temp.push_back(a_with_index[k].first);
+	}
+	print(a_temp);
+	std::cout << "Counter: " << counter << std::endl;
+	return (a_temp);
 }
 
 
@@ -255,14 +292,6 @@ void	Pmergeme::print(std::vector<unsigned int> const &v) const
 	std::cout << std::endl;
 }
 
-void	Pmergeme::print(std::vector<size_t> const &v) const
-{
-	for (std::vector<size_t>::const_iterator it = v.begin(); it != v.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
-}
 void	Pmergeme::print_before() const
 {
 	print(_value);

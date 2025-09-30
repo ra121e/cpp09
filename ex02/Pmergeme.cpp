@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/30 22:05:59 by athonda          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:21:02 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,17 +129,26 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		}
 		counter++;
 	}
+
+
+	print_pair(pair);
+	if ((2 * i + 1) == value.size())
+		std::cout << " " << value[2 * i];
+	std::cout << std::endl;
+
 	std::cout << "Initial counter: " << counter << std::endl;
 //	if ((2 * i + 1) == this->_value.size())
 //	{
 //		_odd.push_back(_value[2 * i]);
 //	}
-	print_pair(pair);
 
 	// recursively sort the firsts
 	std::vector<unsigned int>	a;
 	a = sort(firsts);
-	print_pair(pair);
+	std::cout << std::endl;
+	std::cout << "Sequence from recursive: ";
+	print(a);
+	std::cout << std::endl;
 
 	// extract the seconds according to the order of firsts
 	std::vector<unsigned int>	b;
@@ -169,13 +178,24 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	{
 		a_with_index.push_back(std::make_pair(a[j], j));
 	}
+	std::cout << "main chain with index: ";
 	print_pair(a_with_index);
+	std::cout << std::endl;
+
+	for (size_t j = 0; j < b.size(); ++j)
+	{
+		pair.push_back(std::make_pair(a_with_index[j].first, b[j]));
+	}
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
 	_jacobsthal.clear();
 	unsigned n = a_with_index.size();
 	if (is_odd)
 		n++;
-	std::cout << "pair size n = " << n << std::endl;
+
+	std::cout << "pends: ";
+	print(b);
+	std::cout << std::endl;
+	std::cout << "pends size = " << n << std::endl;
 	_jacobsthal.push_back(1);
 
 	unsigned j_prev = 1;
@@ -216,14 +236,14 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		std::cout << "Inserting index " << *it << ": ";
 		std::cout << "Inserting " << insert_b << std::endl;
 		if (index_b < b.size())
-			std::cout << "number of the index: " << b[index_b] << std::endl;
+			std::cout << "number of the index: " << index_b << std::endl;
 		else
 			std::cout << "pair of the index: [odd element]" << std::endl;
 		// Determine the end of the search range in A
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
 		if (index_b < a_with_index.size())
 		{
-			const std::pair<unsigned int, unsigned int> target_a = a_with_index[index_b];
+			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, pair[index_b].second);
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
 			if (range_end == a_with_index.end())
 				range_end = a_with_index.end();
@@ -235,7 +255,9 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		}
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
 		a_with_index.insert(insert_pos, b_with_index);
+		std::cout << "main chain after insertion: ";
 		print_pair(a_with_index);
+		std::cout << std::endl;
 
 	}
 	std::vector<unsigned int> a_temp;
@@ -280,7 +302,6 @@ void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > co
 	{
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl;
 }
 
 void	Pmergeme::print(std::vector<unsigned int> const &v) const
@@ -289,12 +310,12 @@ void	Pmergeme::print(std::vector<unsigned int> const &v) const
 	{
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl;
 }
 
 void	Pmergeme::print_before() const
 {
 	print(_value);
+	std::cout << std::endl;
 }
 
 void	Pmergeme::print_a() const

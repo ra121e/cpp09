@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/30 22:03:26 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/01 09:35:48 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ class Pmergeme
 		std::vector<size_t>			_index;
 		std::vector<std::pair<unsigned int, unsigned int> >	_pair;
 		std::vector<unsigned int>	_odd;
-		bool						is_odd;
+//		bool						is_odd;
 		unsigned int				counter;
 		std::vector<unsigned int>	_a;
 		std::vector<unsigned int>	_b;

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/09/30 23:21:02 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/01 09:39:52 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@
 #include "BinarySearchCounter.hpp"
 #include "FindSecondByFirst.hpp"
 
-Pmergeme::Pmergeme(): is_odd(false), counter(0)
+Pmergeme::Pmergeme(): counter(0)
 {}
 
 Pmergeme::Pmergeme(Pmergeme const &other):
 	_value(other._value),
-	is_odd(other.is_odd),
 	counter(other.counter),
 	_deque(other._deque)
 {
@@ -130,13 +129,15 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		counter++;
 	}
 
-
+	std::cout << "Making pairs: ";
 	print_pair(pair);
 	if ((2 * i + 1) == value.size())
 		std::cout << " " << value[2 * i];
 	std::cout << std::endl;
-
-	std::cout << "Initial counter: " << counter << std::endl;
+	std::cout << "counter after pairing: " << counter << std::endl;
+	std::cout << "greaters: ";
+	print(firsts);
+	std::cout << std::endl;
 //	if ((2 * i + 1) == this->_value.size())
 //	{
 //		_odd.push_back(_value[2 * i]);
@@ -151,6 +152,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::cout << std::endl;
 
 	// extract the seconds according to the order of firsts
+	bool	is_odd = false;
 	std::vector<unsigned int>	b;
 	for (std::vector<unsigned int>::iterator it = a.begin(); it != a.end(); ++it)
 	{
@@ -186,8 +188,6 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	{
 		pair.push_back(std::make_pair(a_with_index[j].first, b[j]));
 	}
-	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
-	_jacobsthal.clear();
 	unsigned n = a_with_index.size();
 	if (is_odd)
 		n++;
@@ -196,6 +196,11 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	print(b);
 	std::cout << std::endl;
 	std::cout << "pends size = " << n << std::endl;
+	print_pair(pair);
+	std::cout << std::endl;
+
+	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
+	_jacobsthal.clear();
 	_jacobsthal.push_back(1);
 
 	unsigned j_prev = 1;
@@ -243,7 +248,8 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
 		if (index_b < a_with_index.size())
 		{
-			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, pair[index_b].second);
+			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, index_b);
+			std::cout << "target_a to find range end: " << target_a << std::endl;
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
 			if (range_end == a_with_index.end())
 				range_end = a_with_index.end();
@@ -258,6 +264,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		std::cout << "main chain after insertion: ";
 		print_pair(a_with_index);
 		std::cout << std::endl;
+		std::cout << "Counter: " << counter << std::endl;
 
 	}
 	std::vector<unsigned int> a_temp;

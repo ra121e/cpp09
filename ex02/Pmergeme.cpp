@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/01 09:39:52 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/01 14:07:27 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	print_pair(a_with_index);
 	std::cout << std::endl;
 
-	for (size_t j = 0; j < b.size(); ++j)
+	for (size_t j = 0; j < a_with_index.size(); ++j)
 	{
 		pair.push_back(std::make_pair(a_with_index[j].first, b[j]));
 	}
@@ -248,6 +248,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
 		if (index_b < a_with_index.size())
 		{
+			std::cout << pair[index_b].first << " has pair in A." << std::endl;
 			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, index_b);
 			std::cout << "target_a to find range end: " << target_a << std::endl;
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);

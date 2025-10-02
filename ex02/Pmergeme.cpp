@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/01 14:07:27 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:29:28 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ Pmergeme	&Pmergeme::operator=(Pmergeme const &other)
 	if (this != &other)
 	{
 		_value = other._value;
+		counter = other.counter;
 		_deque = other._deque;
 	}
 	return (*this);
@@ -52,6 +53,11 @@ const std::vector<unsigned int>	&Pmergeme::getValue() const
 const std::vector<size_t>	&Pmergeme::getIndex() const
 {
 	return (_index);
+}
+
+const unsigned int	&Pmergeme::getSizeValue() const
+{
+	return (_size_value);
 }
 
 void	Pmergeme::setInput(int ac, char **av)
@@ -129,7 +135,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		counter++;
 	}
 
-	std::cout << "Making pairs: ";
+	std::cout << "Making pairs and comparing, swapping: ";
 	print_pair(pair);
 	if ((2 * i + 1) == value.size())
 		std::cout << " " << value[2 * i];
@@ -174,6 +180,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 //	print_a();
 //	print_b();
 
+	// making pair container of a with index and b
 	pair.clear();
 	std::vector<std::pair<unsigned int, unsigned int> > a_with_index;
 	for (size_t j = 0; j < a.size(); ++j)
@@ -196,8 +203,6 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	print(b);
 	std::cout << std::endl;
 	std::cout << "pends size = " << n << std::endl;
-	print_pair(pair);
-	std::cout << std::endl;
 
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
 	_jacobsthal.clear();
@@ -213,15 +218,11 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		while (pos > j_prev)
 		{
 			_jacobsthal.push_back(pos);
-//			std::cout << "Jacobsthal: ";
-//			print(_jacobsthal);
-//			std::cout << std::endl;
 			--pos;
 		}
 		++t;
 		j_prev = j_curr;
 		j_curr = Jacobsthal(t);
-//		std::cout << "j_prev = " << j_prev << ", j_curr = " << j_curr << std::endl;
 	}
 	while (n > j_prev)
 	{
@@ -232,23 +233,24 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	print(_jacobsthal);
 	std::cout << std::endl;
 
+	// Insertion of element b into the interval of a with index using Jacobsthal sequence
 	for (std::vector<unsigned int>::const_iterator it = _jacobsthal.begin(); it != _jacobsthal.end(); ++it)
 	{
 		const unsigned int index_b = *it - 1; // index into _b (0-based)
 		const unsigned int insert_b = b[index_b];
 		std::pair<unsigned int, unsigned int>	b_with_index = std::make_pair(insert_b, index_b);
 
-		std::cout << "Inserting index " << *it << ": ";
-		std::cout << "Inserting " << insert_b << std::endl;
+		std::cout << "Inserting index of Jacobsthal " << *it << ": ";
+		std::cout << "the number is " << insert_b << std::endl;
 		if (index_b < b.size())
-			std::cout << "number of the index: " << index_b << std::endl;
+			std::cout << "index of main chain: " << index_b << std::endl;
 		else
 			std::cout << "pair of the index: [odd element]" << std::endl;
 		// Determine the end of the search range in A
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
 		if (index_b < a_with_index.size())
 		{
-			std::cout << pair[index_b].first << " has pair in A." << std::endl;
+			std::cout << pair[index_b].first << " is the pair in main chain." << std::endl;
 			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, index_b);
 			std::cout << "target_a to find range end: " << target_a << std::endl;
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/01 09:35:48 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:28:22 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class Pmergeme
 		void	print_before() const;
 		const std::vector<unsigned int>	&getValue() const;
 		const std::vector<size_t>	&getIndex() const;
+		const unsigned int	&getSizeValue() const;
 		void	print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const;
 		void	print(std::vector<unsigned int> const &v) const;
 		void	print(std::vector<size_t> const &v) const;
@@ -40,6 +41,7 @@ class Pmergeme
 
 	private:
 		std::vector<unsigned int>	_value;
+		unsigned int				_size_value;
 		std::vector<size_t>			_index;
 		std::vector<std::pair<unsigned int, unsigned int> >	_pair;
 		std::vector<unsigned int>	_odd;

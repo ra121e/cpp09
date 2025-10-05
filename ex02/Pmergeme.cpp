@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 19:35:50 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/05 19:46:04 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	// generate firsts (greaters) from pairs
 	std::vector<unsigned int> firsts = extractFirsts(pair);
 
+	// print debug info. delete later
 	std::cout << "Making pairs and comparing, swapping: ";
 	print_pair(pair);
 	if (is_odd)
@@ -133,8 +134,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 
 	// recursively sort the firsts
-	std::vector<unsigned int>	a;
-	a = sort(firsts);
+	std::vector<unsigned int> a = sort(firsts);
 	std::cout << std::endl;
 	std::cout << "Sequence from recursive: ";
 	print(a);

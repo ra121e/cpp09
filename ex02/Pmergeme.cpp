@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 17:38:56 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/05 19:35:50 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,24 +116,10 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	const unsigned int odd_value = is_odd ? value.back() : 0;
 
 	// forming pairs and sorting each pair
-	std::vector<std::pair<unsigned int, unsigned int> >	pair;
-	std::vector<unsigned int> firsts;
-	std::vector<unsigned int> seconds;
-	for (size_t i = 0; (2 * i + 1) < value.size(); ++i)
-	{
-		std::pair<unsigned int, unsigned int>	p;
-		if (value[2 * i] < value[2 * i + 1])
-		{
-			p = std::make_pair(value[2 * i + 1], value[2 * i]);
-		}
-		else
-		{
-			p = std::make_pair(value[2 * i], value[2 * i + 1]);
-		}
-		pair.push_back(p);
-		firsts.push_back(p.first);
-		counter++;
-	}
+	std::vector<std::pair<unsigned int, unsigned int> > pair = generatePairs(value);
+
+	// generate firsts (greaters) from pairs
+	std::vector<unsigned int> firsts = extractFirsts(pair);
 
 	std::cout << "Making pairs and comparing, swapping: ";
 	print_pair(pair);
@@ -269,7 +255,35 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	return (a_temp);
 }
 
+std::vector<std::pair<unsigned int, unsigned int> >	Pmergeme::generatePairs(const std::vector<unsigned int> &value)
+{
+	std::vector<std::pair<unsigned int, unsigned int> >	pair;
+	for (size_t i = 0; (2 * i + 1) < value.size(); ++i)
+	{
+		std::pair<unsigned int, unsigned int>	p;
+		if (value[2 * i] < value[2 * i + 1])
+		{
+			p = std::make_pair(value[2 * i + 1], value[2 * i]);
+		}
+		else
+		{
+			p = std::make_pair(value[2 * i], value[2 * i + 1]);
+		}
+		pair.push_back(p);
+		counter++;
+	}
+	return (pair);
+}
 
+std::vector<unsigned int> Pmergeme::extractFirsts(std::vector<std::pair<unsigned int, unsigned int> > const &pair)
+{
+	std::vector<unsigned int> firsts;
+	for (size_t j = 0; j < pair.size(); ++j)
+	{
+		firsts.push_back(pair[j].first);
+	}
+	return (firsts);
+}
 
 std::vector<unsigned int>::size_type Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)
 {

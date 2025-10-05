@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pmergeme.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
+/*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/02 10:29:28 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/05 15:22:51 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,32 +113,34 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	if (value.size() <= 1)
 		return (value);
 
+	// odd check and keep the last element if odd
+	const bool is_odd = (value.size() % 2 == 1);
+	const unsigned int odd_value = is_odd ? value.back() : 0;
+
 	// forming pairs and sorting each pair
 	std::vector<unsigned int> firsts;
 	std::vector<unsigned int> seconds;
-	size_t i = 0;
-	for (; (2 * i + 1) < value.size(); ++i)
+//	size_t i = 0;
+	for (size_t i = 0; (2 * i + 1) < value.size(); ++i)
 	{
 		std::pair<unsigned int, unsigned int>	p;
 		if (value[2 * i] < value[2 * i + 1])
 		{
 			p = std::make_pair(value[2 * i + 1], value[2 * i]);
-			pair.push_back(p);
-			firsts.push_back(p.first);
 		}
 		else
 		{
 			p = std::make_pair(value[2 * i], value[2 * i + 1]);
-			pair.push_back(p);
-			firsts.push_back(p.first);
 		}
+		pair.push_back(p);
+		firsts.push_back(p.first);
 		counter++;
 	}
 
 	std::cout << "Making pairs and comparing, swapping: ";
 	print_pair(pair);
-	if ((2 * i + 1) == value.size())
-		std::cout << " " << value[2 * i];
+	if (is_odd)
+		std::cout << " " << odd_value;
 	std::cout << std::endl;
 	std::cout << "counter after pairing: " << counter << std::endl;
 	std::cout << "greaters: ";
@@ -158,7 +160,6 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::cout << std::endl;
 
 	// extract the seconds according to the order of firsts
-	bool	is_odd = false;
 	std::vector<unsigned int>	b;
 	for (std::vector<unsigned int>::iterator it = a.begin(); it != a.end(); ++it)
 	{
@@ -166,11 +167,8 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		b.push_back(found->second);
 		pair.erase(found);
 	}
-	if ((2 * i + 1) == value.size())
-	{
-		is_odd = true;
-		b.push_back(value[2 * i]);
-	}
+	if (is_odd)
+		b.push_back(odd_value);
 
 	print_a();
 	print_b();

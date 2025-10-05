@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 19:46:04 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/05 19:59:45 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,9 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::cout << "pends size = " << n << std::endl;
 
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
-	_jacobsthal.clear();
-	_jacobsthal.push_back(1);
+//	_jacobsthal.clear();
+	std::vector<unsigned int> jacobsthal;
+	jacobsthal.push_back(1);
 
 	unsigned j_prev = 1;
 	unsigned j_curr = 3;
@@ -192,7 +193,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 		unsigned int pos = j_curr;
 		while (pos > j_prev)
 		{
-			_jacobsthal.push_back(pos);
+			jacobsthal.push_back(pos);
 			--pos;
 		}
 		++t;
@@ -201,15 +202,15 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	}
 	while (n > j_prev)
 	{
-		_jacobsthal.push_back(n);
+		jacobsthal.push_back(n);
 		--n;
 	}
 	std::cout << "Jacobsthal: ";
-	print(_jacobsthal);
+	print(jacobsthal);
 	std::cout << std::endl;
 
 	// Insertion of element b into the interval of a with index using Jacobsthal sequence
-	for (std::vector<unsigned int>::const_iterator it = _jacobsthal.begin(); it != _jacobsthal.end(); ++it)
+	for (std::vector<unsigned int>::const_iterator it = jacobsthal.begin(); it != jacobsthal.end(); ++it)
 	{
 		const unsigned int index_b = *it - 1; // index into _b (0-based)
 		const unsigned int insert_b = b[index_b];

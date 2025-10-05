@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 15:22:51 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/05 17:38:56 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ void	Pmergeme::setInput(int ac, char **av)
 
 std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 {
-	std::vector<std::pair<unsigned int, unsigned int> >	pair;
-
 	// stop condition
 	if (value.size() <= 1)
 		return (value);
@@ -118,9 +116,9 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	const unsigned int odd_value = is_odd ? value.back() : 0;
 
 	// forming pairs and sorting each pair
+	std::vector<std::pair<unsigned int, unsigned int> >	pair;
 	std::vector<unsigned int> firsts;
 	std::vector<unsigned int> seconds;
-//	size_t i = 0;
 	for (size_t i = 0; (2 * i + 1) < value.size(); ++i)
 	{
 		std::pair<unsigned int, unsigned int>	p;
@@ -146,10 +144,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::cout << "greaters: ";
 	print(firsts);
 	std::cout << std::endl;
-//	if ((2 * i + 1) == this->_value.size())
-//	{
-//		_odd.push_back(_value[2 * i]);
-//	}
+
 
 	// recursively sort the firsts
 	std::vector<unsigned int>	a;
@@ -172,11 +167,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 	print_a();
 	print_b();
-//	_a.insert(_a.begin(), *_b.begin());
-//	print_a();
-//	_a.insert(_a.begin(), *_b.begin());
-//	print_a();
-//	print_b();
+
 
 	// making pair container of a with index and b
 	pair.clear();

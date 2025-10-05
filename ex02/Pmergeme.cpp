@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 19:59:45 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:07:00 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,34 +181,13 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
 //	_jacobsthal.clear();
-	std::vector<unsigned int> jacobsthal;
-	jacobsthal.push_back(1);
+	std::vector<unsigned int> jacobsthal = generateJacobsthal(n);
 
-	unsigned j_prev = 1;
-	unsigned j_curr = 3;
-
-	unsigned t = 2;
-	while (n > j_curr)
-	{
-		unsigned int pos = j_curr;
-		while (pos > j_prev)
-		{
-			jacobsthal.push_back(pos);
-			--pos;
-		}
-		++t;
-		j_prev = j_curr;
-		j_curr = Jacobsthal(t);
-	}
-	while (n > j_prev)
-	{
-		jacobsthal.push_back(n);
-		--n;
-	}
 	std::cout << "Jacobsthal: ";
 	print(jacobsthal);
 	std::cout << std::endl;
 
+	
 	// Insertion of element b into the interval of a with index using Jacobsthal sequence
 	for (std::vector<unsigned int>::const_iterator it = jacobsthal.begin(); it != jacobsthal.end(); ++it)
 	{
@@ -284,6 +263,35 @@ std::vector<unsigned int> Pmergeme::extractFirsts(std::vector<std::pair<unsigned
 		firsts.push_back(pair[j].first);
 	}
 	return (firsts);
+}
+
+std::vector<unsigned int> Pmergeme::generateJacobsthal(unsigned int n)
+{
+	std::vector<unsigned int> jacobsthal;
+	jacobsthal.push_back(1);
+
+	unsigned j_prev = 1;
+	unsigned j_curr = 3;
+
+	unsigned t = 2;
+	while (n > j_curr)
+	{
+		unsigned int pos = j_curr;
+		while (pos > j_prev)
+		{
+			jacobsthal.push_back(pos);
+			--pos;
+		}
+		++t;
+		j_prev = j_curr;
+		j_curr = Jacobsthal(t);
+	}
+	while (n > j_prev)
+	{
+		jacobsthal.push_back(n);
+		--n;
+	}
+	return (jacobsthal);
 }
 
 std::vector<unsigned int>::size_type Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 20:06:17 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/06 10:59:01 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ class Pmergeme
 
 		std::vector<std::pair<unsigned int, unsigned int> >	generatePairs(const std::vector<unsigned int> &value);
 		std::vector<unsigned int> extractFirsts(std::vector<std::pair<unsigned int, unsigned int> > const &pair);
+		std::vector<unsigned int> buildPends(
+			std::vector<unsigned int> const &a,
+			std::vector<std::pair<unsigned int, unsigned int> > &pair,
+			bool is_odd,
+			unsigned int odd_value);
 		std::vector<unsigned int> generateJacobsthal(unsigned int n);
 		unsigned int Jacobsthal(unsigned int n);
 		std::vector<unsigned int>::size_type binary_search(std::vector<unsigned int> const &v, unsigned int value);

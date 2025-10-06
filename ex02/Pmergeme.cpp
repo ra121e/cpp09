@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pmergeme.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/05 20:07:00 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/06 12:03:15 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::cout << std::endl;
 
 	// extract the seconds according to the order of firsts
-	std::vector<unsigned int>	b;
-	for (std::vector<unsigned int>::iterator it = a.begin(); it != a.end(); ++it)
-	{
-		std::vector<std::pair<unsigned int, unsigned int> >::iterator found = std::find_if(pair.begin(), pair.end(), FindSecondByFirst(*it));
-		b.push_back(found->second);
-		pair.erase(found);
-	}
-	if (is_odd)
-		b.push_back(odd_value);
-
+	std::vector<unsigned int> b = buildPends(a, pair, is_odd, odd_value);
 	print_a();
 	print_b();
 
@@ -187,7 +178,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	print(jacobsthal);
 	std::cout << std::endl;
 
-	
+
 	// Insertion of element b into the interval of a with index using Jacobsthal sequence
 	for (std::vector<unsigned int>::const_iterator it = jacobsthal.begin(); it != jacobsthal.end(); ++it)
 	{
@@ -263,6 +254,24 @@ std::vector<unsigned int> Pmergeme::extractFirsts(std::vector<std::pair<unsigned
 		firsts.push_back(pair[j].first);
 	}
 	return (firsts);
+}
+
+std::vector<unsigned int> Pmergeme::buildPends(
+		std::vector<unsigned int> const &a,
+		std::vector<std::pair<unsigned int, unsigned int> > &pair,
+		bool is_odd,
+		unsigned int odd_value)
+{
+	std::vector<unsigned int>	b;
+	for (std::vector<unsigned int>::const_iterator it = a.begin(); it != a.end(); ++it)
+	{
+		std::vector<std::pair<unsigned int, unsigned int> >::iterator found = std::find_if(pair.begin(), pair.end(), FindSecondByFirst(*it));
+		b.push_back(found->second);
+		pair.erase(found);
+	}
+	if (is_odd)
+		b.push_back(odd_value);
+	return (b);
 }
 
 std::vector<unsigned int> Pmergeme::generateJacobsthal(unsigned int n)

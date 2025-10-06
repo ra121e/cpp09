@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/06 12:03:15 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/07 07:58:13 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	const bool is_odd = (value.size() % 2 == 1);
 	const unsigned int odd_value = is_odd ? value.back() : 0;
 
+	// calculate number of pairs
+	const size_t n = value.size() / 2 + (is_odd ? 1 : 0);
+
 	// forming pairs and sorting each pair
 	std::vector<std::pair<unsigned int, unsigned int> > pair = generatePairs(value);
 
@@ -146,25 +149,19 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	print_b();
 
 
-	// making pair container of a with index and b
-	pair.clear();
-	std::vector<std::pair<unsigned int, unsigned int> > a_with_index;
-	for (size_t j = 0; j < a.size(); ++j)
-	{
-		a_with_index.push_back(std::make_pair(a[j], j));
-	}
+	// making main chain with index
+	std::vector<std::pair<unsigned int, unsigned int> > a_with_index = generateMainChainWithIndex(a);
+
+	// print debug info. delete later
 	std::cout << "main chain with index: ";
 	print_pair(a_with_index);
 	std::cout << std::endl;
 
-	for (size_t j = 0; j < a_with_index.size(); ++j)
-	{
-		pair.push_back(std::make_pair(a_with_index[j].first, b[j]));
-	}
-	unsigned n = a_with_index.size();
-	if (is_odd)
-		n++;
+	// making pair container of a with b
+	pair.clear();
+	pair = generatePairsOrdered(a_with_index, b);
 
+	// display pands later delete
 	std::cout << "pends: ";
 	print(b);
 	std::cout << std::endl;
@@ -272,6 +269,29 @@ std::vector<unsigned int> Pmergeme::buildPends(
 	if (is_odd)
 		b.push_back(odd_value);
 	return (b);
+}
+
+std::vector<std::pair<unsigned int, unsigned int> > Pmergeme::generateMainChainWithIndex(
+	const std::vector<unsigned int> &a)
+{
+	std::vector<std::pair<unsigned int, unsigned int> > a_with_index;
+	for (size_t j = 0; j < a.size(); ++j)
+	{
+		a_with_index.push_back(std::make_pair(a[j], j));
+	}
+	return (a_with_index);
+}
+
+std::vector<std::pair<unsigned int, unsigned int> > Pmergeme::generatePairsOrdered(
+	std::vector<std::pair<unsigned int, unsigned int> > a_with_index,
+	const std::vector<unsigned int> &b)
+{
+	std::vector<std::pair<unsigned int, unsigned int> >	pair;
+	for (size_t j = 0; j < a_with_index.size(); ++j)
+	{
+		pair.push_back(std::make_pair(a_with_index[j].first, b[j]));
+	}
+	return (pair);
 }
 
 std::vector<unsigned int> Pmergeme::generateJacobsthal(unsigned int n)

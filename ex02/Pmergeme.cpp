@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/07 08:43:58 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/07 22:24:58 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,42 +177,8 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 
 	// Insertion of element b into the interval of a with index using Jacobsthal sequence
-	for (std::vector<unsigned int>::const_iterator it = jacobsthal.begin(); it != jacobsthal.end(); ++it)
-	{
-		const unsigned int index_b = *it - 1; // index into _b (0-based)
-		const unsigned int insert_b = b[index_b];
-		std::pair<unsigned int, unsigned int>	b_with_index = std::make_pair(insert_b, index_b);
 
-		std::cout << "Inserting index of Jacobsthal " << *it << ": ";
-		std::cout << "the number is " << insert_b << std::endl;
-		if (index_b < b.size())
-			std::cout << "index of main chain: " << index_b << std::endl;
-		else
-			std::cout << "pair of the index: [odd element]" << std::endl;
-		// Determine the end of the search range in A
-		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
-		if (index_b < a_with_index.size())
-		{
-			std::cout << pair[index_b].first << " is the pair in main chain." << std::endl;
-			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, index_b);
-			std::cout << "target_a to find range end: " << target_a << std::endl;
-			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
-			if (range_end == a_with_index.end())
-				range_end = a_with_index.end();
-		}
-		else
-		{
-			// odd element has no paired 'first' in _pair; search entire A
-			range_end = a_with_index.end();
-		}
-		std::vector<std::pair<unsigned int, unsigned int> >::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
-		a_with_index.insert(insert_pos, b_with_index);
-		std::cout << "main chain after insertion: ";
-		print_pair(a_with_index);
-		std::cout << std::endl;
-		std::cout << "Counter: " << counter << std::endl;
-
-	}
+	generateMainChain(a_with_index, b, jacobsthal, pair);
 	std::vector<unsigned int> a_temp;
 	for (size_t k = 0; k < a_with_index.size(); ++k)
 	{
@@ -321,6 +287,54 @@ std::vector<unsigned int> Pmergeme::generateJacobsthal(unsigned int n)
 		--n;
 	}
 	return (jacobsthal);
+}
+
+//std::vector<std::pair<unsigned int, unsigned int> >
+void Pmergeme::generateMainChain(
+	std::vector<std::pair<unsigned int, unsigned int> > &a_with_index,
+	const std::vector<unsigned int> &b,
+	const std::vector<unsigned int> &jacobsthal,
+	const std::vector<std::pair<unsigned int, unsigned int> > &pair
+)
+{
+
+	for (std::vector<unsigned int>::const_iterator it = jacobsthal.begin(); it != jacobsthal.end(); ++it)
+	{
+		const unsigned int index_b = *it - 1; // index into _b (0-based)
+		const unsigned int insert_b = b[index_b];
+		std::pair<unsigned int, unsigned int>	b_with_index = std::make_pair(insert_b, index_b);
+
+		std::cout << "Inserting index of Jacobsthal " << *it << ": ";
+		std::cout << "the number is " << insert_b << std::endl;
+		if (index_b < b.size())
+			std::cout << "index of main chain: " << index_b << std::endl;
+		else
+			std::cout << "pair of the index: [odd element]" << std::endl;
+		// Determine the end of the search range in A
+		std::vector<std::pair<unsigned int, unsigned int> >::iterator range_end;
+		if (index_b < a_with_index.size())
+		{
+			std::cout << pair[index_b].first << " is the pair in main chain." << std::endl;
+			const std::pair<unsigned int, unsigned int> target_a = std::make_pair(pair[index_b].first, index_b);
+			std::cout << "target_a to find range end: " << target_a << std::endl;
+			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
+			if (range_end == a_with_index.end())
+				range_end = a_with_index.end();
+		}
+		else
+		{
+			// odd element has no paired 'first' in _pair; search entire A
+			range_end = a_with_index.end();
+		}
+		std::vector<std::pair<unsigned int, unsigned int> >::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
+		a_with_index.insert(insert_pos, b_with_index);
+		std::cout << "main chain after insertion: ";
+		print_pair(a_with_index);
+		std::cout << std::endl;
+		std::cout << "Counter: " << counter << std::endl;
+
+	}
+//	return (a_with_index);
 }
 
 std::vector<unsigned int>::size_type Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)

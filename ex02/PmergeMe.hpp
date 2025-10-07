@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/07 07:52:17 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/07 22:24:41 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ class Pmergeme
 			const std::vector<unsigned int> &b);
 		std::vector<unsigned int> generateJacobsthal(unsigned int n);
 		unsigned int Jacobsthal(unsigned int n);
+		void	generateMainChain(
+			std::vector<std::pair<unsigned int, unsigned int> > &a_with_index,
+			const std::vector<unsigned int> &b,
+			const std::vector<unsigned int> &jacobsthal,
+			const std::vector<std::pair<unsigned int, unsigned int> > &pair
+		);
 		std::vector<unsigned int>::size_type binary_search(std::vector<unsigned int> const &v, unsigned int value);
 };
 

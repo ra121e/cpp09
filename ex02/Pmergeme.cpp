@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/07 07:58:13 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/07 08:43:58 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	const unsigned int odd_value = is_odd ? value.back() : 0;
 
 	// calculate number of pairs
-	const size_t n = value.size() / 2 + (is_odd ? 1 : 0);
+	const size_t number_of_pends = value.size() / 2 + (is_odd ? 1 : 0);
 
 	// forming pairs and sorting each pair
 	std::vector<std::pair<unsigned int, unsigned int> > pair = generatePairs(value);
@@ -165,11 +165,11 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::cout << "pends: ";
 	print(b);
 	std::cout << std::endl;
-	std::cout << "pends size = " << n << std::endl;
+	std::cout << "pends size = " << number_of_pends << std::endl;
 
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
 //	_jacobsthal.clear();
-	std::vector<unsigned int> jacobsthal = generateJacobsthal(n);
+	std::vector<unsigned int> jacobsthal = generateJacobsthal(number_of_pends);
 
 	std::cout << "Jacobsthal: ";
 	print(jacobsthal);

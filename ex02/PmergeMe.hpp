@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/07 22:24:41 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:38:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ class Pmergeme
 		std::vector<unsigned int>::size_type binary_search(std::vector<unsigned int> const &v, unsigned int value);
 };
 
-std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p);
+// std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p);
 #endif

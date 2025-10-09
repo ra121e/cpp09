@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/27 17:10:29 by athonda           #+#    #+#              #
-#    Updated: 2025/10/08 19:11:33 by athonda          ###   ########.fr        #
+#    Updated: 2025/10/09 11:47:21 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRC_F	=	main.cpp \
 			Pmergeme.cpp \
 			BinarySearchCounter.cpp \
 			FindSecondByFirst.cpp \
-			Timer.cpp
+			Timer.cpp \
+			Utility.cpp
 
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)

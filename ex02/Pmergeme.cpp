@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 14:13:45 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:58:39 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ const std::vector<unsigned int>	&Pmergeme::getValue() const
 	return (_value);
 }
 
-const std::vector<size_t>	&Pmergeme::getIndex() const
-{
-	return (_index);
-}
-
-const unsigned int	&Pmergeme::getSizeValue() const
-{
-	return (_size_value);
-}
-
 void	Pmergeme::setInput(int ac, char **av)
 {
 	std::stringstream	ss;
@@ -102,7 +92,7 @@ void	Pmergeme::setInput(int ac, char **av)
 //			return ;
 //		}
 		_value.push_back(num);
-		_pair.push_back(std::make_pair(num, 0));
+//		_pair.push_back(std::make_pair(num, 0));
 	}
 }
 

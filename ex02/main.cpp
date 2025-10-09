@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 12:12:52 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:07:38 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	main(int ac, char **av)
 	}
 	Pmergeme	a;
 	a.setInput(ac, av);
-	std::cout << "Before: ";
-	print(a.getValue());
+	print(a.getValue(), "Before");
 //	a.print(a.getIndex());
 
 	long start_time = getTime();

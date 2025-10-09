@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 13:52:59 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:13:45 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,55 +126,45 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	std::vector<unsigned int> firsts = extractFirsts(pair);
 
 	// print debug info. delete later
-	std::cout << "Making pairs and comparing, swapping: ";
-	print(pair);
 	if (is_odd)
-		std::cout << " " << odd_value;
-	std::cout << std::endl;
+	{
+		print(pair, "Making pairs and comparing, swapping");
+		std::cout << "the last number of odd case: " << odd_value << std::endl;
+	}
+	else
+		print(pair, "Making pairs and comparing, swapping");
+
 	std::cout << "counter after pairing: " << counter << std::endl;
-	std::cout << "greaters: ";
-	print(firsts);
-	std::cout << std::endl;
+	print(firsts, "greaters");
 
 
 	// recursively sort the firsts
 	std::vector<unsigned int> a = sort(firsts);
-	std::cout << std::endl;
-	std::cout << "Sequence from recursive: ";
-	print(a);
-	std::cout << std::endl;
+	print(a, "Sequence from recursive");
 
 	// extract the seconds according to the order of firsts
 	std::vector<unsigned int> b = buildPends(a, pair, is_odd, odd_value);
-	print(a);
-	print(b);
+	print(b, "pends");
 
 
 	// making main chain with index
 	std::vector<std::pair<unsigned int, unsigned int> > a_with_index = generateMainChainWithIndex(a);
 
 	// print debug info. delete later
-	std::cout << "main chain with index: ";
-	print(a_with_index);
-	std::cout << std::endl;
+	print(a_with_index, "main chain with index");
 
 	// making pair container of a with b
 	pair.clear();
 	pair = generatePairsOrdered(a_with_index, b);
 
 	// display pands later delete
-	std::cout << "pends: ";
-	print(b);
-	std::cout << std::endl;
+	print(b, "pends");
 	std::cout << "pends size = " << number_of_pends << std::endl;
 
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
-//	_jacobsthal.clear();
 	std::vector<unsigned int> jacobsthal = generateJacobsthal(number_of_pends);
 
-	std::cout << "Jacobsthal: ";
-	print(jacobsthal);
-	std::cout << std::endl;
+	print(jacobsthal, "Jacobsthal");
 
 
 	// Insertion of element b into the interval of a with index using Jacobsthal sequence
@@ -185,7 +175,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 	{
 		a_temp.push_back(a_with_index[k].first);
 	}
-	print(a_temp);
+	print(a_temp, "After");
 	std::cout << "Counter: " << counter << std::endl;
 	return (a_temp);
 }
@@ -290,7 +280,6 @@ std::vector<unsigned int> Pmergeme::generateJacobsthal(unsigned int n)
 	return (jacobsthal);
 }
 
-//std::vector<std::pair<unsigned int, unsigned int> >
 void Pmergeme::generateMainChain(
 	std::vector<std::pair<unsigned int, unsigned int> > &a_with_index,
 	const std::vector<unsigned int> &b,
@@ -329,13 +318,10 @@ void Pmergeme::generateMainChain(
 		}
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
 		a_with_index.insert(insert_pos, b_with_index);
-		std::cout << "main chain after insertion: ";
-		print(a_with_index);
-		std::cout << std::endl;
+		print(a_with_index, "main chain with index");
 		std::cout << "Counter: " << counter << std::endl;
 
 	}
-//	return (a_with_index);
 }
 
 std::vector<unsigned int>::size_type Pmergeme::binary_search(std::vector<unsigned int> const &v, unsigned int value)
@@ -361,41 +347,3 @@ unsigned int Pmergeme::Jacobsthal(unsigned int n)
 		return (1);
 	return (Jacobsthal(n - 1) + 2 * Jacobsthal(n - 2));
 }
-
-//void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const
-//{
-//	for (std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it = v.begin(); it != v.end(); ++it)
-//	{
-//		std::cout << *it << " ";
-//	}
-//}
-//
-//void	Pmergeme::print(std::vector<unsigned int> const &v) const
-//{
-//	for (std::vector<unsigned int>::const_iterator it = v.begin(); it != v.end(); ++it)
-//	{
-//		std::cout << *it << " ";
-//	}
-//}
-//
-//void	Pmergeme::print_before() const
-//{
-//	print(_value);
-//	std::cout << std::endl;
-//}
-//
-//void	Pmergeme::print_a() const
-//{
-//	print(_a);
-//}
-//
-//void	Pmergeme::print_b() const
-//{
-//	print(_b);
-//}
-//
-//std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p)
-//{
-//	os << "[" << p.first << ", " << p.second << "]";
-//	return (os);
-//}

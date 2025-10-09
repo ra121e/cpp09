@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 11:47:30 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 12:09:14 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 	// extract the seconds according to the order of firsts
 	std::vector<unsigned int> b = buildPends(a, pair, is_odd, odd_value);
-	print_a();
-	print_b();
+	print(a);
+	print(b);
 
 
 	// making main chain with index
@@ -362,38 +362,38 @@ unsigned int Pmergeme::Jacobsthal(unsigned int n)
 	return (Jacobsthal(n - 1) + 2 * Jacobsthal(n - 2));
 }
 
-void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const
-{
-	for (std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it = v.begin(); it != v.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-}
-
-void	Pmergeme::print(std::vector<unsigned int> const &v) const
-{
-	for (std::vector<unsigned int>::const_iterator it = v.begin(); it != v.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-}
-
-void	Pmergeme::print_before() const
-{
-	print(_value);
-	std::cout << std::endl;
-}
-
-void	Pmergeme::print_a() const
-{
-	print(_a);
-}
-
-void	Pmergeme::print_b() const
-{
-	print(_b);
-}
-
+//void	Pmergeme::print_pair(std::vector<std::pair<unsigned int, unsigned int> > const &v) const
+//{
+//	for (std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it = v.begin(); it != v.end(); ++it)
+//	{
+//		std::cout << *it << " ";
+//	}
+//}
+//
+//void	Pmergeme::print(std::vector<unsigned int> const &v) const
+//{
+//	for (std::vector<unsigned int>::const_iterator it = v.begin(); it != v.end(); ++it)
+//	{
+//		std::cout << *it << " ";
+//	}
+//}
+//
+//void	Pmergeme::print_before() const
+//{
+//	print(_value);
+//	std::cout << std::endl;
+//}
+//
+//void	Pmergeme::print_a() const
+//{
+//	print(_a);
+//}
+//
+//void	Pmergeme::print_b() const
+//{
+//	print(_b);
+//}
+//
 //std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p)
 //{
 //	os << "[" << p.first << ", " << p.second << "]";

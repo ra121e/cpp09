@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/08 19:15:59 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 12:12:52 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <iostream>
 #include <sys/time.h>
 #include "Timer.hpp"
+#include "Utility.hpp"
 
 int	main(int ac, char **av)
 {
@@ -25,7 +26,7 @@ int	main(int ac, char **av)
 	Pmergeme	a;
 	a.setInput(ac, av);
 	std::cout << "Before: ";
-	a.print_before();
+	print(a.getValue());
 //	a.print(a.getIndex());
 
 	long start_time = getTime();

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 12:09:14 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 13:52:59 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 	// print debug info. delete later
 	std::cout << "Making pairs and comparing, swapping: ";
-	print_pair(pair);
+	print(pair);
 	if (is_odd)
 		std::cout << " " << odd_value;
 	std::cout << std::endl;
@@ -155,7 +155,7 @@ std::vector<unsigned int>	Pmergeme::sort(std::vector<unsigned int> value)
 
 	// print debug info. delete later
 	std::cout << "main chain with index: ";
-	print_pair(a_with_index);
+	print(a_with_index);
 	std::cout << std::endl;
 
 	// making pair container of a with b
@@ -330,7 +330,7 @@ void Pmergeme::generateMainChain(
 		std::vector<std::pair<unsigned int, unsigned int> >::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
 		a_with_index.insert(insert_pos, b_with_index);
 		std::cout << "main chain after insertion: ";
-		print_pair(a_with_index);
+		print(a_with_index);
 		std::cout << std::endl;
 		std::cout << "Counter: " << counter << std::endl;
 

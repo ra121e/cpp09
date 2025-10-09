@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:38:49 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 12:12:21 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/09 13:52:22 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int>
 	return (os);
 }
 
-void	print_pair(std::vector<std::pair<unsigned int, unsigned int> >const &v)
+void	print(std::vector<std::pair<unsigned int, unsigned int> >const &v)
 {
 	for (std::vector<std::pair<unsigned int, unsigned int> >::const_iterator it = v.begin(); it != v.end(); ++it)
 	{

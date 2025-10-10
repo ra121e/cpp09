@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/09 14:07:38 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 01:46:58 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 		std::cerr << "Usage: ./PmergeMe num num num ...." << std::endl;
 		return (1);
 	}
-	Pmergeme	a;
+	Pmergeme<std::vector, unsigned int> a;
 	a.setInput(ac, av);
 	print(a.getValue(), "Before");
 //	a.print(a.getIndex());

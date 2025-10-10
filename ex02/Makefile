@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/27 17:10:29 by athonda           #+#    #+#              #
-#    Updated: 2025/10/10 16:15:22 by athonda          ###   ########.fr        #
+#    Updated: 2025/10/11 02:21:08 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,7 @@ NAME	=	PmergeMe
 SRC_F	=	main.cpp \
 			PmergeMe.cpp \
 			BinarySearchCounter.cpp \
-			FindSecondByFirst.cpp \
-			Timer.cpp \
-			Utility.cpp
+			FindSecondByFirst.cpp
 
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)

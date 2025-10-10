@@ -6,14 +6,14 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/27 17:10:29 by athonda           #+#    #+#              #
-#    Updated: 2025/10/09 11:47:21 by athonda          ###   ########.fr        #
+#    Updated: 2025/10/10 16:15:22 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	PmergeMe
 
 SRC_F	=	main.cpp \
-			Pmergeme.cpp \
+			PmergeMe.cpp \
 			BinarySearchCounter.cpp \
 			FindSecondByFirst.cpp \
 			Timer.cpp \

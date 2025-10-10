@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:54:04 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 02:30:52 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 02:38:05 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,36 @@ void	print(std::vector<size_t> const &v, std::string const &s)
 {
 	std::cout << s << ": ";
 	for (std::vector<size_t>::const_iterator it = v.begin(); it != v.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+void	print(std::deque<std::pair<unsigned int, unsigned int> >const &v, std::string const &s)
+{
+	std::cout << s << ": ";
+	for (std::deque<std::pair<unsigned int, unsigned int> >::const_iterator it = v.begin(); it != v.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+void	print(std::deque<unsigned int> const &v, std::string const &s)
+{
+	std::cout << s << ": ";
+	for (std::deque<unsigned int>::const_iterator it = v.begin(); it != v.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+void	print(std::deque<size_t> const &v, std::string const &s)
+{
+	std::cout << s << ": ";
+	for (std::deque<size_t>::const_iterator it = v.begin(); it != v.end(); ++it)
 	{
 		std::cout << *it << " ";
 	}

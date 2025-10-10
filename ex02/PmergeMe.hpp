@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 02:31:00 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 02:34:48 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int>
 void	print(std::vector<std::pair<unsigned int, unsigned int> > const &v, std::string const &s);
 void	print(std::vector<unsigned int> const &v, std::string const &s);
 void	print(std::vector<size_t> const &v, std::string const &s);
+void	print(std::deque<std::pair<unsigned int, unsigned int> > const &v, std::string const &s);
+void	print(std::deque<unsigned int> const &v, std::string const &s);
+void	print(std::deque<size_t> const &v, std::string const &s);
 
 long	getTime();
 template <template <typename, typename> class T, typename N>

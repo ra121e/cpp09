@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 01:46:58 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 02:39:21 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,13 @@ int	main(int ac, char **av)
 	long end_time = getTime();
 	std::cout << "end time: " << end_time - start_time << " microseconds" << std::endl;
 
+	Pmergeme<std::deque, unsigned int> b;
+	b.setInput(ac, av);
+	print(b.getValue(), "Before");
+
+	long start_deque = getTime();
+	b.sort(b.getValue());
+	long end_deque = getTime();
+	std::cout << "end deque: " << end_deque - start_deque << " microseconds" << std::endl;
 	return (0);
 }

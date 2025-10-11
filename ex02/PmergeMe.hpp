@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 02:34:48 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 10:23:08 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,10 @@
 # include <sstream>
 # include <string>
 # include <algorithm>
-# include <iostream>
-# include <sstream>
-# include <string>
-# include <algorithm>
 # include "FindSecondByFirst.hpp"
 # include "BinarySearchCounter.hpp"
 
-
+// utility functions
 std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p);
 
 void	print(std::vector<std::pair<unsigned int, unsigned int> > const &v, std::string const &s);
@@ -39,13 +35,15 @@ void	print(std::deque<unsigned int> const &v, std::string const &s);
 void	print(std::deque<size_t> const &v, std::string const &s);
 
 long	getTime();
+
+// Pmergeme class
 template <template <typename, typename> class T, typename N>
 class Pmergeme
 {
-	// C++98互換: 型の短縮名を用意してアロケータ指定を隠蔽
-	typedef T<N, std::allocator<N> > container_type;
-	typedef std::pair<N, N>          pair_type;
-	typedef T<pair_type, std::allocator<pair_type> > pair_container;
+	typedef T<N, std::allocator<N> >	container_type;
+	typedef std::pair<N, N>				pair_type;
+	typedef T<pair_type, std::allocator<pair_type> >	pair_container;
+
 	public:
 		Pmergeme();
 		Pmergeme(Pmergeme const &other);
@@ -53,14 +51,16 @@ class Pmergeme
 		~Pmergeme();
 
 		void	setInput(int ac, char **av);
-//		std::vector<unsigned int>	sort(std::vector<unsigned int> value);
 		container_type	sort(container_type value);
+//		std::vector<unsigned int>	sort(std::vector<unsigned int> value);
 		const container_type	&getValue() const;
+		const container_type	&getSorted() const;
 
 
 	private:
 		container_type	_value;
-		N		counter;
+		container_type	_sorted;
+		N				counter;
 
 		pair_container	generatePairs(const container_type &value);
 		container_type extractFirsts(pair_container const &pair);
@@ -92,6 +92,7 @@ Pmergeme<T, N>::Pmergeme(): counter(0)
 template <template <typename, typename> class T, typename N>
 Pmergeme<T, N>::Pmergeme(Pmergeme const &other):
 	_value(other._value),
+	_sorted(other._sorted),
 	counter(other.counter)
 {
 }
@@ -102,6 +103,7 @@ Pmergeme<T, N>	&Pmergeme<T, N>::operator=(Pmergeme const &other)
 	if (this != &other)
 	{
 		_value = other._value;
+		_sorted = other._sorted;
 		counter = other.counter;
 	}
 	return (*this);
@@ -118,12 +120,18 @@ const typename Pmergeme<T, N>::container_type	&Pmergeme<T, N>::getValue() const
 }
 
 template <template <typename, typename> class T, typename N>
+const typename Pmergeme<T, N>::container_type	&Pmergeme<T, N>::getSorted() const
+{
+	return (_sorted);
+}
+
+template <template <typename, typename> class T, typename N>
 void	Pmergeme<T, N>::setInput(int ac, char **av)
 {
 	std::stringstream	ss;
 	for (int i = 1; i < ac; ++i)
 	{
-		ss << av[i] << " "; // C++98でもchar*の挿入は可
+		ss << av[i] << " ";
 	}
 
 	std::string			line;
@@ -159,7 +167,6 @@ void	Pmergeme<T, N>::setInput(int ac, char **av)
 //			return ;
 //		}
 		_value.push_back(num);
-//		_pair.push_back(std::make_pair(num, 0));
 	}
 }
 
@@ -177,64 +184,41 @@ typename Pmergeme<T, N>::container_type	Pmergeme<T, N>::sort(container_type valu
 	// calculate number of pairs
 	const size_t number_of_pends = value.size() / 2 + (is_odd ? 1 : 0);
 
+	// display the progress containers
+	// print(container variables, "message")
+
 	// forming pairs and sorting each pair
 	pair_container pair = generatePairs(value);
 
 	// generate firsts (greaters) from pairs
 	container_type firsts = extractFirsts(pair);
 
-	// print debug info. delete later
-	if (is_odd)
-	{
-		print(pair, "Making pairs and comparing, swapping");
-		std::cout << "the last number of odd case: " << odd_value << std::endl;
-	}
-	else
-		print(pair, "Making pairs and comparing, swapping");
-
-	std::cout << "counter after pairing: " << counter << std::endl;
-	print(firsts, "greaters");
-
-
 	// recursively sort the firsts
 	container_type a = sort(firsts);
-	print(a, "Sequence from recursive");
 
 	// extract the seconds according to the order of firsts
 	container_type b = buildPends(a, pair, is_odd, odd_value);
-	print(b, "pends");
-
 
 	// making main chain with index
 	pair_container a_with_index = generateMainChainWithIndex(a);
-
-	// print debug info. delete later
-	print(a_with_index, "main chain with index");
 
 	// making pair container of a with b
 	pair.clear();
 	pair = generatePairsOrdered(a_with_index, b);
 
-	// display pands later delete
-	print(b, "pends");
-	std::cout << "pends size = " << number_of_pends << std::endl;
-
 	// Generate Jacobsthal sequence up to size of pair (or size of pair + 1 if odd)
 	container_type jacobsthal = generateJacobsthal(number_of_pends);
 
-	print(jacobsthal, "Jacobsthal");
-
-
 	// Insertion of element b into the interval of a with index using Jacobsthal sequence
-
 	generateMainChain(a_with_index, b, jacobsthal, pair);
 	container_type a_temp;
 	for (size_t k = 0; k < a_with_index.size(); ++k)
 	{
 		a_temp.push_back(a_with_index[k].first);
 	}
-	print(a_temp, "After");
-	std::cout << "Counter: " << counter << std::endl;
+//	print(a_temp, "After");
+//	std::cout << "Counter: " << counter << std::endl;
+	_sorted = a_temp;
 	return (a_temp);
 }
 
@@ -358,19 +342,19 @@ void Pmergeme<T, N>::generateMainChain(
 		const N insert_b = b[index_b];
 		pair_type b_with_index = std::make_pair(insert_b, index_b);
 
-		std::cout << "Inserting index of Jacobsthal " << *it << ": ";
-		std::cout << "the number is " << insert_b << std::endl;
-		if (index_b < b.size())
-			std::cout << "index of main chain: " << index_b << std::endl;
-		else
-			std::cout << "pair of the index: [odd element]" << std::endl;
+//		std::cout << "Inserting index of Jacobsthal " << *it << ": ";
+//		std::cout << "the number is " << insert_b << std::endl;
+//		if (index_b < b.size())
+//			std::cout << "index of main chain: " << index_b << std::endl;
+//		else
+//			std::cout << "pair of the index: [odd element]" << std::endl;
 		// Determine the end of the search range in A
 		typename pair_container::iterator range_end;
 		if (index_b < a_with_index.size())
 		{
-			std::cout << pair[index_b].first << " is the pair in main chain." << std::endl;
+//			std::cout << pair[index_b].first << " is the pair in main chain." << std::endl;
 			const pair_type target_a = std::make_pair(pair[index_b].first, index_b);
-			std::cout << "target_a to find range end: " << target_a << std::endl;
+//			std::cout << "target_a to find range end: " << target_a << std::endl;
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
 			if (range_end == a_with_index.end())
 				range_end = a_with_index.end();
@@ -382,8 +366,8 @@ void Pmergeme<T, N>::generateMainChain(
 		}
 		typename pair_container::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
 		a_with_index.insert(insert_pos, b_with_index);
-		print(a_with_index, "main chain with index");
-		std::cout << "Counter: " << counter << std::endl;
+//		print(a_with_index, "main chain with index");
+//		std::cout << "Counter: " << counter << std::endl;
 	}
 }
 

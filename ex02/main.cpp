@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 02:39:21 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 10:22:40 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char **av)
 
 	long start_time = getTime();
 	a.sort(a.getValue());
+	print(a.getSorted(), "After");
 	long end_time = getTime();
 	std::cout << "end time: " << end_time - start_time << " microseconds" << std::endl;
 
@@ -39,6 +40,7 @@ int	main(int ac, char **av)
 
 	long start_deque = getTime();
 	b.sort(b.getValue());
+	print(b.getSorted(), "After");
 	long end_deque = getTime();
 	std::cout << "end deque: " << end_deque - start_deque << " microseconds" << std::endl;
 	return (0);

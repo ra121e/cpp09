@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 14:07:26 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 14:15:47 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <sstream>
 # include <string>
 # include <algorithm>
-# include "FindSecondByFirst.hpp"
-# include "BinarySearchCounter.hpp"
 
 // utility functions
 std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p);
@@ -35,6 +33,26 @@ void	print(std::deque<unsigned int> const &v, std::string const &s);
 void	print(std::deque<size_t> const &v, std::string const &s);
 
 long	getTime();
+
+class BinarySearchCounter
+{
+	public:
+		BinarySearchCounter(unsigned int &_counter);
+		~BinarySearchCounter();
+		bool operator()(std::pair<unsigned int, unsigned int> const &lhs, std::pair<unsigned int, unsigned int> const &rhs);
+	private:
+		unsigned int &counter;
+};
+class FindSecondByFirst
+{
+	private:
+		unsigned int	_first;
+
+	public:
+		FindSecondByFirst(unsigned int value);
+		~FindSecondByFirst();
+		bool	operator()(std::pair<unsigned int, unsigned int> const &p) const;
+};
 
 // Pmergeme class
 template <template <typename, typename> class T, typename N>

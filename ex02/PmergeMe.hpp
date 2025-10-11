@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 13:09:17 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 14:07:26 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,12 @@ class Pmergeme
 		N				counter;
 
 		pair_container	generatePairs(const container_type &value);
-		container_type extractFirsts(pair_container const &pair);
-		container_type buildPends(
-			container_type const &a,
-			pair_container &pair,
-			bool is_odd,
-			N odd_value);
-		pair_container generateMainChainWithIndex(
-			const container_type &a);
-		pair_container generatePairsOrdered(
-			pair_container a_with_index,
-			const container_type &b);
-		container_type generateJacobsthal(N n);
-		unsigned int Jacobsthal(unsigned int n);
+		container_type	extractFirsts(pair_container const &pair);
+		container_type	buildPends(container_type const &a, pair_container &pair, bool is_odd, N odd_value);
+		pair_container	generateMainChainWithIndex(const container_type &a);
+		pair_container	generatePairsOrdered(pair_container a_with_index, const container_type &b);
+		container_type	generateJacobsthal(N n);
+		unsigned int	Jacobsthal(unsigned int n);
 		void	generateMainChain(
 			pair_container &a_with_index,
 			const container_type &b,
@@ -227,8 +220,6 @@ typename Pmergeme<T, N>::container_type	Pmergeme<T, N>::sort(container_type valu
 	{
 		a_temp.push_back(a_with_index[k].first);
 	}
-//	print(a_temp, "After");
-//	std::cout << "Counter: " << counter << std::endl;
 	_sorted = a_temp;
 	return (a_temp);
 }
@@ -353,32 +344,18 @@ void Pmergeme<T, N>::generateMainChain(
 		const N insert_b = b[index_b];
 		pair_type b_with_index = std::make_pair(insert_b, index_b);
 
-//		std::cout << "Inserting index of Jacobsthal " << *it << ": ";
-//		std::cout << "the number is " << insert_b << std::endl;
-//		if (index_b < b.size())
-//			std::cout << "index of main chain: " << index_b << std::endl;
-//		else
-//			std::cout << "pair of the index: [odd element]" << std::endl;
-		// Determine the end of the search range in A
 		typename pair_container::iterator range_end;
 		if (index_b < a_with_index.size())
 		{
-//			std::cout << pair[index_b].first << " is the pair in main chain." << std::endl;
 			const pair_type target_a = std::make_pair(pair[index_b].first, index_b);
-//			std::cout << "target_a to find range end: " << target_a << std::endl;
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);
 			if (range_end == a_with_index.end())
 				range_end = a_with_index.end();
 		}
 		else
-		{
-			// odd element has no paired 'first' in _pair; search entire A
 			range_end = a_with_index.end();
-		}
 		typename pair_container::iterator insert_pos = std::lower_bound(a_with_index.begin(), range_end, b_with_index, BinarySearchCounter(counter));
 		a_with_index.insert(insert_pos, b_with_index);
-//		print(a_with_index, "main chain with index");
-//		std::cout << "Counter: " << counter << std::endl;
 	}
 }
 

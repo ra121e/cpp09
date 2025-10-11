@@ -6,15 +6,13 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 13:09:13 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 14:02:59 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <iostream>
 #include <sys/time.h>
-#include "Timer.hpp"
-#include "Utility.hpp"
 
 int	main(int ac, char **av)
 {

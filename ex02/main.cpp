@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 10:36:07 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 13:09:13 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	Pmergeme<std::vector, unsigned int> a;
-	a.setInput(ac, av);
+	if (!a.setInput(ac, av))
+		return 1;
 	print(a.getValue(), "Before");
 //	a.print(a.getIndex());
 
@@ -37,7 +38,8 @@ int	main(int ac, char **av)
 	std::cout << "Counter: " << a.getCounter() << std::endl;
 
 	Pmergeme<std::deque, unsigned int> b;
-	b.setInput(ac, av);
+	if (!b.setInput(ac, av))
+		return 1;
 	print(b.getValue(), "Before");
 
 	long start_deque = getTime();

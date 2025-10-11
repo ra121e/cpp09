@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 10:35:30 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 13:09:17 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ class Pmergeme
 		Pmergeme	&operator=(Pmergeme const &other);
 		~Pmergeme();
 
-		void	setInput(int ac, char **av);
+		bool	setInput(int ac, char **av);
 		container_type	sort(container_type value);
 //		std::vector<unsigned int>	sort(std::vector<unsigned int> value);
 		const container_type	&getValue() const;
@@ -133,8 +133,9 @@ const unsigned int	&Pmergeme<T, N>::getCounter() const
 }
 
 template <template <typename, typename> class T, typename N>
-void	Pmergeme<T, N>::setInput(int ac, char **av)
+bool	Pmergeme<T, N>::setInput(int ac, char **av)
 {
+	_value.clear();
 	std::stringstream	ss;
 	for (int i = 1; i < ac; ++i)
 	{
@@ -146,7 +147,7 @@ void	Pmergeme<T, N>::setInput(int ac, char **av)
 	if (line.empty() || ss.fail() || !ss.eof())
 	{
 		std::cerr << "error: Wrong input of argument." << std::endl;
-		return ;
+		return false;
 	}
 
 	std::stringstream	ss_input(line);
@@ -156,25 +157,28 @@ void	Pmergeme<T, N>::setInput(int ac, char **av)
 		if (token.empty() || ss_input.fail())
 		{
 			std::cerr << "error: Wrong input of token." << std::endl;
-			return ;
+			_value.clear();
+			return false;
 		}
+		// Parse to signed int first to detect negatives, then cast to N
 		std::stringstream	ss_num(token);
-		N		num;
-		ss_num >> num;
+		int		num_int = 0;
+		ss_num >> num_int;
 		if (ss_num.fail() || !ss_num.eof())
 		{
 			std::cerr << "error: Wrong input of numbers." << std::endl;
-			return ;
+			_value.clear();
+			return false;
 		}
-//		if (num < 0)
-//		{
-//			std::cerr << "error: Negative number is not allowed." << std::endl;
-//			_value.clear();
-//			_pair.clear();
-//			return ;
-//		}
-		_value.push_back(num);
+		if (num_int < 0)
+		{
+			std::cerr << "error: Negative number is not allowed." << std::endl;
+			_value.clear();
+			return false;
+		}
+		_value.push_back(static_cast<N>(num_int));
 	}
+	return true;
 }
 
 template <template <typename, typename> class T, typename N>

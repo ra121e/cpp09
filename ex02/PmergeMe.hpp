@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 10:23:08 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 10:35:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ class Pmergeme
 //		std::vector<unsigned int>	sort(std::vector<unsigned int> value);
 		const container_type	&getValue() const;
 		const container_type	&getSorted() const;
+		const unsigned int		&getCounter() const;
 
 
 	private:
@@ -123,6 +124,12 @@ template <template <typename, typename> class T, typename N>
 const typename Pmergeme<T, N>::container_type	&Pmergeme<T, N>::getSorted() const
 {
 	return (_sorted);
+}
+
+template <template <typename, typename> class T, typename N>
+const unsigned int	&Pmergeme<T, N>::getCounter() const
+{
+	return (counter);
 }
 
 template <template <typename, typename> class T, typename N>

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 17:58:02 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 10:22:40 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/11 10:36:07 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int	main(int ac, char **av)
 	a.sort(a.getValue());
 	print(a.getSorted(), "After");
 	long end_time = getTime();
-	std::cout << "end time: " << end_time - start_time << " microseconds" << std::endl;
+	std::cout << "Time to process a rage of the elements with vector: ";
+	std::cout << end_time - start_time << " microseconds" << std::endl;
+	std::cout << "Counter: " << a.getCounter() << std::endl;
 
 	Pmergeme<std::deque, unsigned int> b;
 	b.setInput(ac, av);
@@ -42,6 +44,8 @@ int	main(int ac, char **av)
 	b.sort(b.getValue());
 	print(b.getSorted(), "After");
 	long end_deque = getTime();
-	std::cout << "end deque: " << end_deque - start_deque << " microseconds" << std::endl;
+	std::cout << "Time to process a rage of the elements with deque: ";
+	std::cout << end_deque - start_deque << " microseconds" << std::endl;
+	std::cout << "Counter: " << b.getCounter() << std::endl;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/13 22:03:51 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/13 22:46:05 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ bool	BitcoinExchange::setRate(std::string const &filename)
 	std::string	line;
 	std::getline(ifs, line);
 	std::cout << line << std::endl;
+	std::map<std::string, double>	tmp;
+	size_t	errorCount = 0;
 
 	while (std::getline(ifs, line))
 	{
@@ -61,12 +63,20 @@ bool	BitcoinExchange::setRate(std::string const &filename)
 		if (date_str.empty() || ss.fail() || ss.eof())
 		{
 			std::cerr << "error: cannot read date correctly." << std::endl;
+			errorCount++;
+			continue ;
+		}
+		if (!validate_date(date_str))
+		{
+			std::cerr << "error: invalid date format." << std::endl;
+			errorCount++;
 			continue ;
 		}
 		std::getline(ss, rate_str);
 		if (rate_str.empty() || ss.fail() || !ss.eof())
 		{
 			std::cerr << "error: cannot read rate correctly." << std::endl;
+			errorCount++;
 			continue ;
 		}
 
@@ -75,11 +85,35 @@ bool	BitcoinExchange::setRate(std::string const &filename)
 		if (ss_rate.fail() || !ss_rate.eof())
 		{
 			std::cerr << "error: cannot convert rate to double." << std::endl;
+			errorCount++;
 			continue ;
 		}
-		_ratemap[date_str] = rate_double;
+		if (rate_double < 0)
+		{
+			std::cerr << "error: rate cannot be negative." << std::endl;
+			errorCount++;
+			continue ;
+		}
+		if (tmp.find(date_str) != tmp.end())
+		{
+			std::cerr << "error: duplicate date entry." << std::endl;
+			errorCount++;
+			continue ;
+		}
+		tmp[date_str] = rate_double;
 	}
 	ifs.close();
+	if (tmp.empty())
+	{
+		std::cerr << "error: no valid data found." << std::endl;
+		return (false);
+	}
+	if (errorCount > 0)
+	{
+		std::cerr << "error: There are " << errorCount << " invalid row(s)." << std::endl;
+		return (false);
+	}
+	_ratemap.swap(tmp);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/11 14:15:47 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/13 08:13:12 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sstream>
 # include <string>
 # include <algorithm>
+# include <climits>
 
 // utility functions
 std::ostream	&operator<<(std::ostream &os, std::pair<unsigned int, unsigned int> const &p);
@@ -173,21 +174,27 @@ bool	Pmergeme<T, N>::setInput(int ac, char **av)
 		}
 		// Parse to signed int first to detect negatives, then cast to N
 		std::stringstream	ss_num(token);
-		int		num_int = 0;
-		ss_num >> num_int;
+		long long			num = 0;
+		ss_num >> num;
 		if (ss_num.fail() || !ss_num.eof())
 		{
 			std::cerr << "error: Wrong input of numbers." << std::endl;
 			_value.clear();
 			return false;
 		}
-		if (num_int < 0)
+		if (num < 0)
 		{
 			std::cerr << "error: Negative number is not allowed." << std::endl;
 			_value.clear();
 			return false;
 		}
-		_value.push_back(static_cast<N>(num_int));
+		if (num > INT_MAX)
+		{
+			std::cerr << "error: Number too large." << std::endl;
+			_value.clear();
+			return false;
+		}
+		_value.push_back(static_cast<N>(num));
 	}
 	return true;
 }

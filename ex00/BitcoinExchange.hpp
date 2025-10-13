@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/07/21 15:41:22 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/13 22:03:16 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class BitcoinExchange
 		BitcoinExchange	&operator=(BitcoinExchange const &other);
 		~BitcoinExchange();
 
-		void	setRate(std::string const &filename);
+		bool	setRate(std::string const &filename);
 		void	inputFile(std::string const &filename) const;
 	private:
 		std::map<std::string, double>	_ratemap;

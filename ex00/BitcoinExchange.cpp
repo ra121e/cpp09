@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/13 21:24:06 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/13 22:03:51 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
 BitcoinExchange::~BitcoinExchange()
 {}
 
-void	BitcoinExchange::setRate(std::string const &filename)
+bool	BitcoinExchange::setRate(std::string const &filename)
 {
 
 	std::ifstream	ifs(filename.c_str());
 	if (!ifs.is_open())
 	{
 		std::cerr << "Error: file not open." << std::endl;
-		return ;
+		return (false);
 	}
 
 	std::string	line;
@@ -80,6 +80,7 @@ void	BitcoinExchange::setRate(std::string const &filename)
 		_ratemap[date_str] = rate_double;
 	}
 	ifs.close();
+	return (true);
 }
 
 //bool	BitcoinExchange::IsNotSpace::operator()(char c) const

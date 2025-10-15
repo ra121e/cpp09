@@ -6,3 +6,5 @@ obj/
 !.gitignore
 *.tgz
 cpp_09/
+*.csv
+*.txt

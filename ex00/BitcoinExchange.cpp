@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/15 15:50:18 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/15 16:08:23 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,10 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 	}
 
 	std::getline(ifs, line);
+	if (line != "date | value\n" && line != "date | value")
+	{
+		std::cerr << "Warning: header is not the expected format `date | value`." << std::endl;
+	}
 
 	while (std::getline(ifs, line))
 	{
@@ -208,7 +212,10 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 		std::string	date;
 		std::getline(ss, date, '|');
 		if (ss.fail() || ss.eof() || date.empty())
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
 			continue ;
+		}
 
 		date = trim(date);
 		if (date.empty())

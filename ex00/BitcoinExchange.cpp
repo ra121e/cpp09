@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/13 22:46:05 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/15 15:36:28 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,20 @@ bool	BitcoinExchange::setRate(std::string const &filename)
 	std::ifstream	ifs(filename.c_str());
 	if (!ifs.is_open())
 	{
-		std::cerr << "Error: file not open." << std::endl;
+		std::cerr << "Data file Error: file not open." << std::endl;
 		return (false);
 	}
 
 	std::string	line;
 	std::getline(ifs, line);
-	std::cout << line << std::endl;
+	if (line != "date,exchange_rate")
+	{
+		std::cerr << "Data file Error: header is not valid." << std::endl;
+		return (false);
+	}
+
 	std::map<std::string, double>	tmp;
 	size_t	errorCount = 0;
-
 	while (std::getline(ifs, line))
 	{
 		std::stringstream ss(line);

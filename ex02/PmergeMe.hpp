@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 18:07:27 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/13 08:13:12 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/16 13:45:01 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,7 +370,9 @@ void Pmergeme<T, N>::generateMainChain(
 		pair_type b_with_index = std::make_pair(insert_b, index_b);
 
 		typename pair_container::iterator range_end;
-		if (index_b < a_with_index.size())
+		// Use pair.size() for bounds: 'pair' does not contain the odd last element of b.
+		// a_with_index grows as we insert, so checking against its size is incorrect here.
+		if (index_b < pair.size())
 		{
 			const pair_type target_a = std::make_pair(pair[index_b].first, index_b);
 			range_end = std::find(a_with_index.begin(), a_with_index.end(), target_a);

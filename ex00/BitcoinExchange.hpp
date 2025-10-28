@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/13 22:03:16 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/28 15:54:26 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ class BitcoinExchange
 		static bool	IsNotSpace(char const &c);
 
 };
+
+bool	isLeapYear(int year);
 
 #endif

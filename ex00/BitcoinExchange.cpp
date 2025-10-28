@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/15 16:08:23 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/28 15:52:55 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,23 @@ bool	BitcoinExchange::validate_date(std::string const &s) const
 	if (mon < 1 || mon > 12)
 		return (false);
 	unsigned int	days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
-	if (mon == 2 && (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0))
+	if (mon == 2 && isLeapYear(year))
 		days[2] = 29;
 	if (day <= 0 || day > days[mon])
 		return (false);
 	return (true);
+}
+
+bool	isLeapYear(int year)
+{
+	if (year % 4 != 0)
+		return (false);
+	else if (year % 100 != 0)
+		return (true);
+	else if (year % 400 != 0)
+		return (false);
+	else
+		return (true);
 }
 
 void	BitcoinExchange::inputFile(std::string const &filename) const

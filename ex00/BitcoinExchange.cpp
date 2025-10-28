@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/28 15:52:55 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/28 16:45:28 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,14 +189,15 @@ bool	BitcoinExchange::validate_date(std::string const &s) const
 
 bool	isLeapYear(int year)
 {
+	// - 4で割り切れなければ平年
 	if (year % 4 != 0)
-		return (false);
-	else if (year % 100 != 0)
-		return (true);
-	else if (year % 400 != 0)
-		return (false);
-	else
-		return (true);
+		return false; // 4で割れなければ平年
+
+	// ここ以降は year が 4 で割り切れる場合
+	// - 4で割り切れるが100で割り切れ、かつ400で割り切れなければ平年
+	if (year % 100 == 0 && year % 400 != 0)
+		return false; // 100で割り切れるが400で割り切れない年は平年
+	return true; // それ以外はうるう年
 }
 
 void	BitcoinExchange::inputFile(std::string const &filename) const

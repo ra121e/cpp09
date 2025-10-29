@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/28 16:48:27 by athonda          ###   ########.fr       */
+/*   Updated: 2025/10/29 09:12:26 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,15 +189,17 @@ bool	BitcoinExchange::validate_date(std::string const &s) const
 
 bool	isLeapYear(int year)
 {
-	// if year is not divisible by 4, it is a common year
-	if (year % 4 != 0)
-		return false;
+	bool	yes_leap = false;
+	if (year % 4 == 0)
+		yes_leap = true;
 
-	// this is the case where year is divisible by 4
-	// - if year is divisible by 100 and not divisible by 400, it is a common year
-	if (year % 100 == 0 && year % 400 != 0)
-		return false;
-	return true;
+	if (year % 100 == 0)
+	{
+		yes_leap = false;
+		if (year % 400 == 0)
+			yes_leap = true;
+	}
+	return yes_leap;
 }
 
 void	BitcoinExchange::inputFile(std::string const &filename) const

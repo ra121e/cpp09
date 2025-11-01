@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/29 09:12:26 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/02 00:25:32 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include <fstream>
 #include <sstream>
 #include "BitcoinExchange.hpp"
+#include "DateFormatChecker.hpp"
+#include "Date.hpp"
+#include "DateParser.hpp"
+#include "DateOfStartChecker.hpp"
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -148,41 +152,23 @@ std::string	BitcoinExchange::trim(std::string const &s) const
 	return (str);
 }
 
-bool	BitcoinExchange::validate_date(std::string const &s) const
+bool	BitcoinExchange::validate_date(std::string const &input_date) const
 {
-	std::string format = "yyyy-mm-dd";
-	if (s.size() != format.size())
-		return (false);
-	if (s[4] != '-' || s[7] != '-')
+//	std::string format = "yyyy-mm-dd";
+	DateFormatChecker	date_format_checker;
+	if (!date_format_checker.checkFormat(input_date))
 		return (false);
 
-	std::stringstream ss(s);
-	std::string year_str;
-	std::string mon_str;
-	std::string day_str;
-	unsigned int	year;
-	unsigned int	mon;
-	unsigned int	day;
-
-	getline(ss, year_str, '-');
-	std::stringstream	year_ss(year_str);
-	getline(ss, mon_str, '-');
-	std::stringstream	mon_ss(mon_str);
-
-	year_ss >> year;
-	mon_ss	>> mon;
-	ss >> day;
-
-	if (year < 2009 )
+	Date date;
+	DateParser	date_parser;
+	if (!date_parser.parseDate(input_date, date))
 		return (false);
-	if (year == 2009 && mon <= 1 && day < 3)
+
+	DateOfStartChecker	start_date_checker;
+	if (!start_date_checker.checkDateBegin(date))
 		return (false);
-	if (mon < 1 || mon > 12)
-		return (false);
-	unsigned int	days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
-	if (mon == 2 && isLeapYear(year))
-		days[2] = 29;
-	if (day <= 0 || day > days[mon])
+
+	if (!Date::isCalendarDateValid(date))
 		return (false);
 	return (true);
 }
@@ -201,6 +187,7 @@ bool	isLeapYear(int year)
 	}
 	return yes_leap;
 }
+
 
 void	BitcoinExchange::inputFile(std::string const &filename) const
 {

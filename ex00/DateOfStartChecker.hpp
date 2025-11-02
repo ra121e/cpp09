@@ -11,7 +11,7 @@ class	DateOfStartChecker
 		unsigned int	_start_month;
 		unsigned int	_start_day;
 	public:
-		DateOfStartChecker(): _start_year(2009), _start_month(1), _start_day(3) {}
+		DateOfStartChecker();
 		DateOfStartChecker(const DateOfStartChecker &other);
 		DateOfStartChecker	&operator=(const DateOfStartChecker &other);
 		~DateOfStartChecker();

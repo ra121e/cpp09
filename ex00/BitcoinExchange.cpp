@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/02 00:25:32 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/02 09:36:54 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "BitcoinExchange.hpp"
 #include "DateFormatChecker.hpp"
 #include "Date.hpp"
-#include "DateParser.hpp"
 #include "DateOfStartChecker.hpp"
 
 BitcoinExchange::BitcoinExchange()
@@ -160,8 +159,7 @@ bool	BitcoinExchange::validate_date(std::string const &input_date) const
 		return (false);
 
 	Date date;
-	DateParser	date_parser;
-	if (!date_parser.parseDate(input_date, date))
+	if (!date_format_checker.parseDate(input_date, date))
 		return (false);
 
 	DateOfStartChecker	start_date_checker;

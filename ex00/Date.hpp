@@ -20,8 +20,8 @@ class Date
 		unsigned int	getYear() const;
 		unsigned int	getMonth() const;
 		unsigned int	getDay() const;
-		static bool isCalendarDateValid(Date const &date);
-		static bool	isLeapYear(int year);
+		bool	isCalendarDateValid();
+		bool	isLeapYear(int year);
 };
 
 

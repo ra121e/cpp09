@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/02 09:36:54 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/02 10:52:46 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ bool	BitcoinExchange::validate_date(std::string const &input_date) const
 	if (!start_date_checker.checkDateBegin(date))
 		return (false);
 
-	if (!Date::isCalendarDateValid(date))
+	if (!date.isCalendarDateValid())
 		return (false);
 	return (true);
 }

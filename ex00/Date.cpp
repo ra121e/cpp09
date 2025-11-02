@@ -56,14 +56,14 @@ unsigned int	Date::getDay() const
 	return (_day);
 }
 
-bool	Date::isCalendarDateValid(Date const &date)
+bool	Date::isCalendarDateValid()
 {
-	if (date.getMonth() < 1 || date.getMonth() > 12)
+	if (_month < 1 || _month > 12)
 		return (false);
 	unsigned int	days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
-	if (date.getMonth() == 2 && isLeapYear(date.getYear()))
+	if (_month == 2 && isLeapYear(_year))
 		days[2] = 29;
-	if (date.getDay() <= 0 || date.getDay() > days[date.getMonth()])
+	if (_day <= 0 || _day > days[_month])
 		return (false);
 	return (true);
 }

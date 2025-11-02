@@ -1,6 +1,10 @@
 #include "DateFormatChecker.hpp"
 
 
+DateFormatChecker::DateFormatChecker():
+	_format("yyyy-mm-dd")
+{}
+
 DateFormatChecker::DateFormatChecker(const DateFormatChecker &other):
 	_format(other._format)
 {}

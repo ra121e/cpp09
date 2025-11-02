@@ -8,7 +8,7 @@ class	DateFormatChecker
 	private:
 		std::string _format;
 	public:
-		DateFormatChecker(): _format("yyyy-mm-dd") {}
+		DateFormatChecker();
 		DateFormatChecker(const DateFormatChecker &other);
 		DateFormatChecker	&operator=(const DateFormatChecker &other);
 		~DateFormatChecker();

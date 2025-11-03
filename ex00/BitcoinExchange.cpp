@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/02 10:52:46 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/03 12:04:44 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,8 +258,12 @@ void	BitcoinExchange::inputFile(std::string const &filename) const
 		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
 		if (it == _ratemap.end())
 		{
-			std::cout << "date is beyond the last date in the database, or database is empty." << std::endl;
-			continue ;
+			if (_ratemap.empty())
+			{
+				std::cout << "date is beyond the last date in the database, or database is empty." << std::endl;
+				continue ;
+			}
+			rate = (--it)->second;
 		}
 		if (it->first == date)
 		{

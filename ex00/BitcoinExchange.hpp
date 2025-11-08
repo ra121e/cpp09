@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/08 09:34:32 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/08 12:50:26 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class BitcoinExchange
 		~BitcoinExchange();
 
 		bool	setHistoricalRate(std::string const &filename);
-		void	readInputFile(std::string const &filename) const;
+		void	evaluateBTCTimeSeries(std::string const &filename) const;
 	private:
 		std::map<std::string, double>	_ratemap;
 		std::string	trim(std::string const &s) const;

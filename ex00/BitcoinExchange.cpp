@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/08 09:21:45 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/08 09:34:32 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ bool	BitcoinExchange::validate_date(std::string const &input_date) const
 }
 
 
-void	BitcoinExchange::inputFile(std::string const &filename) const
+void	BitcoinExchange::readInputFile(std::string const &filename) const
 {
 	std::ifstream	ifs(filename.c_str());
 	std::string		line;

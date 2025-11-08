@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/08 09:21:45 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/08 09:34:32 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	main(int ac, char **av)
 	BitcoinExchange	bit_coin_exchange;
 	if (!bit_coin_exchange.setHistoricalRate("data.csv"))
 		return (1);
-	bit_coin_exchange.inputFile(input_file_name);
+	bit_coin_exchange.readInputFile(input_file_name);
 	return (0);
 }

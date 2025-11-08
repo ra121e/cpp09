@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/03 12:09:50 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/08 09:21:45 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
 BitcoinExchange::~BitcoinExchange()
 {}
 
-bool	BitcoinExchange::setRate(std::string const &filename)
+bool	BitcoinExchange::setHistoricalRate(std::string const &filename)
 {
 
 	std::ifstream	ifs(filename.c_str());

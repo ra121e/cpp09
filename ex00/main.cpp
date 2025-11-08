@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/10/13 22:04:17 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/08 09:12:15 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	std::string	inputfile(av[1]);
-	BitcoinExchange	a;
-	if (!a.setRate("data.csv"))
+	BitcoinExchange	bit_coin_exchange;
+	if (!bit_coin_exchange.setRate("data.csv"))
 		return (1);
-	a.inputFile(inputfile);
+	bit_coin_exchange.inputFile(inputfile);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/03 12:04:44 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/03 12:09:50 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,21 +169,6 @@ bool	BitcoinExchange::validate_date(std::string const &input_date) const
 	if (!date.isCalendarDateValid())
 		return (false);
 	return (true);
-}
-
-bool	isLeapYear(int year)
-{
-	bool	yes_leap = false;
-	if (year % 4 == 0)
-		yes_leap = true;
-
-	if (year % 100 == 0)
-	{
-		yes_leap = false;
-		if (year % 400 == 0)
-			yes_leap = true;
-	}
-	return yes_leap;
 }
 
 

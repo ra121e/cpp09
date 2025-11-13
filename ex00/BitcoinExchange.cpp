@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/08 12:50:26 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/13 13:55:29 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "DateFormatChecker.hpp"
 #include "Date.hpp"
 #include "DateOfStartChecker.hpp"
+#include "DataFileCSV.hpp"
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -39,89 +40,91 @@ BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
 BitcoinExchange::~BitcoinExchange()
 {}
 
-bool	BitcoinExchange::setHistoricalRate(std::string const &filename)
+void	BitcoinExchange::setHistoricalRate(std::string const &filename)
 {
+	DataFileCSV dataFileCSV("date,exchange_rate");
+	dataFileCSV.parseFile(filename);
 
-	std::ifstream	ifs(filename.c_str());
-	if (!ifs.is_open())
-	{
-		std::cerr << "error: file not open." << std::endl;
-		return (false);
-	}
-
-	std::string	line;
-	std::getline(ifs, line);
-	if (line != "date,exchange_rate")
-	{
-		std::cerr << "error: header is not valid." << std::endl;
-		return (false);
-	}
-
-	std::map<std::string, double>	tmp;
-	size_t	errorCount = 0;
-	while (std::getline(ifs, line))
-	{
-		std::stringstream ss(line);
-		std::string	date_str;
-		std::string	rate_str;
-		double		rate_double;
-
-		std::getline(ss, date_str, ',');
-		if (date_str.empty() || ss.fail() || ss.eof())
-		{
-			std::cerr << "error: cannot read date correctly." << std::endl;
-			errorCount++;
-			continue ;
-		}
-		if (!validate_date(date_str))
-		{
-			std::cerr << "error: invalid date format." << std::endl;
-			errorCount++;
-			continue ;
-		}
-		std::getline(ss, rate_str);
-		if (rate_str.empty() || ss.fail() || !ss.eof())
-		{
-			std::cerr << "error: cannot read rate correctly." << std::endl;
-			errorCount++;
-			continue ;
-		}
-
-		std::stringstream ss_rate(rate_str);
-		ss_rate >> rate_double;
-		if (ss_rate.fail() || !ss_rate.eof())
-		{
-			std::cerr << "error: cannot convert rate to double." << std::endl;
-			errorCount++;
-			continue ;
-		}
-		if (rate_double < 0)
-		{
-			std::cerr << "error: rate cannot be negative." << std::endl;
-			errorCount++;
-			continue ;
-		}
-		if (tmp.find(date_str) != tmp.end())
-		{
-			std::cerr << "error: duplicate date entry." << std::endl;
-			errorCount++;
-			continue ;
-		}
-		tmp[date_str] = rate_double;
-	}
-	ifs.close();
-	if (tmp.empty())
-	{
-		std::cerr << "error: no valid data found." << std::endl;
-		return (false);
-	}
-	if (errorCount > 0)
-	{
-		std::cerr << "error: There are " << errorCount << " invalid row(s)." << std::endl;
-		return (false);
-	}
-	_ratemap.swap(tmp);
-	return (true);
+//	std::ifstream	ifs(filename.c_str());
+//	if (!ifs.is_open())
+//	{
+//		std::cerr << "error: file not open." << std::endl;
+//		return (false);
+//	}
+//
+//	std::string	line;
+//	std::getline(ifs, line);
+//	if (line != "date,exchange_rate")
+//	{
+//		std::cerr << "error: header is not valid." << std::endl;
+//		return (false);
+//	}
+//
+//	std::map<std::string, double>	tmp;
+//	size_t	errorCount = 0;
+//	while (std::getline(ifs, line))
+//	{
+//		std::stringstream ss(line);
+//		std::string	date_str;
+//		std::string	rate_str;
+//		double		rate_double;
+//
+//		std::getline(ss, date_str, ',');
+//		if (date_str.empty() || ss.fail() || ss.eof())
+//		{
+//			std::cerr << "error: cannot read date correctly." << std::endl;
+//			errorCount++;
+//			continue ;
+//		}
+//		if (!validate_date(date_str))
+//		{
+//			std::cerr << "error: invalid date format." << std::endl;
+//			errorCount++;
+//			continue ;
+//		}
+//		std::getline(ss, rate_str);
+//		if (rate_str.empty() || ss.fail() || !ss.eof())
+//		{
+//			std::cerr << "error: cannot read rate correctly." << std::endl;
+//			errorCount++;
+//			continue ;
+//		}
+//
+//		std::stringstream ss_rate(rate_str);
+//		ss_rate >> rate_double;
+//		if (ss_rate.fail() || !ss_rate.eof())
+//		{
+//			std::cerr << "error: cannot convert rate to double." << std::endl;
+//			errorCount++;
+//			continue ;
+//		}
+//		if (rate_double < 0)
+//		{
+//			std::cerr << "error: rate cannot be negative." << std::endl;
+//			errorCount++;
+//			continue ;
+//		}
+//		if (tmp.find(date_str) != tmp.end())
+//		{
+//			std::cerr << "error: duplicate date entry." << std::endl;
+//			errorCount++;
+//			continue ;
+//		}
+//		tmp[date_str] = rate_double;
+//	}
+//	ifs.close();
+//	if (tmp.empty())
+//	{
+//		std::cerr << "error: no valid data found." << std::endl;
+//		return (false);
+//	}
+//	if (errorCount > 0)
+//	{
+//		std::cerr << "error: There are " << errorCount << " invalid row(s)." << std::endl;
+//		return (false);
+//	}
+//	_ratemap.swap(tmp);
+//	return (true);
 }
 
 //bool	BitcoinExchange::IsNotSpace::operator()(char c) const
@@ -131,7 +134,6 @@ bool	BitcoinExchange::setHistoricalRate(std::string const &filename)
 //		return (false);
 //	return (true);
 //}
-
 bool	BitcoinExchange::IsNotSpace(char const &c)
 {
 	unsigned char	safe = static_cast<unsigned char>(c);

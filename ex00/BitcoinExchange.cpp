@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/13 19:21:58 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/14 14:20:35 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ void	BitcoinExchange::setHistoricalRate(std::string const &filename)
 
 void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 {
-	DataFilePipTxt	data_file_pip_txt("date | value");
+	std::string header_format = "date | value";
+	DataFilePipTxt	data_file_pip_txt(header_format, _ratemap);
 
+	data_file_pip_txt.parseFile(filename);
 
 //	std::ifstream	ifs(filename.c_str());
 //	std::string		line;

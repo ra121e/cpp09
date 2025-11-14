@@ -6,12 +6,15 @@
 DataFilePipTxt::DataFilePipTxt()
 {}
 
-DataFilePipTxt::DataFilePipTxt(std::string &header_format) :
-	_header_format(header_format)
+DataFilePipTxt::DataFilePipTxt(const std::string &header_format, const std::map<std::string, double> &ratemap) :
+	_header_format(header_format),
+	_ratemap(ratemap)
 {}
 
 DataFilePipTxt::DataFilePipTxt(const DataFilePipTxt &other) :
-	_header_format(other._header_format)
+	ADataFile(other),
+	_header_format(other._header_format),
+	_ratemap(other._ratemap)
 {}
 
 DataFilePipTxt	&DataFilePipTxt::operator=(const DataFilePipTxt &other)
@@ -19,6 +22,7 @@ DataFilePipTxt	&DataFilePipTxt::operator=(const DataFilePipTxt &other)
 	if (this != &other)
 	{
 		this->_header_format = other._header_format;
+		this->_ratemap = other._ratemap;
 	}
 	return (*this);
 }

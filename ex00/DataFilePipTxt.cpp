@@ -37,7 +37,7 @@ void	DataFilePipTxt::parseFile(const std::string &filename)
 
 	if (!ifs.is_open())
 	{
-		std::cerr << "error: file not open.";
+		throw std::ios_base::failure("File could not be opened");
 	}
 
 	std::getline(ifs, line);

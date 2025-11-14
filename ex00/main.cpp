@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/14 15:34:26 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/14 18:26:18 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ int	main(int ac, char **av)
 		std::cerr << "Error: " << e.what() << std::endl;
 		return (1);
 	}
-	bit_coin_exchange.evaluateBTCTimeSeries(input_file_name);
+	try
+	{
+		bit_coin_exchange.evaluateBTCTimeSeries(input_file_name);
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+		return (1);
+	}
 	return (0);
 }

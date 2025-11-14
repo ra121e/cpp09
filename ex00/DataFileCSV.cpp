@@ -17,9 +17,9 @@ void	DataFileCSV::parseFile(const std::string &filename)
 	}
 	std::string	line;
 	std::getline(ifs, line);
-	if (line != "date,exchange_rate")
+	if (line != _header_format && line != _header_format + "\n")
 	{
-		std::cerr << "error: header is not valid." << std::endl;
+		throw std::runtime_error("error: header is not valid.");
 	}
 
 	std::map<std::string, double>	tmp;

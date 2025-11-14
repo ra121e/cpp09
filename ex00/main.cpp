@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/13 13:42:16 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/14 15:34:26 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	std::string	input_file_name(av[1]);
-
-//	DataFileCSV	data_file_csv("date,exchange_rate");
-//	data_file_csv.parseFile("data.csv");
 
 	BitcoinExchange	bit_coin_exchange;
 	try

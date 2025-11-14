@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/14 14:17:35 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/14 15:33:43 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ class BitcoinExchange
 		void	evaluateBTCTimeSeries(std::string const &filename) const;
 	private:
 		std::map<std::string, double>	_ratemap;
-		std::string	trim(std::string const &s) const;
-		bool	validate_date(std::string const &s) const;
-		static bool	IsNotSpace(char const &c);
 
 };
 

@@ -3,6 +3,11 @@
 #include <sstream>
 #include <map>
 
+std::map<std::string, double>	DataFileCSV::getRateMap() const
+{
+	return (this->_ratemap);
+}
+
 void	DataFileCSV::parseFile(const std::string &filename)
 {
 	std::ifstream	ifs(filename.c_str());

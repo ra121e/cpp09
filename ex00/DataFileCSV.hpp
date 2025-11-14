@@ -12,11 +12,12 @@ class DataFileCSV : public ADataFile
 
 	public:
 		DataFileCSV() {}
-		DataFileCSV(std::string header_format): _header_format(header_format) {}
+		DataFileCSV(const std::string &header_format): _header_format(header_format) {}
 		DataFileCSV(const DataFileCSV &other) : ADataFile(other) {}
 		DataFileCSV& operator=(const DataFileCSV&) { return *this; }
 		~DataFileCSV() {}
 		std::string getHeaderFormat() const { return _header_format; }
+		std::map<std::string, double>	getRateMap() const;
 
 		void parseFile(const std::string &filename);
 };

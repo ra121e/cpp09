@@ -41,7 +41,7 @@ void	DataFilePipTxt::parseFile(const std::string &filename)
 	}
 
 	std::getline(ifs, line);
-	if (line != "date | value\n" && line != "date | value")
+	if (line != _header_format && line != _header_format + "\n")
 	{
 		std::cerr << "Warning: header is not the expected format `date | value`." << std::endl;
 	}
@@ -97,28 +97,28 @@ void	DataFilePipTxt::parseFile(const std::string &filename)
 			continue ;
 		}
 
+		if (this->_ratemap.empty())
+		{
+			std::cerr << "Error: no rate avaliable." << std::endl;
+			continue ;
+		}
 		double rate;
 		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
 		if (it == _ratemap.end())
 		{
-			if (_ratemap.empty())
-			{
-				std::cout << "date is beyond the last date in the database, or database is empty." << std::endl;
-				continue ;
-			}
 			rate = (--it)->second;
 		}
-		if (it->first == date)
+		else if (it->first == date)
 		{
 			rate = it->second;
 		}
-		else if (it->first != date && it == _ratemap.begin())
-		{
-			std::cerr << "Error: too large a number." << std::endl;
-			continue ;
-		}
 		else
 		{
+			if (it == _ratemap.begin())
+			{
+				std::cerr << "Error: no rate avaliable before this date." << std::endl;
+				continue ;
+			}
 			rate = (--it)->second;
 		}
 		double	total = value * rate;

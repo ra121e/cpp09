@@ -6,20 +6,13 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/14 15:33:31 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/16 14:00:22 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <algorithm>
-#include <exception>
-#include <fstream>
-#include <sstream>
 #include "BitcoinExchange.hpp"
-#include "DateFormatChecker.hpp"
-#include "Date.hpp"
-#include "DateOfStartChecker.hpp"
-#include "DataFileCSV.hpp"
-#include "DataFilePipTxt.hpp"
+#include "HistoricalDataFileCSV.hpp"
+#include "InputDataFilePip.hpp"
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -43,16 +36,16 @@ BitcoinExchange::~BitcoinExchange()
 
 void	BitcoinExchange::setHistoricalRate(std::string const &filename)
 {
-	DataFileCSV dataFileCSV("date,exchange_rate");
-	dataFileCSV.parseFile(filename);
+	HistoricalDataFileCSV data_file_csv("date,exchange_rate");
+	data_file_csv.parseFile(filename);
 
-	this->_ratemap = dataFileCSV.getRateMap();
+	this->_ratemap = data_file_csv.getRateMap();
 }
 
 void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 {
 	std::string header_format = "date | value";
-	DataFilePipTxt	data_file_pip_txt(header_format, _ratemap);
+	InputDataFilePip	input_file_pip(header_format, _ratemap);
 
-	data_file_pip_txt.parseFile(filename);
+	input_file_pip.parseFile(filename);
 }

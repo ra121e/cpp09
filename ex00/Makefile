@@ -6,20 +6,21 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:27:00 by athonda           #+#    #+#              #
-#    Updated: 2025/11/14 14:21:05 by athonda          ###   ########.fr        #
+#    Updated: 2025/11/16 14:00:22 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	btc
 
-SRC_F	=	main.cpp \
+
+SRC_F	= 	main.cpp \
 			BitcoinExchange.cpp \
 			DateOfStartChecker.cpp \
 			Date.cpp \
 			DateFormatChecker.cpp \
-			ADataFile.cpp \
-			DataFileCSV.cpp \
-			DataFilePipTxt.cpp
+			BaseDataFile.cpp \
+			HistoricalDataFileCSV.cpp \
+			InputDataFilePip.cpp
 
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)

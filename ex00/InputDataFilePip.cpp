@@ -1,23 +1,23 @@
-#include "DataFilePipTxt.hpp"
+#include "InputDataFilePip.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>
 
-DataFilePipTxt::DataFilePipTxt()
+InputDataFilePip::InputDataFilePip()
 {}
 
-DataFilePipTxt::DataFilePipTxt(const std::string &header_format, const std::map<std::string, double> &ratemap) :
+InputDataFilePip::InputDataFilePip(const std::string &header_format, const std::map<std::string, double> &ratemap) :
 	_header_format(header_format),
 	_ratemap(ratemap)
 {}
 
-DataFilePipTxt::DataFilePipTxt(const DataFilePipTxt &other) :
-	ADataFile(other),
+InputDataFilePip::InputDataFilePip(const InputDataFilePip &other) :
+	BaseDataFile(other),
 	_header_format(other._header_format),
 	_ratemap(other._ratemap)
 {}
 
-DataFilePipTxt	&DataFilePipTxt::operator=(const DataFilePipTxt &other)
+InputDataFilePip	&InputDataFilePip::operator=(const InputDataFilePip &other)
 {
 	if (this != &other)
 	{
@@ -27,10 +27,10 @@ DataFilePipTxt	&DataFilePipTxt::operator=(const DataFilePipTxt &other)
 	return (*this);
 }
 
-DataFilePipTxt::~DataFilePipTxt()
+InputDataFilePip::~InputDataFilePip()
 {}
 
-void	DataFilePipTxt::parseFile(const std::string &filename)
+void	InputDataFilePip::parseFile(const std::string &filename)
 {
 	std::ifstream	ifs(filename.c_str());
 	std::string		line;
@@ -99,14 +99,15 @@ void	DataFilePipTxt::parseFile(const std::string &filename)
 
 		if (this->_ratemap.empty())
 		{
-			std::cerr << "Error: no rate avaliable." << std::endl;
+			std::cerr << "Error: no rate available." << std::endl;
 			continue ;
 		}
 		double rate;
 		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
 		if (it == _ratemap.end())
 		{
-			rate = (--it)->second;
+			--it;
+			rate = it->second;
 		}
 		else if (it->first == date)
 		{
@@ -116,10 +117,11 @@ void	DataFilePipTxt::parseFile(const std::string &filename)
 		{
 			if (it == _ratemap.begin())
 			{
-				std::cerr << "Error: no rate avaliable before this date." << std::endl;
+				std::cerr << "Error: no rate available before this date." << std::endl;
 				continue ;
 			}
-			rate = (--it)->second;
+			--it;
+			rate = it->second;
 		}
 		double	total = value * rate;
 		std::cout << date << " => " << num << " = " << total << std::endl;

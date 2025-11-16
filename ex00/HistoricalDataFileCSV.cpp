@@ -1,14 +1,14 @@
-#include "DataFileCSV.hpp"
+#include "HistoricalDataFileCSV.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>
 
-std::map<std::string, double>	DataFileCSV::getRateMap() const
+std::map<std::string, double>	HistoricalDataFileCSV::getRateMap() const
 {
 	return (this->_ratemap);
 }
 
-void	DataFileCSV::parseFile(const std::string &filename)
+void	HistoricalDataFileCSV::parseFile(const std::string &filename)
 {
 	std::ifstream	ifs(filename.c_str());
 	if (!ifs.is_open())
@@ -38,7 +38,7 @@ void	DataFileCSV::parseFile(const std::string &filename)
 			errorCount++;
 			continue ;
 		}
-		date_str = ADataFile::trim(date_str);
+		date_str = BaseDataFile::trim(date_str);
 		if (date_str.empty())
 		{
 			std::cerr << "error: invalid date format." << std::endl;

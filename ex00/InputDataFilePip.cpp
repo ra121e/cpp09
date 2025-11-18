@@ -1,4 +1,5 @@
 #include "InputDataFilePip.hpp"
+#include "RateFinder.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>
@@ -32,6 +33,7 @@ InputDataFilePip::~InputDataFilePip()
 
 void	InputDataFilePip::parseFile(const std::string &filename)
 {
+	RateFinder rateFinder;
 	std::ifstream	ifs(filename.c_str());
 	std::string		line;
 
@@ -97,31 +99,42 @@ void	InputDataFilePip::parseFile(const std::string &filename)
 			continue ;
 		}
 
-		if (this->_ratemap.empty())
+//		if (this->_ratemap.empty())
+//		{
+//			std::cerr << "Error: no rate available." << std::endl;
+//			continue ;
+//		}
+//		double rate;
+//		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
+//		if (it == _ratemap.end())
+//		{
+//			--it;
+//			rate = it->second;
+//		}
+//		else if (it->first == date)
+//		{
+//			rate = it->second;
+//		}
+//		else
+//		{
+//			if (it == _ratemap.begin())
+//			{
+//				std::cerr << "Error: no rate available before this date." << std::endl;
+//				continue ;
+//			}
+//			--it;
+//			rate = it->second;
+//		}
+
+		double	rate;
+		try
 		{
-			std::cerr << "Error: no rate available." << std::endl;
+			rate = rateFinder.findRate(this->_ratemap, date);
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << e.what() << std::endl;
 			continue ;
-		}
-		double rate;
-		std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
-		if (it == _ratemap.end())
-		{
-			--it;
-			rate = it->second;
-		}
-		else if (it->first == date)
-		{
-			rate = it->second;
-		}
-		else
-		{
-			if (it == _ratemap.begin())
-			{
-				std::cerr << "Error: no rate available before this date." << std::endl;
-				continue ;
-			}
-			--it;
-			rate = it->second;
 		}
 		double	total = value * rate;
 		std::cout << date << " => " << num << " = " << total << std::endl;

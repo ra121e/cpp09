@@ -10,6 +10,8 @@ class InputDataFilePip : public BaseDataFile
 	private:
 		std::string		_header_format;
 		std::map<std::string, double>	_ratemap;
+		std::ifstream	_ifs;
+		bool			_ready;
 
 	public:
 		InputDataFilePip();
@@ -19,6 +21,8 @@ class InputDataFilePip : public BaseDataFile
 		~InputDataFilePip();
 
 		void	parseFile(const std::string &filename);
+		bool	readNextDateAmount(std::string &date, double &amount);
+		void	initialize(const std::string &filename);
 
 };
 

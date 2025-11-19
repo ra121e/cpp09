@@ -6,13 +6,14 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/16 14:00:22 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:12:42 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include "HistoricalDataFileCSV.hpp"
 #include "InputDataFilePip.hpp"
+#include "RateFinder.hpp"
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -47,5 +48,23 @@ void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 	std::string header_format = "date | value";
 	InputDataFilePip	input_file_pip(header_format, _ratemap);
 
-	input_file_pip.parseFile(filename);
+//	input_file_pip.parseFile(filename);
+
+	input_file_pip.initialize(filename);
+	std::string	date;
+	double		amount;
+	while (input_file_pip.readNextDateAmount(date, amount))
+	{
+		RateFinder	rate_finder;
+		double		exchange_rate;
+		try
+		{
+			exchange_rate = rate_finder.findRate(_ratemap, date);
+			std::cout << date << " => " << amount << " = " << (amount * exchange_rate) << std::endl;
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << "Error: " << e.what() << std::endl;
+		}
+	}
 }

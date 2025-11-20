@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/19 18:12:42 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/20 12:31:39 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 #include "InputDataFilePip.hpp"
 #include "RateFinder.hpp"
 
-BitcoinExchange::BitcoinExchange()
+BitcoinExchange::BitcoinExchange():
+	_historical_data_file_csv("date,exchange_rate")
 {
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other):
-	_ratemap(other._ratemap)
+	_historical_data_file_csv(other._historical_data_file_csv)
 {}
 
 BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
 {
 	if (this != &other)
 	{
-		this->_ratemap = other._ratemap;
+		this->_historical_data_file_csv = other._historical_data_file_csv;
 	}
 	return (*this);
 }
@@ -37,16 +38,13 @@ BitcoinExchange::~BitcoinExchange()
 
 void	BitcoinExchange::setHistoricalRate(std::string const &filename)
 {
-	HistoricalDataFileCSV data_file_csv("date,exchange_rate");
-	data_file_csv.parseFile(filename);
-
-	this->_ratemap = data_file_csv.getRateMap();
+	_historical_data_file_csv.parseFile(filename);
 }
 
 void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 {
 	std::string header_format = "date | value";
-	InputDataFilePip	input_file_pip(header_format, _ratemap);
+	InputDataFilePip	input_file_pip(header_format, _historical_data_file_csv.getRateMap());
 
 //	input_file_pip.parseFile(filename);
 
@@ -59,7 +57,7 @@ void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 		double		exchange_rate;
 		try
 		{
-			exchange_rate = rate_finder.findRate(_ratemap, date);
+			exchange_rate = rate_finder.findRate(_historical_data_file_csv.getRateMap(), date);
 			std::cout << date << " => " << amount << " = " << (amount * exchange_rate) << std::endl;
 		}
 		catch (std::exception &e)

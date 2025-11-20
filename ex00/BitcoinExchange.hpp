@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/14 15:33:43 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/20 12:30:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <map>
 # include <iostream>
 # include <string>
+# include "HistoricalDataFileCSV.hpp"
 
 class BitcoinExchange
 {
@@ -28,7 +29,8 @@ class BitcoinExchange
 		void	setHistoricalRate(std::string const &filename);
 		void	evaluateBTCTimeSeries(std::string const &filename) const;
 	private:
-		std::map<std::string, double>	_ratemap;
+//		std::map<std::string, double>	_ratemap;
+		HistoricalDataFileCSV			_historical_data_file_csv;
 
 };
 

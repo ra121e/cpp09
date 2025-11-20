@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/16 14:00:22 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/20 12:45:50 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ int	main(int ac, char **av)
 	}
 	std::string	input_file_name(av[1]);
 
-	BitcoinExchange	bit_coin_exchange;
+	std::string const header_format = "date,exchange_rate";
+	BitcoinExchange	bitcoin_exchange(header_format);
 	try
 	{
-		bit_coin_exchange.setHistoricalRate("data.csv");
+		bitcoin_exchange.setHistoricalRate("data.csv");
 	}
 	catch (std::exception &e)
 	{
@@ -35,7 +36,7 @@ int	main(int ac, char **av)
 	}
 	try
 	{
-		bit_coin_exchange.evaluateBTCTimeSeries(input_file_name);
+		bitcoin_exchange.evaluateBTCTimeSeries(input_file_name);
 	}
 	catch (std::exception &e)
 	{

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/20 12:30:30 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/20 12:44:27 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class BitcoinExchange
 {
 	public:
 		BitcoinExchange();
+		BitcoinExchange(const std::string &header_format);
 		BitcoinExchange(BitcoinExchange const &other);
 		BitcoinExchange	&operator=(BitcoinExchange const &other);
 		~BitcoinExchange();

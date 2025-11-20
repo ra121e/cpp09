@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/20 12:31:39 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/20 12:44:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 BitcoinExchange::BitcoinExchange():
 	_historical_data_file_csv("date,exchange_rate")
+{
+}
+
+BitcoinExchange::BitcoinExchange(const std::string &header_format):
+	_historical_data_file_csv(header_format)
 {
 }
 

@@ -8,3 +8,4 @@ obj/
 cpp_09/
 *.csv
 *.txt
+.vscode/

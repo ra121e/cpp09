@@ -1,0 +1,141 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+abstract class BaseDataFile {
+	+BaseDataFile()
+	+BaseDataFile(const BaseDataFile &)
+	+~BaseDataFile()
+	+operator=(const BaseDataFile &) : BaseDataFile&
+	+{static} IsNotSpace(char const& c) : bool
+	+{static} validate_date(std::string const& s) : bool
+	+{static} trim(std::string const& s) : std::string
+	#{abstract} parseFile(const std::string& filename) : void
+}
+
+
+class BitcoinExchange {
+	+BitcoinExchange()
+	+BitcoinExchange(const std::string& header_format)
+	+BitcoinExchange(BitcoinExchange const& other)
+	+~BitcoinExchange()
+	+operator=(BitcoinExchange const& other) : BitcoinExchange&
+	-_historical_data_file_csv : HistoricalDataFileCSV
+	+evaluateBTCTimeSeries(std::string const& filename) : void {query}
+	+setHistoricalRate(std::string const& filename) : void
+}
+
+
+class Date {
+	+Date()
+	+Date(const Date& other)
+	+~Date()
+	+operator=(const Date& other) : Date&
+	+isCalendarDateValid() : bool
+	+isLeapYear(int year) : bool
+	-_day : unsigned int
+	-_month : unsigned int
+	-_year : unsigned int
+	+getDay() : unsigned int {query}
+	+getMonth() : unsigned int {query}
+	+getYear() : unsigned int {query}
+	+setDay(unsigned int day) : void
+	+setMonth(unsigned int month) : void
+	+setYear(unsigned int year) : void
+}
+
+
+class DateFormatChecker {
+	+DateFormatChecker()
+	+DateFormatChecker(const DateFormatChecker& other)
+	+~DateFormatChecker()
+	+operator=(const DateFormatChecker& other) : DateFormatChecker&
+	+checkFormat(std::string const& date) : bool {query}
+	+parseDate(std::string const& date_str, Date& date) : bool {query}
+	-_format : std::string
+}
+
+
+class DateOfStartChecker {
+	+DateOfStartChecker()
+	+DateOfStartChecker(const DateOfStartChecker& other)
+	+~DateOfStartChecker()
+	+operator=(const DateOfStartChecker& other) : DateOfStartChecker&
+	+checkDateBegin(Date const& date) : bool {query}
+	-_start_day : unsigned int
+	-_start_month : unsigned int
+	-_start_year : unsigned int
+}
+
+
+class HistoricalDataFileCSV {
+	+HistoricalDataFileCSV()
+	+HistoricalDataFileCSV(const std::string& header_format)
+	+HistoricalDataFileCSV(const HistoricalDataFileCSV& other)
+	+~HistoricalDataFileCSV()
+	+operator=(const HistoricalDataFileCSV &) : HistoricalDataFileCSV&
+	+getRateMap() : std::map<std::string , double> {query}
+	-_ratemap : std::map<std::string, double>
+	-_header_format : std::string
+	+getHeaderFormat() : std::string {query}
+	+parseFile(const std::string& filename) : void
+}
+
+
+class InputDataFilePip {
+	+InputDataFilePip()
+	+InputDataFilePip(const std::string& header_format, const std::map<std::string, double>& ratemap)
+	+InputDataFilePip(const InputDataFilePip& other)
+	+~InputDataFilePip()
+	+operator=(const InputDataFilePip& other) : InputDataFilePip&
+	-_ready : bool
+	+readNextDateAmount(std::string& date, double& amount) : bool
+	-_ifs : std::ifstream
+	-_ratemap : std::map<std::string, double>
+	-_header_format : std::string
+	+initialize(const std::string& filename) : void
+	+parseFile(const std::string& filename) : void
+}
+
+
+class RateFinder {
+	+RateFinder()
+	+RateFinder(const RateFinder &)
+	+~RateFinder()
+	+operator=(const RateFinder &) : RateFinder&
+	+findRate(const std::map<std::string, double>& ratemap, const std::string& date) : double {query}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+BaseDataFile <|-- HistoricalDataFileCSV
+
+
+BaseDataFile <|-- InputDataFilePip
+
+
+
+
+
+/' Aggregation relationships '/
+
+BitcoinExchange *-- HistoricalDataFileCSV
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

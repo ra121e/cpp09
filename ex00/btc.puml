@@ -134,6 +134,25 @@ BitcoinExchange *-- HistoricalDataFileCSV
 
 
 
+
+/' Dependency relationships '/
+
+BaseDataFile ..> DateFormatChecker
+BaseDataFile ..> DateOfStartChecker
+BaseDataFile ..> Date
+
+DateFormatChecker ..> Date
+DateOfStartChecker ..> Date
+
+BitcoinExchange ..> InputDataFilePip
+BitcoinExchange ..> RateFinder
+
+InputDataFilePip ..> RateFinder
+
+
+
+
+
 /' Nested objects '/
 
 

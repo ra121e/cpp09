@@ -26,42 +26,49 @@ void	HistoricalDataFileCSV::parseFile(const std::string &filename)
 	size_t	errorCount = 0;
 	while (std::getline(ifs, line))
 	{
-		std::stringstream ss(line);
+		std::stringstream stream_line(line);
 		std::string	date_str;
 		std::string	rate_str;
-		double		rate_double;
 
-		std::getline(ss, date_str, ',');
-		if (date_str.empty() || ss.fail() || ss.eof())
+		std::getline(stream_line, date_str, ',');
+		if (date_str.empty() || stream_line.fail() || stream_line.eof())
 		{
 			std::cerr << "error: cannot read date correctly." << std::endl;
 			errorCount++;
 			continue ;
 		}
-		date_str = BaseDataFile::trim(date_str);
-		if (date_str.empty())
+		std::string trimed_date_str = BaseDataFile::trim(date_str);
+		if (trimed_date_str.empty())
 		{
 			std::cerr << "error: invalid date format." << std::endl;
 			errorCount++;
 			continue ;
 		}
-		if (!validate_date(date_str))
+		if (!validate_date(trimed_date_str))
 		{
 			std::cerr << "error: invalid date format." << std::endl;
 			errorCount++;
 			continue ;
 		}
-		std::getline(ss, rate_str);
-		if (rate_str.empty() || ss.fail() || !ss.eof())
+		std::getline(stream_line, rate_str);
+		if (rate_str.empty() || stream_line.fail() || !stream_line.eof())
 		{
 			std::cerr << "error: cannot read rate correctly." << std::endl;
 			errorCount++;
 			continue ;
 		}
+	//	std::string trimed_rate_str = BaseDataFile::trim(rate_str);
+	//	if (trimed_rate_str.empty())
+	//	{
+	//		std::cerr << "error: rate cannot be empty." <<  std::endl;
+	//		errorCount++;
+	//		continue ;
+	//	}
 
-		std::stringstream ss_rate(rate_str);
-		ss_rate >> rate_double;
-		if (ss_rate.fail() || !ss_rate.eof())
+		double				rate_double;
+		std::stringstream 	stream_line_rate(rate_str);
+		stream_line_rate >> rate_double;
+		if (stream_line_rate.fail() || !stream_line_rate.eof())
 		{
 			std::cerr << "error: cannot convert rate to double." << std::endl;
 			errorCount++;

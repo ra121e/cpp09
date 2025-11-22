@@ -17,7 +17,7 @@ class HistoricalDataFileCSV : public BaseDataFile
 		HistoricalDataFileCSV& operator=(const HistoricalDataFileCSV&) { return *this; }
 		~HistoricalDataFileCSV() {}
 		std::string getHeaderFormat() const { return _header_format; }
-		std::map<std::string, double>	getRateMap() const;
+		std::map<std::string, double> const	&getRateMap() const;
 
 		void parseFile(const std::string &filename);
 };

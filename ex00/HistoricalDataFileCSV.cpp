@@ -3,7 +3,7 @@
 #include <sstream>
 #include <map>
 
-std::map<std::string, double>	HistoricalDataFileCSV::getRateMap() const
+std::map<std::string, double> const	&HistoricalDataFileCSV::getRateMap() const
 {
 	return (this->_ratemap);
 }

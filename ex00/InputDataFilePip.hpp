@@ -22,7 +22,6 @@ class InputDataFilePip : public BaseDataFile
 
 		void	parseFile(const std::string &filename);
 		bool	readNextDateAmount(std::string &date, double &amount);
-		void	initialize(const std::string &filename);
 
 };
 

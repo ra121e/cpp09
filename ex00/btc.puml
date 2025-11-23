@@ -52,7 +52,7 @@ class DateOfStartChecker {
 
 
 class HistoricalDataFileCSV {
-	+getRateMap() : std::map<std::string , double> {query}
+	+getRateMap() : const std::map<std::string , double>& {query}
 	-_ratemap : std::map<std::string, double>
 	-_header_format : std::string
 	+getHeaderFormat() : std::string {query}
@@ -67,7 +67,6 @@ class InputDataFilePip {
 	-_ratemap : std::map<std::string, double>
 	-_header_format : std::string
 	+initialize(const std::string& filename) : void
-	+parseFile(const std::string& filename) : void
 }
 
 
@@ -111,8 +110,6 @@ DateOfStartChecker ..> Date
 
 BitcoinExchange ..> InputDataFilePip
 BitcoinExchange ..> RateFinder
-
-InputDataFilePip ..> RateFinder
 
 
 

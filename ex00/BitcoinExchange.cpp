@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
+/*   By: athonda <athonda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/23 15:08:38 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/24 19:30:05 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	BitcoinExchange::setHistoricalRate(std::string const &filename)
 void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 {
 	std::string header_format = "date | value";
-	InputDataFilePip	input_file_pip(header_format, _historical_data_file_csv.getRateMap());
+	InputDataFilePip	input_file_pip(header_format);
 
 	input_file_pip.parseFile(filename);
 	std::string	date;

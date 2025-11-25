@@ -6,6 +6,27 @@
 #include "DateOfStartChecker.hpp"
 #include "Date.hpp"
 
+BaseDataFile::BaseDataFile()
+{}
+
+BaseDataFile::BaseDataFile(const BaseDataFile &other)
+{
+	(void)other;
+}
+
+BaseDataFile& BaseDataFile::operator=(const BaseDataFile &other)
+{
+	if (this != &other)
+	{
+		// 現在はメンバがないので何もしない
+		(void)other;
+	}
+	return (*this);
+}
+
+BaseDataFile::~BaseDataFile()
+{}
+
 bool	BaseDataFile::IsNotSpace(char const &c)
 {
 	unsigned char	safe = static_cast<unsigned char>(c);

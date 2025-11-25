@@ -7,10 +7,10 @@
 class BaseDataFile
 {
 	public:
-		BaseDataFile() {}
-		BaseDataFile(const BaseDataFile&) {}
-		BaseDataFile& operator=(const BaseDataFile&) { return *this; }
-		virtual ~BaseDataFile() {}
+		BaseDataFile();
+		BaseDataFile(const BaseDataFile &other);
+		BaseDataFile& operator=(const BaseDataFile &other);
+		virtual ~BaseDataFile();
 		static std::string	trim(std::string const &s);
 		static bool	validate_date(std::string const &s);
 		static bool	IsNotSpace(char const &c);

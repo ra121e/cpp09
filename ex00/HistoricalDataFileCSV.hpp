@@ -11,11 +11,11 @@ class HistoricalDataFileCSV : public BaseDataFile
 		std::map<std::string, double>	_ratemap;
 
 	public:
-		HistoricalDataFileCSV() {}
-		HistoricalDataFileCSV(const std::string &header_format): _header_format(header_format) {}
-		HistoricalDataFileCSV(const HistoricalDataFileCSV &other) : BaseDataFile(other) {}
-		HistoricalDataFileCSV& operator=(const HistoricalDataFileCSV&) { return *this; }
-		~HistoricalDataFileCSV() {}
+		HistoricalDataFileCSV();
+		HistoricalDataFileCSV(const std::string &header_format);
+		HistoricalDataFileCSV(const HistoricalDataFileCSV &other);
+		HistoricalDataFileCSV& operator=(const HistoricalDataFileCSV& other);
+		~HistoricalDataFileCSV();
 		std::string getHeaderFormat() const { return _header_format; }
 		std::map<std::string, double> const	&getRateMap() const;
 

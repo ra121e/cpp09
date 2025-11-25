@@ -11,9 +11,10 @@ abstract class BaseDataFile {
 
 
 class BitcoinExchange {
+    +BitcoinExchange(const HistoricalDataFileCSV &datafile)
     -_historical_data_file_csv : HistoricalDataFileCSV
     +evaluateBTCTimeSeries(std::string const& filename) : void {query}
-    +setHistoricalRate(std::string const& filename) : void
+    +setHistoricalRate(std::string const& filename, std::string const& header_format) : void
 }
 
 

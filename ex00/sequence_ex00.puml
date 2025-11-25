@@ -12,11 +12,10 @@ participant StdErr as "stderr"
 participant Map as "RateMap\n(std::map<string,double>)"
 
 User -> Main: 実行 (./btc input.txt)
-Main -> BitcoinExchange: BitcoinExchange(header_format)
-Main -> BitcoinExchange: setHistoricalRate("data.csv")
-BitcoinExchange -> HistoricalDataFileCSV: parseFile("data.csv")
-HistoricalDataFileCSV --> BitcoinExchange: (内部にratemapを構築)
-HistoricalDataFileCSV --> BitcoinExchange: getRateMap() : Map
+Main -> HistoricalDataFileCSV: HistoricalDataFileCSV(header_format)
+Main -> HistoricalDataFileCSV: parseFile("data.csv")
+HistoricalDataFileCSV --> Main: (ratemap を構築して準備完了)
+Main -> BitcoinExchange: BitcoinExchange(historical_data_file_csv)
 
 Main -> BitcoinExchange: evaluateBTCTimeSeries("input.txt")
 BitcoinExchange -> InputDataFilePip: parseFile("input.txt")

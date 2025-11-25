@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/25 10:27:04 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/25 14:25:45 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ BitcoinExchange::BitcoinExchange()
 {
 }
 
-BitcoinExchange::BitcoinExchange(const std::string &header_format):
-	_historical_data_file_csv(header_format)
+//BitcoinExchange::BitcoinExchange(const std::string &header_format):
+//	_historical_data_file_csv(header_format)
+//{
+//}
+BitcoinExchange::BitcoinExchange(HistoricalDataFileCSV const &datafile):
+	_historical_data_file_csv(datafile)
 {
 }
 
@@ -40,10 +44,10 @@ BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
 BitcoinExchange::~BitcoinExchange()
 {}
 
-void	BitcoinExchange::setHistoricalRate(std::string const &filename)
-{
-	_historical_data_file_csv.parseFile(filename);
-}
+//void	BitcoinExchange::setHistoricalRate(std::string const &filename)
+//{
+//	_historical_data_file_csv.parseFile(filename);
+//}
 
 void	BitcoinExchange::setHistoricalRate(const std::string &filename, const std::string &header_format)
 {

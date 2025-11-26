@@ -35,6 +35,11 @@ std::map<std::string, double> const	&HistoricalDataFileCSV::getRateMap() const
 	return (this->_ratemap);
 }
 
+const std::map<std::string, double>& HistoricalDataFileCSV::getMap() const
+{
+	return this->_ratemap;
+}
+
 void	HistoricalDataFileCSV::parseFile(const std::string &filename)
 {
 	std::ifstream	ifs(filename.c_str());

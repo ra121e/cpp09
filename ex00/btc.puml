@@ -10,11 +10,14 @@ abstract class BaseDataFile {
 }
 
 
+class IMapAPI {
+    +getRateMap() : const std::map<std::string,double>&
+}
+
 class BitcoinExchange {
-    +BitcoinExchange(const HistoricalDataFileCSV &datafile)
-    -_historical_data_file_csv : HistoricalDataFileCSV
+    +BitcoinExchange(const IMapAPI &datafile)
+    -_data_file : const IMapAPI*
     +evaluateBTCTimeSeries(std::string const& filename) : void {query}
-    +setHistoricalRate(std::string const& filename, std::string const& header_format) : void
 }
 
 
@@ -78,6 +81,7 @@ class RateFinder {
 
 BaseDataFile <|-- HistoricalDataFileCSV
 BaseDataFile <|-- InputDataFilePip
+IMapAPI <|.. HistoricalDataFileCSV
 
 
 
@@ -85,7 +89,7 @@ BaseDataFile <|-- InputDataFilePip
 
 /' Aggregation relationships '/
 
-BitcoinExchange *-- HistoricalDataFileCSV
+BitcoinExchange ..> IMapAPI
 
 
 

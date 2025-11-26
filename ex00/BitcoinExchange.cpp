@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/26 22:50:59 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/26 23:48:34 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ BitcoinExchange::BitcoinExchange()
 //{
 //}
 
-BitcoinExchange::BitcoinExchange(BaseDataFile const &datafile):
+BitcoinExchange::BitcoinExchange(IMapAPI const &datafile):
 	_data_file(&datafile)
 {
 }

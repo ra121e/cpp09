@@ -66,13 +66,13 @@ bool	BaseDataFile::validate_date(std::string const &input_date)
 	return (true);
 }
 
-std::map<std::string, double> const	&BaseDataFile::getRateMap() const
-{
-	// default nothing
-	// dereived class uses this with override
-	// this is API only for HistoricalDataFile
-	// InputDataFileCSV does not use this function
-	// this would be shifted to Interface of DataProvider
-	static std::map<std::string, double>	empty_map;
-	return (empty_map);
-}
+//std::map<std::string, double> const	&BaseDataFile::getRateMap() const
+//{
+//	// default nothing
+//	// dereived class uses this with override
+//	// this is API only for HistoricalDataFile
+//	// InputDataFileCSV does not use this function
+//	// this would be shifted to Interface of DataProvider
+//	static std::map<std::string, double>	empty_map;
+//	return (empty_map);
+//}

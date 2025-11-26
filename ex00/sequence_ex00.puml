@@ -5,6 +5,7 @@ actor User
 participant Main as "main()"
 participant BitcoinExchange as "BitcoinExchange"
 participant HistoricalDataFileCSV as "HistoricalDataFileCSV"
+participant IMapAPI as "IMapAPI"
 participant InputDataFilePip as "InputDataFilePip"
 participant RateFinder as "RateFinder"
 participant StdOut as "stdout"
@@ -16,6 +17,7 @@ Main -> HistoricalDataFileCSV: HistoricalDataFileCSV(header_format)
 Main -> HistoricalDataFileCSV: parseFile("data.csv")
 HistoricalDataFileCSV --> Main: (ratemap を構築して準備完了)
 Main -> BitcoinExchange: BitcoinExchange(historical_data_file_csv)
+Main -> IMapAPI: (HistoricalDataFileCSV implements IMapAPI)
 
 Main -> BitcoinExchange: evaluateBTCTimeSeries("input.txt")
 BitcoinExchange -> InputDataFilePip: parseFile("input.txt")
@@ -25,8 +27,8 @@ loop 各入力行で
     BitcoinExchange -> InputDataFilePip: readNextDateAmount()
     alt 有効な行
         InputDataFilePip --> BitcoinExchange: date, amount
-        BitcoinExchange -> HistoricalDataFileCSV: getRateMap()
-        HistoricalDataFileCSV --> BitcoinExchange: Map
+        BitcoinExchange -> IMapAPI: getRateMap()
+        IMapAPI --> BitcoinExchange: Map
         BitcoinExchange -> RateFinder: findRate(Map, date)
         alt レートが見つかる
             RateFinder --> BitcoinExchange: exchange_rate

@@ -20,9 +20,6 @@ class HistoricalDataFileCSV : public BaseDataFile, public IMapAPI
 		std::string getHeaderFormat() const { return _header_format; }
 
 		// IMapAPI implementation
-		virtual const std::map<std::string, double>& getMap() const;
-
-		// backward-compat: keep getRateMap() as adapter
 		std::map<std::string, double> const	&getRateMap() const;
 
 		// File initializer

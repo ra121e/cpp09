@@ -9,14 +9,12 @@ InputDataFilePip::InputDataFilePip()
 
 InputDataFilePip::InputDataFilePip(const std::string &header_format) :
 	_header_format(header_format),
-//	_ratemap(ratemap),
 	_ready(false)
 {}
 
 InputDataFilePip::InputDataFilePip(const InputDataFilePip &other) :
 	BaseDataFile(other),
 	_header_format(other._header_format),
-//	_ratemap(other._ratemap),
 	_ready(other._ready)
 {}
 
@@ -25,7 +23,6 @@ InputDataFilePip	&InputDataFilePip::operator=(const InputDataFilePip &other)
 	if (this != &other)
 	{
 		this->_header_format = other._header_format;
-//		this->_ratemap = other._ratemap;
 		this->_ready = other._ready;
 	}
 	return (*this);

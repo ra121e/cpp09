@@ -16,7 +16,6 @@ class BaseDataFile
 		static bool	validate_date(std::string const &s);
 		static bool	IsNotSpace(char const &c);
 
-//		virtual std::map<std::string, double> const	&getRateMap() const;
 	protected:
 		virtual void	parseFile(const std::string &filename) = 0;
 };

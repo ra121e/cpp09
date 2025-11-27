@@ -7,7 +7,10 @@
 class IMapAPI
 {
 	public:
-		virtual ~IMapAPI() {}
+		IMapAPI();
+		IMapAPI(const IMapAPI &other);
+		IMapAPI	&operator=(const IMapAPI &other);
+		virtual ~IMapAPI();
 		virtual const std::map<std::string, double> &getRateMap() const = 0;
 };
 

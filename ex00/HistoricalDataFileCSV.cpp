@@ -12,6 +12,7 @@ HistoricalDataFileCSV::HistoricalDataFileCSV(const std::string &header_format):
 
 HistoricalDataFileCSV::HistoricalDataFileCSV(const HistoricalDataFileCSV &other) :
 	BaseDataFile(other),
+	IMapAPI(other),
 	_header_format(other._header_format),
 	_ratemap(other._ratemap)
 {}
@@ -21,6 +22,7 @@ HistoricalDataFileCSV& HistoricalDataFileCSV::operator=(const HistoricalDataFile
 	if (this != &other)
 	{
 		BaseDataFile::operator=(other);
+		IMapAPI::operator=(other);
 		this->_header_format = other._header_format;
 		this->_ratemap = other._ratemap;
 	}
@@ -33,11 +35,6 @@ HistoricalDataFileCSV::~HistoricalDataFileCSV()
 std::map<std::string, double> const	&HistoricalDataFileCSV::getRateMap() const
 {
 	return (this->_ratemap);
-}
-
-const std::map<std::string, double>& HistoricalDataFileCSV::getMap() const
-{
-	return this->_ratemap;
 }
 
 void	HistoricalDataFileCSV::parseFile(const std::string &filename)
@@ -89,13 +86,6 @@ void	HistoricalDataFileCSV::parseFile(const std::string &filename)
 			errorCount++;
 			continue ;
 		}
-	//	std::string trimed_rate_str = BaseDataFile::trim(rate_str);
-	//	if (trimed_rate_str.empty())
-	//	{
-	//		std::cerr << "error: rate cannot be empty." <<  std::endl;
-	//		errorCount++;
-	//		continue ;
-	//	}
 
 		double				rate_double;
 		std::stringstream 	stream_line_rate(rate_str);

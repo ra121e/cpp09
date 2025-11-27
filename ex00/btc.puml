@@ -16,7 +16,7 @@ class IMapAPI {
 
 class BitcoinExchange {
     +BitcoinExchange(const IMapAPI &datafile)
-    -_data_file : const IMapAPI*
+    -_data_file : const IMapAPI&
     +evaluateBTCTimeSeries(std::string const& filename) : void {query}
 }
 

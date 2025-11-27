@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:27:00 by athonda           #+#    #+#              #
-#    Updated: 2025/11/27 15:59:35 by athonda          ###   ########.fr        #
+#    Updated: 2025/11/27 16:31:00 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,16 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(DEP)
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
+test: $(OBJ_DIR)/RateFinder.o $(OBJ_DIR)/tests/test_ratefinder.o $(OBJ_DIR)/tests/test_runner.o
+	@mkdir -p $(OBJ_DIR)/tests
+	$(CC) $(CFLAGS) $(IFLAGS) $(OBJ_DIR)/RateFinder.o $(OBJ_DIR)/tests/test_ratefinder.o $(OBJ_DIR)/tests/test_runner.o -o $(OBJ_DIR)/tests/test_runner
+	./$(OBJ_DIR)/tests/test_runner
 
 clean:
 	rm -rf $(OBJ_DIR)

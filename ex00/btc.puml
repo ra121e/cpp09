@@ -1,103 +1,94 @@
 @startuml btc
 
-/' Objects '/
+' Objects grouped into 3-layer packages '
 
-abstract class BaseDataFile {
-    +{static} IsNotSpace(char const& c) : bool
-    +{static} validate_date(std::string const& s) : bool
-    +{static} trim(std::string const& s) : std::string
-    #{abstract} parseFile(const std::string& filename) : void
+package "View Layer" #LightBlue {
+    class MainApp {
+        +main(int argc, char** argv) : int
+    }
+}
+
+package "Business Logic Layer" #LightGreen {
+    class BitcoinExchange {
+        +BitcoinExchange(const IMapAPI &datafile)
+        -_data_file : const IMapAPI&
+        +evaluateBTCTimeSeries(std::string const& filename) : void {query}
+    }
+
+    class RateFinder {
+        +findRate(const std::map<std::string, double>& ratemap, const std::string& date) : double {query}
+    }
+}
+
+package "Infrastructure Layer" #LightYellow {
+    abstract class BaseDataFile {
+        +{static} IsNotSpace(char const& c) : bool
+        +{static} validate_date(std::string const& s) : bool
+        +{static} trim(std::string const& s) : std::string
+        #{abstract} parseFile(const std::string& filename) : void
+    }
+
+    Interface IMapAPI {
+        +getRateMap() : const std::map<std::string,double>&
+    }
+
+    class HistoricalDataFileCSV {
+        +getRateMap() : const std::map<std::string , double>& {query}
+        -_ratemap : std::map<std::string, double>
+        -_header_format : std::string
+        +getHeaderFormat() : std::string {query}
+        +parseFile(const std::string& filename) : void
+    }
+
+    class InputDataFilePip {
+        -_ready : bool
+        +readNextDateAmount(std::string& date, double& amount) : bool
+        -_ifs : std::ifstream
+        -_header_format : std::string
+        +parseFile(const std::string& filename) : void
+    }
+
+    class Date {
+        +isCalendarDateValid() : bool
+        +isLeapYear(int year) : bool
+        -_day : unsigned int
+        -_month : unsigned int
+        -_year : unsigned int
+        +getDay() : unsigned int {query}
+        +getMonth() : unsigned int {query}
+        +getYear() : unsigned int {query}
+        +setDay(unsigned int day) : void
+        +setMonth(unsigned int month) : void
+        +setYear(unsigned int year) : void
+    }
+
+    class DateFormatChecker {
+        +checkFormat(std::string const& date) : bool {query}
+        +parseDate(std::string const& date_str, Date& date) : bool {query}
+        -_format : std::string
+    }
+
+    class DateOfStartChecker {
+        +checkDateBegin(Date const& date) : bool {query}
+        -_start_day : unsigned int
+        -_start_month : unsigned int
+        -_start_year : unsigned int
+    }
 }
 
 
-class IMapAPI {
-    +getRateMap() : const std::map<std::string,double>&
-}
-
-class BitcoinExchange {
-    +BitcoinExchange(const IMapAPI &datafile)
-    -_data_file : const IMapAPI&
-    +evaluateBTCTimeSeries(std::string const& filename) : void {query}
-}
-
-
-class Date {
-    +isCalendarDateValid() : bool
-    +isLeapYear(int year) : bool
-    -_day : unsigned int
-    -_month : unsigned int
-    -_year : unsigned int
-    +getDay() : unsigned int {query}
-    +getMonth() : unsigned int {query}
-    +getYear() : unsigned int {query}
-    +setDay(unsigned int day) : void
-    +setMonth(unsigned int month) : void
-    +setYear(unsigned int year) : void
-}
-
-
-class DateFormatChecker {
-    +checkFormat(std::string const& date) : bool {query}
-    +parseDate(std::string const& date_str, Date& date) : bool {query}
-    -_format : std::string
-}
-
-
-class DateOfStartChecker {
-    +checkDateBegin(Date const& date) : bool {query}
-    -_start_day : unsigned int
-    -_start_month : unsigned int
-    -_start_year : unsigned int
-}
-
-
-class HistoricalDataFileCSV {
-    +getRateMap() : const std::map<std::string , double>& {query}
-    -_ratemap : std::map<std::string, double>
-    -_header_format : std::string
-    +getHeaderFormat() : std::string {query}
-    +parseFile(const std::string& filename) : void
-}
-
-
-class InputDataFilePip {
-    -_ready : bool
-    +readNextDateAmount(std::string& date, double& amount) : bool
-    -_ifs : std::ifstream
-    -_header_format : std::string
-    +parseFile(const std::string& filename) : void
-}
-
-
-class RateFinder {
-    +findRate(const std::map<std::string, double>& ratemap, const std::string& date) : double {query}
-}
-
-
-
-
-
-/' Inheritance relationships '/
+' Inheritance relationships '
 
 BaseDataFile <|-- HistoricalDataFileCSV
 BaseDataFile <|-- InputDataFilePip
 IMapAPI <|.. HistoricalDataFileCSV
 
 
-
-
-
-/' Aggregation relationships '/
+' Aggregation / Association '
 
 BitcoinExchange ..> IMapAPI
 
-
-
-
-
-
-
-/' Dependency relationships '/
+' Dependency relationships '
 
 BaseDataFile ..> DateFormatChecker
 BaseDataFile ..> DateOfStartChecker
@@ -106,8 +97,16 @@ BaseDataFile ..> Date
 DateFormatChecker ..> Date
 DateOfStartChecker ..> Date
 
+MainApp --> BitcoinExchange
 BitcoinExchange ..> InputDataFilePip
 BitcoinExchange ..> RateFinder
 
+'-----------------------------------------------
+' Hidden relationships for better layout
+IMapAPI -[hidden]-> BaseDataFile
+HistoricalDataFileCSV -[hidden]-> BaseDataFile
+InputDataFilePip -[hidden]-> BaseDataFile
+InputDataFilePip -[hidden]-> BaseDataFile
+HistoricalDataFileCSV -[hidden]-> IMapAPI
 
 @enduml

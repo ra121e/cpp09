@@ -5,19 +5,18 @@ actor User
 participant Main as "main()"
 participant BitcoinExchange as "BitcoinExchange"
 participant HistoricalDataFileCSV as "HistoricalDataFileCSV"
-participant IMapAPI as "IMapAPI"
+participant HistoricalRate as "HistoricalRate"
 participant InputDataFilePip as "InputDataFilePip"
-participant RateFinder as "RateFinder"
 participant StdOut as "stdout"
 participant StdErr as "stderr"
-participant Map as "RateMap\n(std::map<string,double>)"
 
 User -> Main: 実行 (./btc input.txt)
 Main -> HistoricalDataFileCSV: HistoricalDataFileCSV(header_format)
-Main -> HistoricalDataFileCSV: parseFile("data.csv")
-HistoricalDataFileCSV --> Main: (ratemap を構築して準備完了)
-Main -> BitcoinExchange: BitcoinExchange(historical_data_file_csv)
-Main -> IMapAPI: (HistoricalDataFileCSV implements IMapAPI)
+Main -> HistoricalRate: HistoricalRate()
+Main -> HistoricalDataFileCSV: parseFile("data.csv", historicalRate)
+HistoricalDataFileCSV --> HistoricalRate: swap(tmp)
+HistoricalRate --> Main: (レート履歴の構築完了)
+Main -> BitcoinExchange: BitcoinExchange(historicalRate)
 
 Main -> BitcoinExchange: evaluateBTCTimeSeries("input.txt")
 BitcoinExchange -> InputDataFilePip: parseFile("input.txt")
@@ -27,14 +26,12 @@ loop 各入力行で
     BitcoinExchange -> InputDataFilePip: readNextDateAmount()
     alt 有効な行
         InputDataFilePip --> BitcoinExchange: date, amount
-        BitcoinExchange -> IMapAPI: getRateMap()
-        IMapAPI --> BitcoinExchange: Map
-        BitcoinExchange -> RateFinder: findRate(Map, date)
+        BitcoinExchange -> HistoricalRate: getRateAt(date)
         alt レートが見つかる
-            RateFinder --> BitcoinExchange: exchange_rate
+            HistoricalRate --> BitcoinExchange: exchange_rate
             BitcoinExchange -> StdOut: print "date => amount = amount * exchange_rate"
         else レートが見つからない / 例外
-            RateFinder --> BitcoinExchange: throw exception
+            HistoricalRate --> BitcoinExchange: throw exception
             BitcoinExchange -> StdErr: print エラーメッセージ
         end
     else 無効な行（パース/検証失敗）

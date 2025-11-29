@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:27:00 by athonda           #+#    #+#              #
-#    Updated: 2025/11/27 16:31:00 by athonda          ###   ########.fr        #
+#    Updated: 2025/11/29 15:44:13 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC_F	= 	main.cpp \
 			HistoricalDataFileCSV.cpp \
 			InputDataFilePip.cpp \
 			RateFinder.cpp \
-			IMapAPI.cpp
+			IMapAPI.cpp \
+			HistoricalRate.cpp
 
 SRC_DIR	=	.
 SRC		=	$(SRC_F:%.cpp=$(SRC_DIR)/%.cpp)

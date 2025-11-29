@@ -6,12 +6,13 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/27 15:52:20 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/29 15:42:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include "HistoricalDataFileCSV.hpp"
+#include "HistoricalRate.hpp"
 #include "InputDataFilePip.hpp"
 #include "RateFinder.hpp"
 #include "IMapAPI.hpp"
@@ -20,10 +21,14 @@
 //{
 //}
 
-BitcoinExchange::BitcoinExchange(IMapAPI const &datafile):
+//BitcoinExchange::BitcoinExchange(IMapAPI const &datafile):
+//	_data_file(datafile)
+//{
+//}
+
+BitcoinExchange::BitcoinExchange(HistoricalRate const &datafile):
 	_data_file(datafile)
-{
-}
+{}
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other):
 	_data_file(other._data_file)
@@ -52,11 +57,10 @@ void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 	double		amount;
 	while (input_file_pip.readNextDateAmount(date, amount))
 	{
-		RateFinder	rate_finder;
 		double		exchange_rate;
 		try
 		{
-			exchange_rate = rate_finder.findRate(_data_file.getRateMap(), date);
+			exchange_rate = _data_file.getRateAt(date);
 			std::cout << date << " => " << amount << " = " << (amount * exchange_rate) << std::endl;
 		}
 		catch (std::exception &e)

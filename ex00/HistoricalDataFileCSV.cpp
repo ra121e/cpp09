@@ -1,4 +1,5 @@
 #include "HistoricalDataFileCSV.hpp"
+#include "HistoricalRate.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>
@@ -12,9 +13,9 @@ HistoricalDataFileCSV::HistoricalDataFileCSV(const std::string &header_format):
 
 HistoricalDataFileCSV::HistoricalDataFileCSV(const HistoricalDataFileCSV &other) :
 	BaseDataFile(other),
-	IMapAPI(other),
-	_header_format(other._header_format),
-	_ratemap(other._ratemap)
+//	IMapAPI(other),
+	_header_format(other._header_format)
+//	_ratemap(other._ratemap)
 {}
 
 HistoricalDataFileCSV& HistoricalDataFileCSV::operator=(const HistoricalDataFileCSV& other)
@@ -22,9 +23,9 @@ HistoricalDataFileCSV& HistoricalDataFileCSV::operator=(const HistoricalDataFile
 	if (this != &other)
 	{
 		BaseDataFile::operator=(other);
-		IMapAPI::operator=(other);
+//		IMapAPI::operator=(other);
 		this->_header_format = other._header_format;
-		this->_ratemap = other._ratemap;
+//		this->_ratemap = other._ratemap;
 	}
 	return (*this);
 }
@@ -32,12 +33,18 @@ HistoricalDataFileCSV& HistoricalDataFileCSV::operator=(const HistoricalDataFile
 HistoricalDataFileCSV::~HistoricalDataFileCSV()
 {}
 
-std::map<std::string, double> const	&HistoricalDataFileCSV::getRateMap() const
-{
-	return (this->_ratemap);
-}
+//std::map<std::string, double> const	&HistoricalDataFileCSV::getRateMap() const
+//{
+//	return (this->_ratemap);
+//}
 
 void	HistoricalDataFileCSV::parseFile(const std::string &filename)
+{
+	HistoricalRate	historicalRate;
+	parseFile(filename, historicalRate);
+}
+
+void	HistoricalDataFileCSV::parseFile(const std::string &filename, HistoricalRate &historicalRate)
 {
 	std::ifstream	ifs(filename.c_str());
 	if (!ifs.is_open())
@@ -119,5 +126,5 @@ void	HistoricalDataFileCSV::parseFile(const std::string &filename)
 	{
 		std::cerr << "error: There are " << errorCount << " invalid row(s)." << std::endl;
 	}
-	_ratemap.swap(tmp);
+	historicalRate.swap(tmp);
 }

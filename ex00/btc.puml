@@ -10,13 +10,16 @@ package "View Layer" #LightBlue {
 
 package "Business Logic Layer" #LightGreen {
     class BitcoinExchange {
-        +BitcoinExchange(const IMapAPI &datafile)
-        -_data_file : const IMapAPI&
+        +BitcoinExchange(const HistoricalRate &datafile)
+        -_data_file : const HistoricalRate&
         +evaluateBTCTimeSeries(std::string const& filename) : void {query}
     }
 
-    class RateFinder {
-        +findRate(const std::map<std::string, double>& ratemap, const std::string& date) : double {query}
+    class HistoricalRate {
+        -_ratemap : std::map<std::string, double>
+        +setRateMap(std::string const& date, double rate) : void
+        +swap(std::map<std::string, double> &ratemap) : void
+        +getRateAt(const std::string& date) : double {query}
     }
 }
 
@@ -28,16 +31,11 @@ package "Infrastructure Layer" #LightYellow {
         #{abstract} parseFile(const std::string& filename) : void
     }
 
-    Interface IMapAPI {
-        +getRateMap() : const std::map<std::string,double>&
-    }
-
     class HistoricalDataFileCSV {
-        +getRateMap() : const std::map<std::string , double>& {query}
-        -_ratemap : std::map<std::string, double>
         -_header_format : std::string
         +getHeaderFormat() : std::string {query}
         +parseFile(const std::string& filename) : void
+        +parseFile(const std::string& filename, HistoricalRate &historicalRate) : void
     }
 
     class InputDataFilePip {
@@ -81,12 +79,12 @@ package "Infrastructure Layer" #LightYellow {
 
 BaseDataFile <|-- HistoricalDataFileCSV
 BaseDataFile <|-- InputDataFilePip
-IMapAPI <|.. HistoricalDataFileCSV
 
 
 ' Aggregation / Association '
 
-BitcoinExchange ..> IMapAPI
+BitcoinExchange ..> HistoricalRate
+HistoricalDataFileCSV ..> HistoricalRate
 
 ' Dependency relationships '
 
@@ -99,14 +97,8 @@ DateOfStartChecker ..> Date
 
 MainApp --> BitcoinExchange
 BitcoinExchange ..> InputDataFilePip
-BitcoinExchange ..> RateFinder
 
 '-----------------------------------------------
 ' Hidden relationships for better layout
-IMapAPI -[hidden]-> BaseDataFile
-HistoricalDataFileCSV -[hidden]-> BaseDataFile
-InputDataFilePip -[hidden]-> BaseDataFile
-InputDataFilePip -[hidden]-> BaseDataFile
-HistoricalDataFileCSV -[hidden]-> IMapAPI
 
 @enduml

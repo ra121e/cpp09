@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:37:13 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/25 14:30:49 by athonda          ###   ########.fr       */
+/*   Updated: 2025/11/29 15:43:43 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ int	main(int ac, char **av)
 //	BitcoinExchange	bitcoin_exchange;
 	try
 	{
+		HistoricalRate historical_rate;
 		HistoricalDataFileCSV	historical_data_file_csv(header_format);
-		historical_data_file_csv.parseFile(data_file_name);
-		BitcoinExchange bitcoin_exchange(historical_data_file_csv);
+		historical_data_file_csv.parseFile(data_file_name, historical_rate);
+		BitcoinExchange bitcoin_exchange(historical_rate);
 		bitcoin_exchange.evaluateBTCTimeSeries(input_file_name);
 	}
 	catch (std::exception &e)

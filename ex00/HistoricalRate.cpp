@@ -5,10 +5,13 @@ HistoricalRate::HistoricalRate()
 {}
 
 HistoricalRate::HistoricalRate(const std::map<std::string, double>& ratemap) :
+	IRateAPI(),
 	_ratemap(ratemap)
 {}
 
-HistoricalRate::HistoricalRate(const HistoricalRate& other) : _ratemap(other._ratemap)
+HistoricalRate::HistoricalRate(const HistoricalRate& other) :
+	IRateAPI(other),
+	_ratemap(other._ratemap)
 {}
 
 HistoricalRate& HistoricalRate::operator=(const HistoricalRate& other)

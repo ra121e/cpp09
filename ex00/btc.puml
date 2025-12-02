@@ -10,8 +10,8 @@ package "View Layer" #LightBlue {
 
 package "Business Logic Layer" #LightGreen {
     class BitcoinExchange {
-        +BitcoinExchange(const HistoricalRate &datafile)
-        -_data_file : const HistoricalRate&
+        +BitcoinExchange(const IRateAPI &rate_api)
+        -_rate_api : const IRateAPI&
         +evaluateBTCTimeSeries(std::string const& filename) : void {query}
     }
 
@@ -20,6 +20,10 @@ package "Business Logic Layer" #LightGreen {
         +setRateMap(std::string const& date, double rate) : void
         +swap(std::map<std::string, double> &ratemap) : void
         +getRateAt(const std::string& date) : double {query}
+    }
+
+    interface IRateAPI {
+        #{abstract} getRateAt(const std::string& date) : double {query}
     }
 }
 
@@ -79,11 +83,11 @@ package "Infrastructure Layer" #LightYellow {
 
 BaseDataFile <|-- HistoricalDataFileCSV
 BaseDataFile <|-- InputDataFilePip
+IRateAPI <|.. HistoricalRate
 
 
 ' Aggregation / Association '
-
-BitcoinExchange ..> HistoricalRate
+BitcoinExchange ..> IRateAPI
 HistoricalDataFileCSV ..> HistoricalRate
 
 ' Dependency relationships '

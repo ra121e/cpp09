@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/11/29 15:42:30 by athonda          ###   ########.fr       */
+/*   Updated: 2025/12/02 16:05:51 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 #include "HistoricalRate.hpp"
 #include "InputDataFilePip.hpp"
 #include "RateFinder.hpp"
-#include "IMapAPI.hpp"
+#include "IRateAPI.hpp"
 
 //BitcoinExchange::BitcoinExchange():
 //{
 //}
 
-//BitcoinExchange::BitcoinExchange(IMapAPI const &datafile):
-//	_data_file(datafile)
-//{
-//}
+BitcoinExchange::BitcoinExchange(IRateAPI const &rate_api):
+	_rate_api(rate_api)
+{
+}
 
-BitcoinExchange::BitcoinExchange(HistoricalRate const &datafile):
-	_data_file(datafile)
-{}
+//BitcoinExchange::BitcoinExchange(HistoricalRate const &datafile):
+//	_data_file(datafile)
+//{}
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other):
-	_data_file(other._data_file)
+	_rate_api(other._rate_api)
 {}
 
 //BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
@@ -60,7 +60,7 @@ void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 		double		exchange_rate;
 		try
 		{
-			exchange_rate = _data_file.getRateAt(date);
+			exchange_rate = _rate_api.getRateAt(date);
 			std::cout << date << " => " << amount << " = " << (amount * exchange_rate) << std::endl;
 		}
 		catch (std::exception &e)

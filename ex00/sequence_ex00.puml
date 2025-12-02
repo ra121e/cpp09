@@ -5,7 +5,7 @@ actor User
 participant Main as "main()"
 participant BitcoinExchange as "BitcoinExchange"
 participant HistoricalDataFileCSV as "HistoricalDataFileCSV"
-participant HistoricalRate as "HistoricalRate"
+participant HistoricalRate as "HistoricalRate (IRateAPI)"
 participant InputDataFilePip as "InputDataFilePip"
 participant StdOut as "stdout"
 participant StdErr as "stderr"
@@ -16,7 +16,7 @@ Main -> HistoricalRate: HistoricalRate()
 Main -> HistoricalDataFileCSV: parseFile("data.csv", historicalRate)
 HistoricalDataFileCSV --> HistoricalRate: swap(tmp)
 HistoricalRate --> Main: (レート履歴の構築完了)
-Main -> BitcoinExchange: BitcoinExchange(historicalRate)
+Main -> BitcoinExchange: BitcoinExchange(historicalRate as IRateAPI&)
 
 Main -> BitcoinExchange: evaluateBTCTimeSeries("input.txt")
 BitcoinExchange -> InputDataFilePip: parseFile("input.txt")

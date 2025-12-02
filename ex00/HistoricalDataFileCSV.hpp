@@ -4,7 +4,7 @@
 # include "BaseDataFile.hpp"
 # include "HistoricalRate.hpp"
 # include <map>
-# include "IMapAPI.hpp"
+# include "IRateAPI.hpp"
 
 class HistoricalDataFileCSV : public BaseDataFile
 {
@@ -19,9 +19,6 @@ class HistoricalDataFileCSV : public BaseDataFile
 		HistoricalDataFileCSV& operator=(const HistoricalDataFileCSV& other);
 		~HistoricalDataFileCSV();
 		std::string getHeaderFormat() const { return _header_format; }
-
-		// IMapAPI implementation
-//		std::map<std::string, double> const	&getRateMap() const;
 
 		// File initializer
 		void parseFile(const std::string &filename);

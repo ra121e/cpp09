@@ -3,8 +3,9 @@
 
 #include <map>
 #include <string>
+#include "IRateAPI.hpp"
 
-class HistoricalRate
+class HistoricalRate: public IRateAPI
 {
 	private:
 		std::map<std::string, double> _ratemap;

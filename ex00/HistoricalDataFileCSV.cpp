@@ -13,9 +13,7 @@ HistoricalDataFileCSV::HistoricalDataFileCSV(const std::string &header_format):
 
 HistoricalDataFileCSV::HistoricalDataFileCSV(const HistoricalDataFileCSV &other) :
 	BaseDataFile(other),
-//	IMapAPI(other),
 	_header_format(other._header_format)
-//	_ratemap(other._ratemap)
 {}
 
 HistoricalDataFileCSV& HistoricalDataFileCSV::operator=(const HistoricalDataFileCSV& other)
@@ -23,20 +21,13 @@ HistoricalDataFileCSV& HistoricalDataFileCSV::operator=(const HistoricalDataFile
 	if (this != &other)
 	{
 		BaseDataFile::operator=(other);
-//		IMapAPI::operator=(other);
 		this->_header_format = other._header_format;
-//		this->_ratemap = other._ratemap;
 	}
 	return (*this);
 }
 
 HistoricalDataFileCSV::~HistoricalDataFileCSV()
 {}
-
-//std::map<std::string, double> const	&HistoricalDataFileCSV::getRateMap() const
-//{
-//	return (this->_ratemap);
-//}
 
 void	HistoricalDataFileCSV::parseFile(const std::string &filename)
 {

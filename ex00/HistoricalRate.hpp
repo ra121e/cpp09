@@ -17,7 +17,6 @@ class HistoricalRate: public IRateAPI
 		HistoricalRate& operator=(const HistoricalRate& other);
 		~HistoricalRate();
 
-		void setRateMap(std::string const &date, double rate);
 		void swap(std::map<std::string, double> &ratemap);
 		double getRateAt(const std::string& date) const;
 };

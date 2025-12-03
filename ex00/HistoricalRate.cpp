@@ -26,11 +26,6 @@ HistoricalRate& HistoricalRate::operator=(const HistoricalRate& other)
 HistoricalRate::~HistoricalRate()
 {}
 
-void HistoricalRate::setRateMap(std::string const &date, double rate)
-{
-	_ratemap[date] = rate;
-}
-
 void HistoricalRate::swap(std::map<std::string, double> &ratemap)
 {
 	_ratemap.swap(ratemap);

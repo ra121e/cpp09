@@ -1,5 +1,4 @@
 #include "InputDataFilePip.hpp"
-#include "RateFinder.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>

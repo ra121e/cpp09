@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/12/02 16:05:51 by athonda          ###   ########.fr       */
+/*   Updated: 2025/12/03 09:40:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "HistoricalDataFileCSV.hpp"
 #include "HistoricalRate.hpp"
 #include "InputDataFilePip.hpp"
-#include "RateFinder.hpp"
 #include "IRateAPI.hpp"
 
 //BitcoinExchange::BitcoinExchange():

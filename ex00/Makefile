@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:27:00 by athonda           #+#    #+#              #
-#    Updated: 2025/12/02 21:53:06 by athonda          ###   ########.fr        #
+#    Updated: 2025/12/03 11:09:41 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC_F	= 	main.cpp \
 			DateOfStartChecker.cpp \
 			Date.cpp \
 			DateFormatChecker.cpp \
+			FileUtils.cpp \
 			BaseDataFile.cpp \
 			HistoricalDataFileCSV.cpp \
 			InputDataFilePip.cpp \

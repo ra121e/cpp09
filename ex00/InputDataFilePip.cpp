@@ -1,4 +1,5 @@
 #include "InputDataFilePip.hpp"
+#include "FileUtils.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>
@@ -73,11 +74,11 @@ bool	InputDataFilePip::readNextDateAmount(std::string &date, double &amount)
 			continue ;
 		}
 
-		date = trim(date_str);
+		date = FileUtils::trim(date_str);
 		if (date.empty())
 			continue ;
 
-		if (!validate_date(date))
+		if (!FileUtils::validateDate(date))
 		{
 			std::cerr << "Error: bad input => " << date << std::endl;
 			continue ;
@@ -87,7 +88,7 @@ bool	InputDataFilePip::readNextDateAmount(std::string &date, double &amount)
 		std::getline(ss, num_str);
 		if (ss.fail() || !ss.eof() || num_str.empty())
 			continue ;
-		num_str = trim(num_str);
+		num_str = FileUtils::trim(num_str);
 		if (num_str.empty())
 			continue ;
 

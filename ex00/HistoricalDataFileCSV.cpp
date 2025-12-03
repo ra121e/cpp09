@@ -1,5 +1,6 @@
 #include "HistoricalDataFileCSV.hpp"
 #include "HistoricalRate.hpp"
+#include "FileUtils.hpp"
 #include <iostream>
 #include <sstream>
 #include <map>
@@ -64,14 +65,14 @@ void	HistoricalDataFileCSV::parseFile(const std::string &filename, HistoricalRat
 			errorCount++;
 			continue ;
 		}
-		std::string trimed_date_str = BaseDataFile::trim(date_str);
+		std::string trimed_date_str = FileUtils::trim(date_str);
 		if (trimed_date_str.empty())
 		{
 			std::cerr << "error: invalid date format." << std::endl;
 			errorCount++;
 			continue ;
 		}
-		if (!validate_date(trimed_date_str))
+		if (!FileUtils::validateDate(trimed_date_str))
 		{
 			std::cerr << "error: invalid date format." << std::endl;
 			errorCount++;

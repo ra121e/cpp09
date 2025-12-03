@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:35:10 by athonda           #+#    #+#             */
-/*   Updated: 2025/12/02 16:05:08 by athonda          ###   ########.fr       */
+/*   Updated: 2025/12/03 15:08:57 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,15 @@
 class BitcoinExchange
 {
 	public:
-//		BitcoinExchange();
-		BitcoinExchange(IRateAPI const &datafile);
-//		BitcoinExchange(HistoricalRate const &datafile);
+		BitcoinExchange(IRateAPI const &rate_api);
 		BitcoinExchange(BitcoinExchange const &other);
 		~BitcoinExchange();
 
 		void	evaluateBTCTimeSeries(std::string const &filename) const;
 	private:
+		BitcoinExchange();
 		IRateAPI const				&_rate_api;
-//		HistoricalRate const		&_data_file;
 		BitcoinExchange	&operator=(BitcoinExchange const &other);
 };
 
-//bool	isLeapYear(int year);
-
-#endif
+#endif // BITCOINEXCHANGE_HPP

@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/12/03 09:40:30 by athonda          ###   ########.fr       */
+/*   Updated: 2025/12/03 15:09:30 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,14 @@
 #include "InputDataFilePip.hpp"
 #include "IRateAPI.hpp"
 
-//BitcoinExchange::BitcoinExchange():
-//{
-//}
-
 BitcoinExchange::BitcoinExchange(IRateAPI const &rate_api):
 	_rate_api(rate_api)
 {
 }
 
-//BitcoinExchange::BitcoinExchange(HistoricalRate const &datafile):
-//	_data_file(datafile)
-//{}
-
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other):
 	_rate_api(other._rate_api)
 {}
-
-//BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &other)
-//{
-//	if (this != &other)
-//	{
-//		this->_data_file = other._data_file;
-//	}
-//	return (*this);
-//}
-
 
 BitcoinExchange::~BitcoinExchange()
 {}

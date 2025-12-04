@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:10:39 by athonda           #+#    #+#             */
-/*   Updated: 2025/12/03 15:09:30 by athonda          ###   ########.fr       */
+/*   Updated: 2025/12/04 16:25:07 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "HistoricalRate.hpp"
 #include "InputDataFilePip.hpp"
 #include "IRateAPI.hpp"
+#include "Date.hpp"
 
 BitcoinExchange::BitcoinExchange(IRateAPI const &rate_api):
 	_rate_api(rate_api)
@@ -34,7 +35,8 @@ void	BitcoinExchange::evaluateBTCTimeSeries(std::string const &filename) const
 	InputDataFilePip	input_file_pip(header_format);
 
 	input_file_pip.parseFile(filename);
-	std::string	date;
+	std::string	date_str;
+	Date		date;
 	double		amount;
 	while (input_file_pip.readNextDateAmount(date, amount))
 	{

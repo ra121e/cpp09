@@ -21,20 +21,20 @@ DateFormatChecker	&DateFormatChecker::operator=(DateFormatChecker const &other)
 DateFormatChecker::~DateFormatChecker()
 {}
 
-bool DateFormatChecker::checkFormat(std::string const &date) const
+bool DateFormatChecker::checkFormat(Date const &date) const
 {
 
-	if (date.size() != _format.size())
+	if (date.getDateStr().size() != _format.size())
 		return (false);
-	if (date[4] != '-' || date[7] != '-')
+	if (date.getDateStr()[4] != '-' || date.getDateStr()[7] != '-')
 		return (false);
 	return (true);
 }
 
-bool	DateFormatChecker::parseDate(std::string const &date_str, Date &date) const
+bool	DateFormatChecker::parseDate(Date const &date_str, Date &date) const
 {
 
-	std::stringstream ss(date_str);
+	std::stringstream ss(date_str.getDateStr());
 	std::string year_str;
 	std::string mon_str;
 	std::string day_str;
@@ -59,6 +59,7 @@ bool	DateFormatChecker::parseDate(std::string const &date_str, Date &date) const
 	if (day_ss.fail() && !day_ss.eof())
 		return (false);
 
+	date.setDateStr(date_str.getDateStr());
 	date.setYear(year);
 	date.setMonth(mon);
 	date.setDay(day);

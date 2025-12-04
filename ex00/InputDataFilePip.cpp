@@ -52,7 +52,7 @@ void	InputDataFilePip::parseFile(const std::string &filename)
 	_ready = true;
 }
 
-bool	InputDataFilePip::readNextDateAmount(std::string &date, double &amount)
+bool	InputDataFilePip::readNextDateAmount(Date &date, double &amount)
 {
 	std::string				line;
 
@@ -74,8 +74,9 @@ bool	InputDataFilePip::readNextDateAmount(std::string &date, double &amount)
 			continue ;
 		}
 
-		date = FileUtils::trim(date_str);
-		if (date.empty())
+		std::string trimmed_date_str = FileUtils::trim(date_str);
+		date.setDateStr(trimmed_date_str);
+		if (trimmed_date_str.empty())
 			continue ;
 
 		if (!FileUtils::validateDate(date))

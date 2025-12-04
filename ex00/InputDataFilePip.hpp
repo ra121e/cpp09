@@ -4,6 +4,7 @@
 # include <string>
 # include <map>
 # include "BaseDataFile.hpp"
+# include "Date.hpp"
 
 class InputDataFilePip : public BaseDataFile
 {
@@ -20,7 +21,7 @@ class InputDataFilePip : public BaseDataFile
 		~InputDataFilePip();
 
 		void	parseFile(const std::string &filename);
-		bool	readNextDateAmount(std::string &date, double &amount);
+		bool	readNextDateAmount(Date &date, double &amount);
 };
 
 #endif //INPUTDATAFILEPIP_HPP

@@ -1,6 +1,14 @@
 #include "Date.hpp"
 
 Date::Date():
+	_date_str(""),
+	_year(0),
+	_month(0),
+	_day(0)
+{}
+
+Date::Date(std::string const &date_str):
+	_date_str(date_str),
 	_year(0),
 	_month(0),
 	_day(0)
@@ -26,6 +34,11 @@ Date 	&Date::operator=(const Date &other)
 Date::~Date()
 {}
 
+void	Date::setDateStr(std::string const &date_str)
+{
+	_date_str = date_str;
+}
+
 void	Date::setYear(unsigned int year)
 {
 	_year = year;
@@ -39,6 +52,11 @@ void	Date::setMonth(unsigned int month)
 void	Date::setDay(unsigned int day)
 {
 	_day = day;
+}
+
+std::string const	&Date::getDateStr() const
+{
+	return (_date_str);
 }
 
 unsigned int	Date::getYear() const
@@ -81,4 +99,10 @@ bool	Date::isLeapYear(int year)
 			yes_leap = true;
 	}
 	return yes_leap;
+}
+
+std::ostream &operator<<(std::ostream &os, const Date &date)
+{
+	os << date.getDateStr();
+	return (os);
 }

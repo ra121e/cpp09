@@ -13,8 +13,8 @@ class	DateFormatChecker
 		DateFormatChecker(const DateFormatChecker &other);
 		DateFormatChecker	&operator=(const DateFormatChecker &other);
 		~DateFormatChecker();
-		bool	checkFormat(std::string const &date) const;
-		bool	parseDate(std::string const &date_str, Date &date) const;
+		bool	checkFormat(Date const &date) const;
+		bool	parseDate(Date const &date_str, Date &date) const;
 };
 
 #endif //DATEFORMATCHECKER_HPP

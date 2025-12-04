@@ -31,20 +31,20 @@ void HistoricalRate::swap(std::map<std::string, double> &ratemap)
 	_ratemap.swap(ratemap);
 }
 
-double HistoricalRate::getRateAt(const std::string& date) const
+double HistoricalRate::getRateAt(Date &date) const
 {
 	if (_ratemap.empty())
 	{
 		throw std::runtime_error("Error: no rate available.");
 	}
 	double rate;
-	std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date);
+	std::map<std::string, double>::const_iterator it = _ratemap.lower_bound(date.getDateStr());
 	if (it == _ratemap.end())
 	{
 		--it;
 		rate = it->second;
 	}
-	else if (it->first == date)
+	else if (it->first == date.getDateStr())
 	{
 		rate = it->second;
 	}

@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include "IRateAPI.hpp"
-
+#include "Date.hpp"
 class HistoricalRate: public IRateAPI
 {
 	private:
@@ -18,7 +18,7 @@ class HistoricalRate: public IRateAPI
 		~HistoricalRate();
 
 		void swap(std::map<std::string, double> &ratemap);
-		double getRateAt(const std::string& date) const;
+		double getRateAt(Date &date) const;
 };
 
 #endif // HISTORICALRATE_HPP

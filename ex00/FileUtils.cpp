@@ -23,13 +23,13 @@ std::string	FileUtils::trim(std::string const &s)
 	return (str);
 }
 
-bool	FileUtils::validateDate(std::string const &input_date)
+bool	FileUtils::validateDate(Date const &input_date)
 {
 	DateFormatChecker	date_format_checker;
 	if (!date_format_checker.checkFormat(input_date))
 		return (false);
 
-	Date date;
+	Date date(input_date);
 	if (!date_format_checker.parseDate(input_date, date))
 		return (false);
 

@@ -1,5 +1,5 @@
 @startuml ex00_sequence
-title ex00 - BitcoinExchange シーケンス図
+title ex00 - BitcoinExchange シーケンス図（Dateドメインオブジェクト版）
 
 actor User
 participant Main as "main()"
@@ -7,28 +7,38 @@ participant BitcoinExchange as "BitcoinExchange"
 participant HistoricalDataFileCSV as "HistoricalDataFileCSV"
 participant HistoricalRate as "HistoricalRate (IRateAPI)"
 participant InputDataFilePip as "InputDataFilePip"
+participant Date as "Date"
+participant FileUtils as "FileUtils"
 participant StdOut as "stdout"
 participant StdErr as "stderr"
 
 User -> Main: 実行 (./btc input.txt)
+
+' 履歴レートの読み込み
 Main -> HistoricalDataFileCSV: HistoricalDataFileCSV(header_format)
 Main -> HistoricalRate: HistoricalRate()
 Main -> HistoricalDataFileCSV: parseFile("data.csv", historicalRate)
 HistoricalDataFileCSV --> HistoricalRate: swap(tmp)
-HistoricalRate --> Main: (レート履歴の構築完了)
+HistoricalRate --> Main: レート履歴の構築完了
+
+' BitcoinExchange の構築
 Main -> BitcoinExchange: BitcoinExchange(historicalRate as IRateAPI&)
 
+' 入力ファイル処理開始
 Main -> BitcoinExchange: evaluateBTCTimeSeries("input.txt")
 BitcoinExchange -> InputDataFilePip: parseFile("input.txt")
 InputDataFilePip --> BitcoinExchange: ready
 
 loop 各入力行で
-    BitcoinExchange -> InputDataFilePip: readNextDateAmount()
+    BitcoinExchange -> InputDataFilePip: readNextDateAmount(Date&, double&)
     alt 有効な行
-        InputDataFilePip --> BitcoinExchange: date, amount
-        BitcoinExchange -> HistoricalRate: getRateAt(date)
+        InputDataFilePip --> BitcoinExchange: date : Date, amount : double
+
+        ' （内部的には FileUtils::validateDate などで文字列からDateへ変換・検証済み）
+
+        BitcoinExchange -> HistoricalRate: getRateAt(date : Date)
         alt レートが見つかる
-            HistoricalRate --> BitcoinExchange: exchange_rate
+            HistoricalRate --> BitcoinExchange: exchange_rate : double
             BitcoinExchange -> StdOut: print "date => amount = amount * exchange_rate"
         else レートが見つからない / 例外
             HistoricalRate --> BitcoinExchange: throw exception

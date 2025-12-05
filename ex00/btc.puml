@@ -1,7 +1,5 @@
 @startuml btc
 
-' Objects grouped into 3-layer packages '
-
 package "View Layer" #LightBlue {
     class MainApp {
         +main(int argc, char** argv) : int
@@ -12,18 +10,33 @@ package "Business Logic Layer" #LightGreen {
     class BitcoinExchange {
         +BitcoinExchange(const IRateAPI &rate_api)
         -_rate_api : const IRateAPI&
-        +evaluateBTCTimeSeries(std::string const& filename) : void {query}
+        +evaluateBTCTimeSeries(const std::string &filename) : void
+    }
+
+    interface IRateAPI {
+        +getRateAt(Date &date) : double
     }
 
     class HistoricalRate {
         -_ratemap : std::map<std::string, double>
-        +setRateMap(std::string const& date, double rate) : void
+        +HistoricalRate()
         +swap(std::map<std::string, double> &ratemap) : void
-        +getRateAt(const std::string& date) : double {query}
+        +getRateAt(Date &date) : double
     }
 
-    interface IRateAPI {
-        #{abstract} getRateAt(const std::string& date) : double {query}
+    class Date {
+        -_date_str : std::string
+        -_year : unsigned int
+        -_month : unsigned int
+        -_day : unsigned int
+        +Date()
+        +Date(const std::string &date_str)
+        +getDateStr() const : const std::string&
+        +getYear() const : unsigned int
+        +getMonth() const : unsigned int
+        +getDay() const : unsigned int
+        +isCalendarDateValid() : bool
+        +isLeapYear(int year) : bool
     }
 }
 
@@ -37,72 +50,57 @@ package "Infrastructure Layer" #LightYellow {
 
     class HistoricalDataFileCSV {
         -_header_format : std::string
-        +getHeaderFormat() : std::string {query}
-        +parseFile(const std::string& filename) : void
+        +HistoricalDataFileCSV(const std::string &header_format)
         +parseFile(const std::string& filename, HistoricalRate &historicalRate) : void
     }
 
     class InputDataFilePip {
-        -_ready : bool
-        +readNextDateAmount(std::string& date, double& amount) : bool
-        -_ifs : std::ifstream
         -_header_format : std::string
+        -_ifs : std::ifstream
+        -_ready : bool
+        +InputDataFilePip()
+        +InputDataFilePip(const std::string &header_format)
         +parseFile(const std::string& filename) : void
-    }
-
-    class Date {
-        +isCalendarDateValid() : bool
-        +isLeapYear(int year) : bool
-        -_day : unsigned int
-        -_month : unsigned int
-        -_year : unsigned int
-        +getDay() : unsigned int {query}
-        +getMonth() : unsigned int {query}
-        +getYear() : unsigned int {query}
-        +setDay(unsigned int day) : void
-        +setMonth(unsigned int month) : void
-        +setYear(unsigned int year) : void
+        +readNextDateAmount(Date &date, double &amount) : bool
     }
 
     class DateFormatChecker {
-        +checkFormat(std::string const& date) : bool {query}
-        +parseDate(std::string const& date_str, Date& date) : bool {query}
         -_format : std::string
+        +checkFormat(std::string const& date) : bool
+        +parseDate(std::string const& date_str, Date& date) : bool
     }
 
     class DateOfStartChecker {
-        +checkDateBegin(Date const& date) : bool {query}
-        -_start_day : unsigned int
-        -_start_month : unsigned int
         -_start_year : unsigned int
+        -_start_month : unsigned int
+        -_start_day : unsigned int
+        +checkDateBegin(Date const& date) : bool
     }
 }
 
-
-' Inheritance relationships '
+package "Utility" #White {
+    class FileUtils {
+        +{static} IsNotSpace(char const& c) : bool
+        +{static} trim(std::string const& s) : std::string
+        +{static} validateDate(std::string const& s) : bool
+    }
+}
 
 BaseDataFile <|-- HistoricalDataFileCSV
 BaseDataFile <|-- InputDataFilePip
 IRateAPI <|.. HistoricalRate
 
-
-' Aggregation / Association '
 BitcoinExchange ..> IRateAPI
+BitcoinExchange ..> InputDataFilePip
 HistoricalDataFileCSV ..> HistoricalRate
 
-' Dependency relationships '
-
-BaseDataFile ..> DateFormatChecker
-BaseDataFile ..> DateOfStartChecker
-BaseDataFile ..> Date
+FileUtils ..> DateFormatChecker
+FileUtils ..> DateOfStartChecker
+FileUtils ..> Date
 
 DateFormatChecker ..> Date
 DateOfStartChecker ..> Date
 
 MainApp --> BitcoinExchange
-BitcoinExchange ..> InputDataFilePip
-
-'-----------------------------------------------
-' Hidden relationships for better layout
 
 @enduml
